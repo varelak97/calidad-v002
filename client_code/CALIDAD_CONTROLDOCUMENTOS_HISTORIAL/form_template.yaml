@@ -10,6 +10,7 @@ components:
     col_widths: {}
     grid_position: HMXRBH,UFIUPA
     full_width_row: true
+  event_bindings: {click: button_volver_click}
 - type: ColumnPanel
   properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
     wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',

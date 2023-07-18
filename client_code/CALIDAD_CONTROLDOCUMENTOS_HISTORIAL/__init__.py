@@ -1,5 +1,7 @@
 from ._anvil_designer import CALIDAD_CONTROLDOCUMENTOS_HISTORIALTemplate
 from anvil import *
+import anvil.google.auth, anvil.google.drive
+from anvil.google.drive import app_files
 import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
@@ -7,7 +9,7 @@ from anvil.tables import app_tables
 
 class CALIDAD_CONTROLDOCUMENTOS_HISTORIAL(CALIDAD_CONTROLDOCUMENTOS_HISTORIALTemplate):
   datos = {}
-  def __init__(self, **properties):
+  def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
 

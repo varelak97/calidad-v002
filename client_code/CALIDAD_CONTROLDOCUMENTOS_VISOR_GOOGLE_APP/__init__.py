@@ -62,15 +62,14 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
     if respuesta[0]:
       Notification(f"El documento {self.datos['codigo']} ha sido enviado a revisión satisfactoriamente.", title="¡ÉXITO!", style='success').show()
       with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
-        try:
-          anvil.server.call(
-            'enviar_email_notificacion',
-            {
-              'id_registro_documento': respuesta[1],
-              'operacion': 'revisión'
-            }
-          )
-        except Exception as Ex:
+        respuesta_envio_email = anvil.server.call(
+          'enviar_email_notificacion',
+          {
+            'id_registro_documento': respuesta[1],
+            'operacion': 'revisión'
+          }
+        )
+        if not respuesta_envio_email[0]:
           equipo_de_trabajo = {
             'creadores': [],
             'revisores': self.datos['revisores'],
@@ -81,7 +80,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
           for revisor in equipo_trabajo_id_usuarios_erp['revisores']:
             revisores += f"\n•{revisor}" 
           alert(
-            content = f"El documento fue enviado a revisión satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\nTipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}\n\nPor favor informa a la(s) siguiente(s) persona(s) que la revisión del documento ya está disponible para ser aprobada o rechazada:{revisores}",
+            content = f"El documento fue enviado a revisión satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\n{respuesta_envio_email[1]}\n\nPor favor informa a la(s) siguiente(s) persona(s) que la revisión del documento ya está disponible para ser aprobada o rechazada:{revisores}",
             title = "ERROR DURANTE ENVÍO DE NOTIFICACIÓN",
             large=True,
             dismissible=False
@@ -90,8 +89,9 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
           Notification("Notificación a equipo de trabajo enviada por correo electrónico", title="¡ÉXITO!", style='success').show()
           sleep(2)
       Notification("Por favor espera...", title="REDIRIGIENDO")
-      datos = {
-        'clave_form': 'documentos_existentes',
+      self.datos = {
+        'id_usuario_erp': self.datos['id_usuario_erp'],
+        'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES'
       }
       self.parent.raise_event('x-actualizar_form_activo', datos=datos)
     else:
@@ -111,15 +111,14 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
       if respuesta[0]:
         Notification(f"El documento {self.datos['codigo']} ha sido enviado a validación final satisfactoriamente.", title="¡ÉXITO!", style='success').show()
         with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
-          try:
-            anvil.server.call(
-              'enviar_email_notificacion',
-              {
-                'id_registro_documento': respuesta[1],
-                'operacion': 'validación'
-              }
-            )
-          except Exception as Ex:
+          respuesta_envio_email = anvil.server.call(
+            'enviar_email_notificacion',
+            {
+              'id_registro_documento': respuesta[1],
+              'operacion': 'validación'
+            }
+          )
+          if not respuesta_envio_email[0]:
             equipo_de_trabajo = {
               'creadores': [],
               'revisores': [],
@@ -130,7 +129,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
             for validador in equipo_trabajo_id_usuarios_erp['validadores']:
               validadores += f"\n•{validador}" 
             alert(
-              content = f"El documento fue enviado a validación final satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\nTipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}\n\nPor favor informa a la(s) siguiente(s) persona(s) que la revisión del documento ya está disponible para ser aprobada o rechazada:{validadores}",
+              content = f"El documento fue enviado a validación final satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\n{respuesta_envio_email[1]}\n\nPor favor informa a la(s) siguiente(s) persona(s) que la revisión del documento ya está disponible para ser aprobada o rechazada:{validadores}",
               title = "ERROR DURANTE ENVÍO DE NOTIFICACIÓN",
               large=True,
               dismissible=False
@@ -139,8 +138,9 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
             Notification("Notificación a equipo de trabajo enviada por correo electrónico", title="¡ÉXITO!", style='success').show()
             sleep(2)
         Notification("Por favor espera...", title="REDIRIGIENDO")
-        datos = {
-          'clave_form': 'documentos_existentes',
+        self.datos = {
+          'id_usuario_erp': self.datos['id_usuario_erp'],
+          'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES',
         }
         self.parent.raise_event('x-actualizar_form_activo', datos=datos)
     elif self.datos['status'] == "En validación":
@@ -160,17 +160,16 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
     if respuesta[0]:
       Notification(f"El documento {self.datos['codigo']} ha sido liberado satisfactoriamente y está listo para su uso productivo.", title="¡ÉXITO!", style='success').show()
       with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
-        try:
-          anvil.server.call(
-            'enviar_email_notificacion',
-            {
-              'id_registro_documento': respuesta[1],
-              'operacion': 'Liberación'
-            }
-          )
-        except Exception as Ex:
+        respuesta_envio_email = anvil.server.call(
+          'enviar_email_notificacion',
+          {
+            'id_registro_documento': respuesta[1],
+            'operacion': 'Liberación'
+          }
+        )
+        if not respuesta_envio_email[0]:
           alert(
-            content = f"El documento fue liberado satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\nTipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}\n\nPor favor informa al equipo de trabajo que ya pueden usar este documento a nivel productivo.",
+            content = f"El documento fue liberado satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\n{respuesta_envio_email[1]}\n\nPor favor informa al equipo de trabajo que ya pueden usar este documento a nivel productivo.",
             title = "ERROR DURANTE ENVÍO DE NOTIFICACIÓN",
             large=True,
             dismissible=False
@@ -179,10 +178,11 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
           Notification("Notificación a equipo de trabajo enviada por correo electrónico", title="¡ÉXITO!", style='success').show()
           sleep(2)
       Notification("Por favor espera...", title="REDIRIGIENDO")
-      datos = {
-        'clave_form': 'documentos_existentes',
+      self.datos = {
+        'id_usuario_erp': self.datos['id_usuario_erp'],
+        'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES'
       }
-      self.parent.raise_event('x-actualizar_form_activo', datos=datos)
+      self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
     
   def button_rechazar_click(self, **event_args):
     card = ColumnPanel(role='elevated-card')
@@ -216,17 +216,16 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
       if respuesta[0]:
         Notification(f"El documento {self.datos['codigo']} ha sido rechazado satisfactoriamente.", title="¡ÉXITO!", style='success').show()
         with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
-          try:
-            anvil.server.call(
-              'enviar_email_notificacion',
-              {
-                'id_registro_documento': respuesta[1],
-                'operacion': 'Rechazo',
-                'motivo_rechazo': text_area.text,
-                'origen_rechazo': str(self.label_status.text).split()[-1]
-              }
-            )
-          except Exception as Ex:
+          respuesta_envio_email = anvil.server.call(
+            'enviar_email_notificacion',
+            {
+              'id_registro_documento': respuesta[1],
+              'operacion': 'Rechazo',
+              'motivo_rechazo': text_area.text,
+              'origen_rechazo': str(self.label_status.text).split()[-1]
+            }
+          )
+          if not respuesta_envio_email[0]:
             equipo_de_trabajo = {
               'creadores': self.datos['creadores'],
               'revisores': [],
@@ -237,7 +236,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
             for creador in equipo_trabajo_id_usuarios_erp['creadores']:
               creadores += f"\n•{creador}" 
             alert(
-              content = f"El documento fue rechazado satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\nTipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}\n\nPor favor informa a la(s) siguiente(s) persona(s) que el documento ha sido nuevamente habilitado para edición:{creadores}",
+              content = f"El documento fue rechazado satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\n{respuesta_envio_email[1]}\n\nPor favor informa a la(s) siguiente(s) persona(s) que el documento ha sido nuevamente habilitado para edición:{creadores}",
               title = "ERROR DURANTE ENVÍO DE NOTIFICACIÓN",
               large=True,
               dismissible=False
@@ -246,10 +245,11 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
             Notification("Notificación a equipo de trabajo enviada por correo electrónico", title="¡ÉXITO!", style='success').show()
             sleep(2)
         Notification("Por favor espera...", title="REDIRIGIENDO")
-        datos = {
-          'clave_form': 'documentos_existentes',
+        self.datos = {
+          'id_usuario_erp': self.datos['id_usuario_erp'],
+          'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES',
         }
-        self.parent.raise_event('x-actualizar_form_activo', datos=datos)
+        self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
       else:
         alert(
           content = respuesta[1] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",

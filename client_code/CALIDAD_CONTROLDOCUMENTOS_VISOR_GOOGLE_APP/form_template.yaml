@@ -127,6 +127,7 @@ components:
         name: button_actualizar
         layout_properties: {grid_position: 'QIGIKG,TZCPFB'}
         event_bindings: {click: button_actualizar_click}
+    event_bindings: {click: link_sin_visualizacion_click}
   - type: ColumnPanel
     properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
       wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
@@ -146,6 +147,7 @@ components:
   layout_properties:
     col_widths: {}
     grid_position: EQRGVV,LVNBEP
+  event_bindings: {click: button_enviar_a_revision_click}
 - type: FlowPanel
   properties: {role: null, spacing: medium, align: center, tooltip: '', border: '',
     foreground: '', visible: false, spacing_above: small, spacing_below: small, background: ''}

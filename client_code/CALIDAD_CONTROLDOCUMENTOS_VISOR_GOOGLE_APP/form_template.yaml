@@ -41,9 +41,9 @@ components:
   components:
   - type: Label
     properties: {role: title, align: center, tooltip: '', border: '', foreground: 'theme:On
-        Primary', visible: true, text: '', font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: 'theme:On
-        Tertiary Container', bold: true, underline: false, icon: ''}
+        Tertiary Container', visible: true, text: '', font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: true,
+      underline: false, icon: ''}
     name: label_codigo_documento
     layout_properties: {grid_position: 'DIPYBK,ELPNXR'}
   - type: Label

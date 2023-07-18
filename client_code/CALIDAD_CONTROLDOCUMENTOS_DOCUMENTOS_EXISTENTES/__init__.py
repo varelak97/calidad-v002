@@ -12,6 +12,7 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
   def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
+    self.repeating_panel_documentos_existentes.items = anvil.server.call('obtener_documentos_existentes')
     
   def button_volver_click(self, **event_args):
     self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS'

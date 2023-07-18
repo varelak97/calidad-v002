@@ -1,3 +1,25 @@
 container: {type: DataRowPanel}
-components: []
+components:
+- type: Label
+  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
+    text: '', font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small,
+    italic: false, background: '', bold: true, underline: false, icon: ''}
+  name: label_nombre_documento
+  layout_properties: {column: QLMTBN}
+  data_bindings:
+  - {property: text, code: 'self.item[''nombre_completo'']'}
+- type: Button
+  properties: {role: elevated-button, align: center, tooltip: '', border: '', enabled: true,
+    foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: small,
+    icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+    underline: false, icon: 'fa:bars'}
+  name: button_opciones
+  layout_properties: {column: GMOJUG}
+  event_bindings: {click: button_opciones_click}
+- type: Label
+  properties: {}
+  name: label_status
+  layout_properties: {column: CWTNPX}
+  data_bindings:
+  - {property: text, code: 'str(self.item[''status'']).upper()'}
 is_package: true

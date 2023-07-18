@@ -1021,6 +1021,15 @@ input[disabled] ~ span {
   border-right: 0;
 }
 
+.anvil-role-tonal-data-grid .data-grid-child-panel {
+  overflow-x: auto;
+}
+
+.anvil-role-tonal-data-grid .anvil-data-row-panel {
+  flex-wrap: nowrap;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
 
 /*Plots*/
 

@@ -399,4 +399,24 @@ def obtener_id_registro(nombre_completo):
 
 @anvil.server.callable
 def obtener_documentos_existentes():
-  return sorted(list(app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)), key=lambda d:d['nombre_completo'])
+  renglones_tipos_documento = [dict(r) for r in app_tables.calidad_controldocumentos_tipodocumentos.search()]
+  tipos_documento = {renglon['codigo']: renglon['tipo'] for renglon in renglones_tipos_documento}
+  renglones_areas = [dict(r) for r in app_tables.calidad_controldocumentos_areas.search()]
+  areas = {renglon['codigo']: renglon['area'] for renglon in renglones_areas}
+  renglones_empleados = [dict(r) for r in app_tables.rh_empleados_infobase.search(registro_principal=True)]
+  empleados = {str(renglon['id_registro_empleado']): renglon['nombre_completo'] + f" ({renglon['numero_empleado']})" for renglon in renglones_empleados}
+  renglones_usuarios = [dict(r) for r in app_tables.sistemas_usuarios_erp_registro.search(registro_principal=True)]
+  usuarios = {str(renglon['id_registro_usuario']): empleados[str(renglon['id_registro_empleado'])] for renglon in renglones_usuarios}
+  renglones_documentos = [dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]
+  documentos_base = {str(renglon['id_registro_documento']): renglon['nombre_completo'] for renglon in renglones_documentos}
+  documentos_existentes = sorted([dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)], key=lambda d:d['nombre_completo'])
+  for documento in documentos_existentes:
+    documento.update(
+      {
+        'tipo_documento': tipos_documento[documento['codigo'][0:3]],
+        'area': areas[documento['codigo'][4:7]],
+        'propietario': usuarios[str(documento['id_usuario_propietario'])],
+        'documento_base': documentos_base[str(documento['id_documento_base'])]
+      }
+    )
+  return documentos_existentes

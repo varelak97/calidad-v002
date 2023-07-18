@@ -9,7 +9,21 @@ from anvil.tables import app_tables
 
 class RowTemplate5(RowTemplate5Template):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    # Any code you write here will run before the form opens.
+  def button_opciones_click(self, **event_args):
+    evento = alert(
+      content = "",
+      title = "ELIGE UNA OPERACIÓN",
+      buttons = [
+        ("ACCEDER AL DOCUMENTO", "CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP"),
+        ("HISTORIAL DE MODIFICACIONES", "CALIDAD_CONTROLDOCUMENTOS_HISTORIAL")
+      ]
+    )
+    if evento != None:
+      datos = {
+        'id_usuario_erp': self.parent.parent.parent.parent.parent.datos['id_usuario_erp'],
+        'clave_form': evento,
+        'id_registro_documento': anvil.server.call('obtener_id_registro', self.label_nombre_documento.text)
+      }
+      self.parent.parent.parent.parent.parent.raise_event('x-actualizar_form_activo', datos=datos)

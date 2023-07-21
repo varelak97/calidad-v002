@@ -93,7 +93,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
         'id_usuario_erp': self.datos['id_usuario_erp'],
         'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES'
       }
-      self.parent.raise_event('x-actualizar_form_activo', datos=datos)
+      self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
     else:
       alert(
         content = respuesta[1] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
@@ -142,7 +142,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
           'id_usuario_erp': self.datos['id_usuario_erp'],
           'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES',
         }
-        self.parent.raise_event('x-actualizar_form_activo', datos=datos)
+        self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
     elif self.datos['status'] == "En validación":
       self.liberar_documento()
 

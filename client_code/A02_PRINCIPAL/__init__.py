@@ -31,6 +31,8 @@ class A02_PRINCIPAL(A02_PRINCIPALTemplate):
     #--- IN/VISIBILIDAD Y DES/HABILITACIÓN DE COMPONENTES ---
     self.content_panel.visible = False #Es necesario dejar este content_panel, pues de no hacerlo sucede un bug: inicia el form mostrando "DRAG A COLUMN PANEL HERE" y si se deja pero invisible, pierde la propiedad de ser "clicable" dejándolo inservible para siempre.
 
+    #--- INICIALIZACIÓN
+    
   # --- SECCIÓN DE FUNCIONES DERIVADAS DE UN 'raise_event' EN FORMS HIJOS ---
   def actualizar_form_activo(self, datos, **event_args):
     if datos['clave_form'] == 'CALIDAD':

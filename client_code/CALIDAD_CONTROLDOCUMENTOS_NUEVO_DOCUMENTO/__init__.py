@@ -25,6 +25,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
     self.repeating_panel_revisores.items = []
     self.repeating_panel_validadores.items = []
 
+    self.drop_down_nivel_change()
+
   def button_volver_click(self, **event_args):
     self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS'
     self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
@@ -34,11 +36,18 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       self.drop_down_documento_base.placeholder = "-- PRIMERO ES NECESARIO ESPECIFICAR EL NIVEL DEL DOCUMENTO --"
       self.drop_down_documento_base.selected_value = None
     else:
-      self.drop_down_documento_base.items = anvil.server.call('obtener_documentos_base', int(str(self.drop_down_nivel.selected_value).split('.')[0]))
-      self.drop_down_documento_base.placeholder = "-- ELEGIR  --"
-      if self.drop_down_nivel.selected_value == self.drop_down_nivel.items[3] and len(self.drop_down_documento_base.items) == 1:
-        self.drop_down_documento_base.selected_value = self.drop_down_documento_base.items[0]
-
+      if self.drop_down_nivel.selected_value == self.drop_down_nivel.items[3]:
+        self.drop_down_documento_base.placeholder = "NO APLICA"
+        self.drop_down_documento_base.selected_value = None
+        self.drop_down_documento_base.items = []
+      else:
+        self.drop_down_documento_base.items = anvil.server.call('obtener_documentos_base', 4)
+        if len(self.drop_down_documento_base.items) == 0:
+          self.drop_down_documento_base.placeholder = " -- NO HAY DOCUMENTOS BASE DISPONIBLES --"
+        else:
+          self.drop_down_documento_base.placeholder = "-- ELEGIR --"
+        self.drop_down_documento_base.selected_value = None
+      
   def text_area_titulo_lost_focus(self, **event_args):
     self.text_area_titulo.text = str(self.text_area_titulo.text).upper()
     for texto_invalido in ("\n","  "):
@@ -65,8 +74,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
     error = ""
     if self.drop_down_nivel.selected_value == None:
       error += "\n•Nivel."
-    if self.drop_down_documento_base.selected_value == None:
-      error += "\n•Documento base."
+    #if self.drop_down_documento_base.selected_value == None:
+    #  error += "\n•Documento base."
     if len(self.text_area_titulo.text) == 0:
       error += "\n•Título."
     if self.drop_down_tipo_archivo.selected_value == None:
@@ -75,6 +84,10 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       error += "\n•Tipo de documento."
     if self.drop_down_area.selected_value == None:
       error += "\n•Área."
+    if self.drop_down_consecutivo.selected_value == None:
+      error += "\n•Consecutivo."
+    if self.drop_down_revision.selected_value == None:
+      error += "\n•Revisión."
     if len(self.repeating_panel_creadores.items) == 0:
       error += "\n•Por lo menos 1 creador."
     if len(self.repeating_panel_revisores.items) == 0:
@@ -122,9 +135,10 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       if ban_continuar:
         codigo = anvil.server.call('obtener_codigo_tipo_documento', self.drop_down_tipo_documento.selected_value)
         dicc_renglon_area = anvil.server.call('obtener_codigo_y_contadores_area', self.drop_down_area.selected_value)
-        codigo += f"-{dicc_renglon_area['codigo']}-"
-        consecutivo = dicc_renglon_area['contador_'+codigo[0:3]] + 1
-        codigo += f"{'0' * (3 - len(str(consecutivo)))}{consecutivo}"
+        #codigo += f"-{dicc_renglon_area['codigo']}-"
+        #consecutivo = dicc_renglon_area['contador_'+codigo[0:3]] + 1
+        #codigo += f"{'0' * (3 - len(str(consecutivo)))}{consecutivo}"
+        codigo += f"-{dicc_renglon_area['codigo']}-{self.drop_down_consecutivo.selected_value}" #Línea temporalmente usada para que Ada pueda subir documentos con consecutivos que no comienzan en "001"
         #alert(codigo) #LÍNEA PARA PRUEBAS
         self.datos.update(
           {
@@ -135,7 +149,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             "creadores": [item['integrante'] for item in self.repeating_panel_creadores.items],
             "revisores": [item['integrante'] for item in self.repeating_panel_revisores.items],
             "validadores": [item['integrante'] for item in self.repeating_panel_validadores.items],
-            "id_usuario_registrador": self.datos['id_usuario_erp']
+            "id_usuario_registrador": self.datos['id_usuario_erp'],
+            "revisión": self.drop_down_revision.selected_value #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
           }
         )
         self.datos["nombre_completo"] = f"{self.datos['codigo']} R00 {self.datos['titulo']}"

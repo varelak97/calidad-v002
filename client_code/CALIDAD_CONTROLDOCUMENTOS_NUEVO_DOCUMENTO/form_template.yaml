@@ -248,6 +248,82 @@ components:
       name: drop_down_area
       layout_properties: {grid_position: 'AAMOJW,VHXVRO'}
       event_bindings: {change: drop_down_area_change}
+  - type: ColumnPanel
+    properties: {col_widths: '{}'}
+    name: column_panel_consecutivo
+    layout_properties:
+      col_widths: {}
+      grid_position: TUGMOY,TKRLCK
+    components:
+    - type: Label
+      properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
+        visible: true, text: CONSECUTIVO, font_size: null, font: '', spacing_above: small,
+        icon_align: left, spacing_below: none, italic: false, background: '', bold: true,
+        underline: false, icon: ''}
+      name: label_consecutivo
+      layout_properties: {grid_position: 'PKZISY,JTXOYS'}
+    - type: DropDown
+      properties:
+        role: outlined
+        align: center
+        tooltip: ''
+        placeholder: -- ELEGIR --
+        border: ''
+        enabled: true
+        foreground: ''
+        items: ['001', '002', '003', '004', '005', '006', '007', 008, 009, '010',
+          '011', '012', '013', '014', '015', '016', '017', 018, 019, '020', '021',
+          '022', '023', '024', '025', '026', '027', 028, 029, '030', '031', '032',
+          '033', '034', '035', '036', '037', 038, 039, '040', '041', '042', '043',
+          '044', '045', '046', '047', 048, 049, '050']
+        visible: true
+        font_size: null
+        font: ''
+        spacing_above: small
+        spacing_below: small
+        italic: false
+        background: ''
+        bold: false
+        underline: false
+        include_placeholder: true
+      name: drop_down_consecutivo
+      layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
+  - type: ColumnPanel
+    properties: {col_widths: '{}'}
+    name: column_panel_revision
+    layout_properties:
+      col_widths: {}
+      grid_position: TUGMOY,JOCQGA
+    components:
+    - type: Label
+      properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
+        visible: true, text: REVISIÓN, font_size: null, font: '', spacing_above: small,
+        icon_align: left, spacing_below: none, italic: false, background: '', bold: true,
+        underline: false, icon: ''}
+      name: label_revision
+      layout_properties: {grid_position: 'PKZISY,JTXOYS'}
+    - type: DropDown
+      properties:
+        role: outlined
+        align: center
+        tooltip: ''
+        placeholder: -- ELEGIR --
+        border: ''
+        enabled: true
+        foreground: ''
+        items: ['00', '01', '02', '03', '04', '05', '06', '07', 08, 09, '10']
+        visible: true
+        font_size: null
+        font: ''
+        spacing_above: small
+        spacing_below: small
+        italic: false
+        background: ''
+        bold: false
+        underline: false
+        include_placeholder: true
+      name: drop_down_revision
+      layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
 - type: FlowPanel
   properties: {role: null, spacing: medium, align: center, tooltip: '', border: '',
     foreground: '', visible: true, spacing_above: small, spacing_below: small, background: ''}

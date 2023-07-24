@@ -124,7 +124,8 @@ def generar_documento(datos):
     registro_principal = True,
     nivel = datos['nivel'],
     codigo = datos['codigo'],
-  	revision = 0,
+  	#revision = 0,
+    revison=int(datos['revisión']), #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
     titulo = datos['titulo'],
   	nombre_completo = datos['nombre_completo'],
   	fecha_emision = None,
@@ -144,10 +145,11 @@ def generar_documento(datos):
       id_registro_empleado = renglon_registro_empleado['id_registro_empleado']
       id_usuario_integrantes.append(app_tables.sistemas_usuarios_erp_registro.get(id_registro_empleado=id_registro_empleado, registro_principal=True)['id_registro_usuario'])
     nuevo_renglon_registro_documento[sub_equipo] = id_usuario_integrantes.copy()
-  
-  documento_base = datos['nombre_documento_base'].split()
-  renglon_documento_base = app_tables.calidad_controldocumentos_registrodocumentos.get(codigo=documento_base[0],status="Liberado",registro_principal=True)
-  nuevo_renglon_registro_documento['id_documento_base'] = renglon_documento_base['id_documento_base']
+
+  if datos['nombre_documento_base'] != None:
+    documento_base = datos['nombre_documento_base'].split()
+    renglon_documento_base = app_tables.calidad_controldocumentos_registrodocumentos.get(codigo=documento_base[0],status="Liberado",registro_principal=True)
+    nuevo_renglon_registro_documento['id_documento_base'] = renglon_documento_base['id_documento_base']
   
   dicc_google_script = {
     'id_registro_documento': nuevo_renglon_registro_documento['id_registro_documento'],

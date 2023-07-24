@@ -43,7 +43,7 @@ components:
       components:
       - type: ColumnPanel
         properties: {role: elevated-card, tooltip: '', border: '', foreground: '',
-          visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small,
+          visible: false, wrap_on: mobile, col_spacing: medium, spacing_above: small,
           col_widths: '{}', spacing_below: small, background: ''}
         name: card_alertas
         layout_properties: {grid_position: 'GXPCPA,CTOPRT', full_width_row: false}
@@ -92,4 +92,8 @@ components:
           name: label_control_documentos
           layout_properties: {grid_position: 'AEIUKW,UYXKQU'}
       event_bindings: {click: link_control_documentos_click}
+    - type: Spacer
+      properties: {height: 32}
+      name: spacer_1
+      layout_properties: {grid_position: 'CYZFOB,FJJZPV'}
 is_package: true

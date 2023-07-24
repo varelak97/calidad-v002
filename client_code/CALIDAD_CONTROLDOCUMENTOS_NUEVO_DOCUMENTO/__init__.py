@@ -41,7 +41,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         self.drop_down_documento_base.selected_value = None
         self.drop_down_documento_base.items = []
       else:
-        self.drop_down_documento_base.items = anvil.server.call('obtener_documentos_base', 4)
+        self.drop_down_documento_base.items = anvil.server.call('obtener_documentos_base')
         if len(self.drop_down_documento_base.items) == 0:
           self.drop_down_documento_base.placeholder = " -- NO HAY DOCUMENTOS BASE DISPONIBLES --"
         else:

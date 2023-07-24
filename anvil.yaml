@@ -187,6 +187,9 @@ db_schema:
     - name: marca_temporal
       admin_ui: {width: 200}
       type: datetime
+    - name: registro_activo
+      admin_ui: {order: 3.59375, width: 200}
+      type: bool
   calidad_controldocumentos_tipodocumentos:
     title: Calidad_ControlDocumentos_TipoDocumentos
     client: none

@@ -41,12 +41,8 @@ def obtener_nombres_validadores_por_area():
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE GENERACIÓN DE NUEVO DOCUMENTO ---
 @anvil.server.callable
-def obtener_documentos_base(nivel):
-  documentos_base = []
-  if nivel == 4:
-    documentos_base = sorted([r['nombre_completo'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(codigo='PRO-CAL-001', status="Liberado", registro_principal=True)])
-  else:
-    documentos_base = sorted([r['nombre_completo'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(nivel=4, status="Liberado", registro_principal=True)])
+def obtener_documentos_base():
+  documentos_base = sorted([r['nombre_completo'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(nivel=4, status="Liberado", registro_principal=True, registro_activo=True)])
   return documentos_base
   
 @anvil.server.callable

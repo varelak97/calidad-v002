@@ -198,9 +198,6 @@ db_schema:
     - name: codigo
       admin_ui: {width: 200}
       type: string
-    - name: niveles
-      admin_ui: {width: 200}
-      type: simpleObject
   rh_empleados_infobase:
     title: RH_Empleados_InfoBase
     client: none

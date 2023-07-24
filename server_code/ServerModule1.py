@@ -8,8 +8,7 @@ import json
 import requests
 
 global url_google_script
-#url_google_script = "https://script.google.com/macros/s/AKfycbxUTfG79nEizOoSEnHP8bibefp_jVUObMzm7QoCNvS9VO4hYFWDphxmZzyLCS489w/exec"
-url_google_script = "https://script.google.com/macros/s/AKfycby1ZY6-ZGf7LOSInfsJpX72OWSAnyNZeMxWLEtadU5I9CCD1AVCBYAG4ZlQ6yEBmmLF/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbzhNpdp_rLGryzYnkp3_gybt0OJw2RM2I-BHVzDYsMgAWlrt1S1xqpSihk8pvulAbDc/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 @anvil.server.callable

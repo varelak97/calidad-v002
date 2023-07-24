@@ -65,8 +65,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
     error = ""
     if self.drop_down_nivel.selected_value == None:
       error += "\n•Nivel."
-    if self.drop_down_documento_base.selected_value == None:
-      error += "\n•Documento base."
+    #if self.drop_down_documento_base.selected_value == None:
+    #  error += "\n•Documento base."
     if len(self.text_area_titulo.text) == 0:
       error += "\n•Título."
     if self.drop_down_tipo_archivo.selected_value == None:

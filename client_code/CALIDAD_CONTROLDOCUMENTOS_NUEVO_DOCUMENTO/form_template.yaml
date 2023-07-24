@@ -164,7 +164,7 @@ components:
         border: ''
         enabled: true
         foreground: ''
-        items: [PROCESADOR DE TEXTO]
+        items: [PROCESADOR DE TEXTO, HOJA DE CÁLCULO]
         visible: true
         font_size: null
         font: ''

@@ -122,6 +122,7 @@ def generar_documento(datos):
     id_registro_documento = max([r['id_registro_documento'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
   	id_version_documento = 1,
     registro_principal = True,
+    registro_activo = True,
     nivel = datos['nivel'],
     codigo = datos['codigo'],
   	#revision = 0,
@@ -145,8 +146,8 @@ def generar_documento(datos):
       id_registro_empleado = renglon_registro_empleado['id_registro_empleado']
       id_usuario_integrantes.append(app_tables.sistemas_usuarios_erp_registro.get(id_registro_empleado=id_registro_empleado, registro_principal=True)['id_registro_usuario'])
     nuevo_renglon_registro_documento[sub_equipo] = id_usuario_integrantes.copy()
-
-  if datos['nombre_documento_base'] != None:
+  documento_base = datos['nombre_documento_base']
+  if documento_base != None:
     documento_base = datos['nombre_documento_base'].split()
     renglon_documento_base = app_tables.calidad_controldocumentos_registrodocumentos.get(codigo=documento_base[0],status="Liberado",registro_principal=True)
     nuevo_renglon_registro_documento['id_documento_base'] = renglon_documento_base['id_documento_base']
@@ -157,9 +158,9 @@ def generar_documento(datos):
     'titulo': nuevo_renglon_registro_documento['titulo'],
     'codigo_documento': nuevo_renglon_registro_documento['codigo'],
     'revision_documento': nuevo_renglon_registro_documento['revision'],
-    'codigo_formato': renglon_documento_base['codigo'],
-    'revision_formato': renglon_documento_base['revision'],
-    'fecha_formato': str(renglon_documento_base['fecha_emision']),
+    'codigo_formato': nuevo_renglon_registro_documento['codigo'] if documento_base == None else renglon_documento_base['codigo'],
+    'revision_formato': nuevo_renglon_registro_documento['revision'] if documento_base == None else renglon_documento_base['revision'],
+    'fecha_formato': None if documento_base == None else str(renglon_documento_base['fecha_emision']),
     'operacion': "creacion",
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo'],
     'tipo_app': tipo_google_app(datos['tipo_app']),
@@ -175,11 +176,13 @@ def generar_documento(datos):
     nuevo_renglon_registro_documento.delete()
     respuesta = [False, f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"]
   else:
+    """
     aux_codigo = datos['codigo'].split('-')
     codigo_tipo_documento = aux_codigo[0]
     codigo_area = aux_codigo[1]
     renglon_area = app_tables.calidad_controldocumentos_areas.get(codigo=codigo_area)
     renglon_area['contador_'+codigo_tipo_documento] += 1
+    """
     respuesta = [True, nuevo_renglon_registro_documento['id_registro_documento']]
   finally:
     return respuesta
@@ -294,6 +297,10 @@ def liberar_documento(datos):
     'operacion': 'liberacion',
     'fecha_documento': str(datos['fecha_emision'])
   }
+
+  if nuevo_renglon_registro_documento['nivel'] == 4:
+    dicc_google_script['fecha_formato'] = dicc_google_script['fecha_documento']
+    
   respuesta = []
   try:
     respuesta = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']

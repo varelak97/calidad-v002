@@ -245,6 +245,9 @@ db_schema:
     - name: marca_temporal
       admin_ui: {width: 200}
       type: datetime
+    - name: usuario_erp
+      admin_ui: {width: 200}
+      type: bool
   sistemas_usuarios_erp_registro:
     title: Sistemas_Usuarios_ERP_Registro
     client: none
@@ -268,9 +271,6 @@ db_schema:
     - name: usuario_activo
       admin_ui: {width: 200}
       type: bool
-    - name: super_usuario
-      admin_ui: {width: 200}
-      type: bool
     - name: modulos_y_secciones
       admin_ui: {width: 200}
       type: simpleObject
@@ -286,4 +286,10 @@ db_schema:
     - name: marca_temporal
       admin_ui: {width: 200}
       type: datetime
+    - name: password_encriptado
+      admin_ui: {width: 200}
+      type: string
+    - name: super_usuario_erp
+      admin_ui: {width: 200}
+      type: bool
 renamed: true

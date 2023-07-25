@@ -119,7 +119,7 @@ def lanzar_background_google_script(clave_subscript, datos):
 #--- SECCIÓN FUNCIONES DE FLUJO DE DOCUMENTOS ---
 @anvil.server.background_task
 def generar_documento(datos):
-  anvil.server.task_state['respuesta'] = None
+  anvil.server.task_state['respuesta'] = False
   anvil.server.task_state['proceso'] = "Preparando todo..."
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(
     id_renglon = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
@@ -445,9 +445,10 @@ def obtener_documentos_existentes():
         'tipo_documento': tipos_documento[documento['codigo'][0:3]],
         'area': areas[documento['codigo'][4:7]],
         'propietario': usuarios[str(documento['id_usuario_propietario'])],
-        'documento_base': documentos_base[str(documento['id_documento_base'])]
       }
     )
+    if documento['id_documento_base'] != None:
+      documento['documento_base'] = documentos_base[str(documento['id_documento_base'])]
   return documentos_existentes
 
 @anvil.server.callable

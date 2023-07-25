@@ -6,7 +6,7 @@ import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import sleep
 
 class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTOTemplate):
@@ -159,11 +159,17 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         self.datos["marca_temporal"] = datetime.now()
         with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
           self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generacion_documento', self.datos)
+          tiempo_inicio = datetime.now()
+          tiempo_final = tiempo_inicio + timedelta(minutes=1, seconds=30)
+          ban_timeout = False
           while self.background_task_google_script.is_running():
-            progreso_actual = self.background_task_google_script.get_state()['progreso']
-            if progreso_actual != progreso_anterior:
-              Notification(progreso_actual).show()
-            respuesta = self.background_task_google_script.get_state()['respuesta']
+            if datetime.now() >= tiempo_final:
+              ban_timeout = True
+              break
+            elif datetime.now() >= (tiempo_inicio + timedelta(seconds=10)):
+              respuesta = self.background_task_google_script.get_state()['respuesta']
+          print(f"Respuesta = {respuesta}")
+          respuesta = self.background_task_google_script.get_state()['respuesta']
         sleep(1)
         if respuesta['exito_generacion_documento']:
           Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
@@ -192,7 +198,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
           self.datos = {
             'id_usuario_erp': self.datos['id_usuario_erp'],
             'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP',
-            'id_registro_documento': respuesta[1]
+            'id_registro_documento': respuesta['id_registro_documento']
           }
           self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
         else:

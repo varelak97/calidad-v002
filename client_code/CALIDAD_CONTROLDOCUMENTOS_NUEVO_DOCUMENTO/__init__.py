@@ -11,7 +11,7 @@ from time import sleep
 
 class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTOTemplate):
   datos = {}
-  tarea_de_fondo = None
+  background_task_google_script = None
   def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
@@ -157,17 +157,25 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         self.datos["nombre_completo"] = f"{self.datos['codigo']} R00 {self.datos['titulo']}"
         self.datos["tipo_app"] = self.drop_down_tipo_archivo.selected_value
         self.datos["marca_temporal"] = datetime.now()
-        with Notification("Trabajando en la generación del documento. Por favor espera...", title="PROCESANDO PETICIÓN"):
-          self.tarea_de_fondo = anvil.server.call('background_google_script', 'generacion_documento')
-          respuesta = anvil.server.call('generar_documento', self.datos)
+        with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
+          self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generacion_documento', self.datos)
+          sleep(2)
+          progreso_actual = ""
+          progreso_anterior = ""
+          while self.background_task_google_script.is_running():
+            progreso_actual = self.background_task_google_script.get_state()['progreso']
+            if progreso_actual != progreso_anterior:
+              Notification(progreso_actual).show()
+            respuesta = self.background_task_google_script.get_state()['respuesta']
+            progreso_anterior = progreso_actual
         sleep(1)
-        if respuesta[0]:
+        if respuesta['exito_generacion_documento']:
           Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
           with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
             respuesta_envio_email = anvil.server.call(
               'enviar_email_notificacion',
               {
-                'id_registro_documento': respuesta[1],
+                'id_registro_documento': respuesta['id_registro_documento'],
                 'operacion': 'creación'
               }
             )
@@ -193,7 +201,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
           self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
         else:
           alert(
-            content = respuesta[1] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
+            content = respuesta['error'] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
             title = "OCURRIÓ UN ERROR",
             dismissible=False
           )

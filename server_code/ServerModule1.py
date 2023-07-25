@@ -109,10 +109,18 @@ def obtener_emails_lectores(emails_editores):
       emails_lectores += str(r['email_laboral']) + ','
   return emails_lectores[0:-1]
 
+@anvil.server.callable
+def lanzar_background_google_script(clave_subscript, datos):
+  if clave_subscript == 'generacion_documento':
+    return anvil.server.launch_background_task('generar_documento', datos)
+    
+     
 
 #--- SECCIÓN FUNCIONES DE FLUJO DE DOCUMENTOS ---
-@anvil.server.callable
+@anvil.server.background_task
 def generar_documento(datos):
+  anvil.server.task_state['respuesta'] = None
+  anvil.server.task_state['proceso'] = "Preparando todo..."
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(
     id_renglon = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
     id_registro_documento = max([r['id_registro_documento'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
@@ -167,13 +175,18 @@ def generar_documento(datos):
 
   print(json.dumps(dicc_google_script, indent=4))
   
-  respuesta = [] #Declarando antes del Try porque genera un error --> UnboundLocalError: local variable 'respuesta' referenced before assignment
+  respuesta = {} #Declarando antes del Try porque genera un error --> UnboundLocalError: local variable 'respuesta' referenced before assignment
+  anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
   try:
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
   except Exception as Ex:
     #try / except para borrar la carpeta correspondiente en Google Drive.
+    anvil.server.task_state['proceso'] = "Script de Google fallido..."
     nuevo_renglon_registro_documento.delete()
-    respuesta = [False, f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"]
+    respuesta = {
+      'exito_generacion_documento': False,
+      'error': f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"
+    }
   else:
     """
     aux_codigo = datos['codigo'].split('-')
@@ -182,9 +195,16 @@ def generar_documento(datos):
     renglon_area = app_tables.calidad_controldocumentos_areas.get(codigo=codigo_area)
     renglon_area['contador_'+codigo_tipo_documento] += 1
     """
-    respuesta = [True, nuevo_renglon_registro_documento['id_registro_documento']]
+    anvil.server.task_state['proceso'] = "¡Scipt de Google terminado!"
+    anvil.server.task_state['ban_finalizado'] = True
+    respuesta = {
+      'exito_generacion_documento': True,
+      'id_registro_documento': nuevo_renglon_registro_documento['id_registro_documento']
+    }
   finally:
-    return respuesta
+    #return respuesta
+    anvil.server.task_state['respuesta'] = respuesta
+    sleep(2)
 
 @anvil.server.callable
 def enviar_documento_a_revision(datos):

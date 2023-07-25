@@ -256,3 +256,12 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
           title = "OCURRIÓ UN ERROR",
           dismissible=False
         )
+
+  def link_detalles_encabezado_click(self, **event_args):
+    if "OCULTAR" in str(self.link_detalles_encabezado.text):
+      self.column_panel_detalles_encabezado.visible = False
+      self.link_detalles_encabezado.text = str(self.link_detalles_encabezado.text).replace('OCULTAR','MOSTRAR')
+    else:
+      self.column_panel_detalles_encabezado.visible = True
+      self.link_detalles_encabezado.text = str(self.link_detalles_encabezado.text).replace('MOSTRAR','OCULTAR')
+      

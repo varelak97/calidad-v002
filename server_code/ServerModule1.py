@@ -8,7 +8,7 @@ import json
 import requests
 
 global url_google_script
-url_google_script = "https://script.google.com/macros/s/AKfycbyU5-ybHCYZca40ma2MhuZa-IktUdSe8wc95w_EGrnguUQxJTSUfOcDw2gCYCpYR0Cc/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbydeoFqbH0JPPqwuNFfHarOrkjLcGSpS-Q4i0USQB_NBxtmg7QCcoI2GVJgGMyVQwXO/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 @anvil.server.callable
@@ -390,7 +390,7 @@ def enviar_email_notificacion(datos):
     anvil.google.mail.send(
       to = emails_destinatarios,
       subject = asunto,
-      html = mensaje
+      html = "<b> == MÓDULO DE CALIDAD / CONTROL DE DOCUMENTOS ==</b><p><p>" + mensaje
     )
   except Exception as Ex:
     return [False, f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"]

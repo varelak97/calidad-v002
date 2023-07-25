@@ -166,7 +166,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             if datetime.now() >= tiempo_final:
               ban_timeout = True
               break
-            elif datetime.now() >= (tiempo_inicio + timedelta(seconds=10)):
+            elif datetime.now() >= (tiempo_inicio + timedelta(seconds=5)):
               respuesta = self.background_task_google_script.get_state()['respuesta']
           print(f"Respuesta = {respuesta}")
           respuesta = self.background_task_google_script.get_state()['respuesta']

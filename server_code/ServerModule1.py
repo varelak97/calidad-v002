@@ -8,7 +8,7 @@ import json
 import requests
 
 global url_google_script
-url_google_script = "https://script.google.com/macros/s/AKfycbzhNpdp_rLGryzYnkp3_gybt0OJw2RM2I-BHVzDYsMgAWlrt1S1xqpSihk8pvulAbDc/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbyU5-ybHCYZca40ma2MhuZa-IktUdSe8wc95w_EGrnguUQxJTSUfOcDw2gCYCpYR0Cc/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 @anvil.server.callable
@@ -122,7 +122,7 @@ def generar_documento(datos):
     nivel = datos['nivel'],
     codigo = datos['codigo'],
   	#revision = 0,
-    revison=int(datos['revisión']), #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
+    revision=int(datos['revisión']), #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
     titulo = datos['titulo'],
   	nombre_completo = datos['nombre_completo'],
   	fecha_emision = None,
@@ -163,6 +163,8 @@ def generar_documento(datos):
   }
   dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])
   dicc_google_script['emails_lectores'] = obtener_emails_lectores(dicc_google_script['emails_editores'])
+
+  print(json.dumps(dicc_google_script, indent=4))
   
   respuesta = [] #Declarando antes del Try porque genera un error --> UnboundLocalError: local variable 'respuesta' referenced before assignment
   try:

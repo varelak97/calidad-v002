@@ -159,15 +159,11 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         self.datos["marca_temporal"] = datetime.now()
         with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
           self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generacion_documento', self.datos)
-          sleep(2)
-          progreso_actual = ""
-          progreso_anterior = ""
           while self.background_task_google_script.is_running():
             progreso_actual = self.background_task_google_script.get_state()['progreso']
             if progreso_actual != progreso_anterior:
               Notification(progreso_actual).show()
             respuesta = self.background_task_google_script.get_state()['respuesta']
-            progreso_anterior = progreso_actual
         sleep(1)
         if respuesta['exito_generacion_documento']:
           Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()

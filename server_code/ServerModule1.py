@@ -425,3 +425,12 @@ def obtener_documentos_existentes():
       }
     )
   return documentos_existentes
+
+@anvil.server.callable
+def obtener_ids_equipo_de_documento(nombre_documento):
+  renglon_documento = app_tables.calidad_controldocumentos_registrodocumentos.get(nombre_completo=nombre_documento, registro_activo=True, registro_principal=True)
+  ids_usuarios_equipo_trabajo = list(renglon_documento['creadores'])
+  ids_usuarios_equipo_trabajo.extend(renglon_documento['revisores'])
+  ids_usuarios_equipo_trabajo.extend(renglon_documento['validadores'])
+  ids_usuarios_equipo_trabajo = list(set(ids_usuarios_equipo_trabajo))
+  return ids_usuarios_equipo_trabajo

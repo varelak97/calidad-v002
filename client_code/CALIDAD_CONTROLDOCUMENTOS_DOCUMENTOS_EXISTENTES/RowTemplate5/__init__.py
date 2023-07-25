@@ -18,21 +18,20 @@ class RowTemplate5(RowTemplate5Template):
         ("HISTORIAL DE MODIFICACIONES", "CALIDAD_CONTROLDOCUMENTOS_HISTORIAL")
       ]
     if self.label_status.text == "LIBERADO":
-      #AQUÍ VOY
-      pass
+      ids_equipo = anvil.server.call('obtener_ids_equipo_de_documento', self.label_nombre_documento.text)
+      if id_usuario_erp in ids_equipo:
+        botones.append(("NUEVA REVISIÓN", "CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO"))
+        pass
       
     evento = alert(
       content = "",
       title = "ELIGE UNA OPERACIÓN",
-      buttons = [
-        ("ACCEDER AL DOCUMENTO", "CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP"),
-        ("HISTORIAL DE MODIFICACIONES", "CALIDAD_CONTROLDOCUMENTOS_HISTORIAL")
-      ]
+      buttons = botones
     )
     if evento != None:
       datos = {
-        'id_usuario_erp': id_usuario_erp,
-        'clave_form': evento,
-        'id_registro_documento': anvil.server.call('obtener_id_registro', self.label_nombre_documento.text)
-      }
+          'id_usuario_erp': id_usuario_erp,
+          'clave_form': evento,
+          'id_registro_documento': anvil.server.call('obtener_id_registro', self.label_nombre_documento.text)
+        }
       self.parent.parent.parent.parent.parent.raise_event('x-actualizar_form_activo', datos=datos)

@@ -291,7 +291,8 @@ def liberar_documento(datos):
     'revision_documento': anterior_renglon_registro_documento['revision'],
     'tipo_app': tipo_google_app(anterior_renglon_registro_documento['tipo_app']),
     'operacion': 'liberacion',
-    'fecha_documento': str(datos['fecha_emision'])
+    'fecha_documento': str(datos['fecha_emision']),
+    'nivel': nuevo_renglon_registro_documento['nivel']
   }
 
   if nuevo_renglon_registro_documento['nivel'] == 4:

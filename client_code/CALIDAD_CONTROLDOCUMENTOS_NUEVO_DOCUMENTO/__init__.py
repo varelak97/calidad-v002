@@ -11,6 +11,7 @@ from time import sleep
 
 class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTOTemplate):
   datos = {}
+  tarea_de_fondo = None
   def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
@@ -157,6 +158,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         self.datos["tipo_app"] = self.drop_down_tipo_archivo.selected_value
         self.datos["marca_temporal"] = datetime.now()
         with Notification("Trabajando en la generación del documento. Por favor espera...", title="PROCESANDO PETICIÓN"):
+          self.tarea_de_fondo = anvil.server.call('background_google_script', 'generacion_documento')
           respuesta = anvil.server.call('generar_documento', self.datos)
         sleep(1)
         if respuesta[0]:

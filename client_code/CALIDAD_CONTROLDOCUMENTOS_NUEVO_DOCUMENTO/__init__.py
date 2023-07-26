@@ -12,10 +12,23 @@ from time import sleep
 class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTOTemplate):
   datos = {}
   background_task_google_script = None
+  componentes_deshabilitables = []
+  
   def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
-
+    self.componentes_deshabilitables = [
+      self.button_volver,
+      self.drop_down_nivel,
+      self.drop_down_documento_base,
+      self.text_area_titulo,
+      self.drop_down_tipo_archivo,
+      self.drop_down_tipo_documento,
+      self.drop_down_area,
+      self.drop_down_consecutivo,
+      self.drop_down_revision,
+      self.button_generar_documento
+    ]
     self.drop_down_tipo_documento.items = anvil.server.call('obtener_lista_tipos_documentos')
     if len(self.drop_down_tipo_archivo.items) == 1:
       self.drop_down_tipo_archivo.selected_value = self.drop_down_tipo_archivo.items[0]
@@ -28,6 +41,10 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
 
     self.drop_down_nivel_change()
 
+  def habilitacion_general_componentes(self, bandera):
+    for componente in self.componentes_deshabilitables:
+      componente.enabled = bandera
+      
   def button_volver_click(self, **event_args):
     self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS'
     self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
@@ -72,6 +89,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       self.label_especificar_area.visible = False
       
   def button_generar_documento_click(self, **event_args):
+    self.habilitacion_general_componentes(False)
     error = ""
     if self.drop_down_nivel.selected_value == None:
       error += "\n•Nivel."
@@ -207,3 +225,4 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             title = "OCURRIÓ UN ERROR",
             dismissible=False
           )
+    self.habilitacion_general_componentes(True)

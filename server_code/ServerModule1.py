@@ -18,6 +18,16 @@ def obtener_lista_id_validadores():
   return lista_id_validadores
 
 @anvil.server.callable
+def verificacion_pertenencia_a_equipo(id_usuario_erp):
+	bandera_retorno = False
+	for sub_equipo in ("creadores","revisores","validadores"):
+		ids_integrantes = [id_integrante for r in app_tables.calidad_controldocumentos_equipotrabajo.search() for id_integrante in r[sub_equipo]]
+		if id_usuario_erp in ids_integrantes:
+			bandera_retorno = True
+			break
+	return bandera_retorno
+
+@anvil.server.callable
 def obtener_nombres_validadores_por_area():
   dicc = {}
   for r in app_tables.calidad_controldocumentos_equipotrabajo.search(registro_principal=True):
@@ -51,7 +61,7 @@ def obtener_lista_tipos_documentos():
 
 @anvil.server.callable
 def obtener_lista_areas(id_usuario_erp):
-  ids_areas = [r['id_registro_area'] for r in app_tables.calidad_controldocumentos_equipotrabajo.search(registro_principal=True) if id_usuario_erp in r['validadores']]
+  ids_areas = [r['id_registro_area'] for r in app_tables.calidad_controldocumentos_equipotrabajo.search(registro_principal=True) if id_usuario_erp in r['creadores'] or id_usuario_erp in r['revisores'] or id_usuario_erp in r['validadores']]
   areas = sorted([r['area'] for r in app_tables.calidad_controldocumentos_areas.search() if r['id_registro_area'] in ids_areas])
   return areas
 

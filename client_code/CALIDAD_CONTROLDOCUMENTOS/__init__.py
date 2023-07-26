@@ -19,14 +19,22 @@ class CALIDAD_CONTROLDOCUMENTOS(CALIDAD_CONTROLDOCUMENTOSTemplate):
 
   def button_nuevo_documento_click(self, **event_args):
     with Notification("Revisando documentos que puedes generar. Por favor, espera un momento...", title = "PROCESANDO PETICIÓN"):
+      bandera_pertenencia_a_equipo = anvil.server.call('verificacion_pertenencia_a_equipo', self.datos['id_usuario_erp'])
+      
+      if bandera_pertenencia_a_equipo:
+        """
+      
       validadores = anvil.server.call('obtener_lista_id_validadores')
       if self.datos['id_usuario_erp'] in validadores:
+        """  
         self.datos['clave_form'] = "CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO"
         self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
+      
       else:
         info_validadores = anvil.server.call('obtener_nombres_validadores_por_area')
         alert(
-          content = f"No estás registrado como autor (validador final) de documentos de ningún área.\nSi deseas trabajar en un nuevo documento, solicita al responsable del area correspondiente:\n{info_validadores}",
+          content = "Actualmente no formas parte de un equipo para poder generar documentos. Solicita a tu jefe inmediato (o líder de equipo) que envíe una solicitud al departamento de Sistemas y TI para darte los privilegios correspondientes",
+          #content = f"No estás registrado como autor (validador final) de documentos de ningún área.\nSi deseas trabajar en un nuevo documento, solicita al responsable del area correspondiente:\n{info_validadores}",
           title = "ACCIÓN DENEGADA",
           large = True,
           dismissible = False

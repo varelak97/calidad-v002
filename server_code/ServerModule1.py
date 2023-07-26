@@ -27,28 +27,6 @@ def verificacion_pertenencia_a_equipo(id_usuario_erp):
 			break
 	return bandera_retorno
 
-@anvil.server.callable
-def obtener_nombres_validadores_por_area():
-  dicc = {}
-  for r in app_tables.calidad_controldocumentos_equipotrabajo.search(registro_principal=True):
-    id_registro_area = r['id_registro_area']
-    nombre_area = app_tables.calidad_controldocumentos_areas.get(id_registro_area=id_registro_area)['area']
-    ids_validadores = r['validadores']
-    nombres_validadores = ""
-    for id_validador in ids_validadores:
-      renglon_usuario_erp = app_tables.sistemas_usuarios_erp_registro.get(id_registro_usuario=id_validador, registro_principal=True)
-      renglon_empleado = app_tables.rh_empleados_infobase.get(id_registro_empleado=renglon_usuario_erp['id_registro_empleado'], registro_principal=True)
-      nombres_validadores += f"{renglon_empleado['nombre_completo']} ({renglon_empleado['numero_empleado']}),"
-      
-    dicc[nombre_area] = nombres_validadores[0:-1]    
-  llaves_ordenadas = list(sorted(dicc.keys()))
-  
-  validadores_por_area = ""
-  for llave in llaves_ordenadas:
-    validadores_por_area += f"\n•{llave}: {dicc[llave]}"
-  return validadores_por_area
-  
-
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE GENERACIÓN DE NUEVO DOCUMENTO ---
 @anvil.server.callable
 def obtener_documentos_base():

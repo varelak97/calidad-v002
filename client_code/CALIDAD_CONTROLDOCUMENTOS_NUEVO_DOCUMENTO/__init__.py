@@ -151,10 +151,10 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             "revisores": [item['integrante'] for item in self.repeating_panel_revisores.items],
             "validadores": [item['integrante'] for item in self.repeating_panel_validadores.items],
             "id_usuario_registrador": self.datos['id_usuario_erp'],
-            "revisión": self.drop_down_revision.selected_value #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
+            "revision": self.drop_down_revision.selected_value #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
           }
         )
-        self.datos["nombre_completo"] = f"{self.datos['codigo']} R00 {self.datos['titulo']}"
+        self.datos["nombre_completo"] = f"{self.datos['codigo']} R{self.datos['revision']} {self.datos['titulo']}"
         self.datos["tipo_app"] = self.drop_down_tipo_archivo.selected_value
         self.datos["marca_temporal"] = datetime.now()
         with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):

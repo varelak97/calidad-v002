@@ -130,7 +130,7 @@ def generar_documento(datos):
     nivel = datos['nivel'],
     codigo = datos['codigo'],
   	#revision = 0,
-    revision=int(datos['revisión']), #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
+    revision=int(datos['revision']), #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
     titulo = datos['titulo'],
   	nombre_completo = datos['nombre_completo'],
   	fecha_emision = None,

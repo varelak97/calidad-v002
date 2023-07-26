@@ -13,9 +13,27 @@ from time import sleep
 
 class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APPTemplate):
   datos = {}
+  componentes_deshabilitables = []
+  componentes_deshabilitables_condicionados = []
+  
   def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
+    
+    self.componentes_deshabilitables = [
+      self.button_volver,
+      self.link_sin_visualizacion,
+      self.button_actualizar,
+      self.column_panel_visor_app_google
+    ]
+
+    self.componentes_deshabilitables_condicionados = [
+      self.button_enviar_a_revision,
+      self.button_aprobar,
+      self.button_aprobar_revision_y_liberar,
+      self.button_rechazar
+    ]
+    
     self.datos.update(anvil.server.call('obtener_renglon_documento', self.datos['id_registro_documento']))
     self.label_codigo_documento.text = self.datos['nombre_completo']
     self.label_status.text = f"Estado: {self.datos['status']}"
@@ -33,6 +51,13 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
         self.button_aprobar_revision_y_liberar.visible = True
     elif self.datos['status'] == "En validación":
       self.button_aprobar.text = "LIBERAR"
+
+  def habilitacion_general_componentes(self, bandera):
+    for componente in self.componentes_deshabilitables:
+      if componente in (Button, Link):
+        componente.enabled = bandera
+      elif componente is ColumnPanel:
+        componente.visible = bandera
   
   def button_volver_click(self, **event_args):
     self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS'

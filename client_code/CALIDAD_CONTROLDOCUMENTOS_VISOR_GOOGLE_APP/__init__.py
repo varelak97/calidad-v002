@@ -60,7 +60,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
         componente.visible = bandera
   
   def button_volver_click(self, **event_args):
-    self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS'
+    self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES'
     self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
       
   def agregar_visor_app_google(self, **event_args):
@@ -168,6 +168,12 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
           'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES',
         }
         self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
+      else:
+        alert(
+          content = respuesta[1] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
+          title = "OCURRIÓ UN ERROR",
+          dismissible=False
+        )
     elif self.datos['status'] == "En validación":
       self.liberar_documento()
 
@@ -208,6 +214,12 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
         'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES'
       }
       self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
+    else:
+      alert(
+        content = respuesta[1] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
+        title = "OCURRIÓ UN ERROR",
+        dismissible=False
+      )
     
   def button_rechazar_click(self, **event_args):
     card = ColumnPanel(role='elevated-card')

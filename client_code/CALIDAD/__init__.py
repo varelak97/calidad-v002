@@ -14,6 +14,8 @@ class CALIDAD(CALIDADTemplate):
     self.datos = datos
   
   def link_control_documentos_click(self, **event_args):
+    self.content_panel.visible = False
     self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS'
     self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
+    self.content_panel.visible = True
 

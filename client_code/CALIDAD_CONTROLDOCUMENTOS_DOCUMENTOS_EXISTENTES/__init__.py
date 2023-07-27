@@ -15,5 +15,7 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
     self.repeating_panel_documentos_existentes.items = anvil.server.call('obtener_documentos_existentes')
     
   def button_volver_click(self, **event_args):
+    self.content_panel.visible = False
     self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS'
     self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
+    self.content_panel.visible = True

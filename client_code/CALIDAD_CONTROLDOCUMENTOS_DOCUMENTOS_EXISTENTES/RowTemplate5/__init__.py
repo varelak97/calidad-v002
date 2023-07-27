@@ -29,9 +29,11 @@ class RowTemplate5(RowTemplate5Template):
       buttons = botones
     )
     if evento != None:
+      self.parent.parent.parent.parent.visible = False
       datos = {
           'id_usuario_erp': id_usuario_erp,
           'clave_form': evento,
           'id_registro_documento': anvil.server.call('obtener_id_registro', self.label_nombre_documento.text)
         }
-      self.parent.parent.parent.parent.parent.raise_event('x-actualizar_form_activo', datos=datos)
+      self.parent.parent.parent.parent.parent.parent.raise_event('x-actualizar_form_activo', datos=datos)
+      self.parent.parent.parent.parent.visible = True

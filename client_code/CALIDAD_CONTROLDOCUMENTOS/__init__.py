@@ -14,10 +14,13 @@ class CALIDAD_CONTROLDOCUMENTOS(CALIDAD_CONTROLDOCUMENTOSTemplate):
     self.datos = datos
     
   def button_volver_click(self, **event_args):
+    self.content_panel.visible = False
     self.datos['clave_form'] = 'CALIDAD'
     self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
-
+    self.content_panel.visible = True
+    
   def button_nuevo_documento_click(self, **event_args):
+    self.content_panel.visible = False
     with Notification("Revisando documentos que puedes generar. Por favor, espera un momento...", title = "PROCESANDO PETICIÓN"):
       bandera_pertenencia_a_equipo = anvil.server.call('verificacion_pertenencia_a_equipo', self.datos['id_usuario_erp'])
       
@@ -32,9 +35,11 @@ class CALIDAD_CONTROLDOCUMENTOS(CALIDAD_CONTROLDOCUMENTOSTemplate):
           large = True,
           dismissible = False
         )
+    self.content_panel.visible = True
 
   def button_documentos_existentes_click(self, **event_args):
+    self.content_panel.visible = False
     self.datos['clave_form'] = "CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES"
     self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
-
+    self.content_panel.visible = True
 

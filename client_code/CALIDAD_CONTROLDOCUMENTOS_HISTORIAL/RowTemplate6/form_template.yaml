@@ -1,3 +1,51 @@
 container: {type: DataRowPanel}
-components: []
+components:
+- type: Label
+  properties: {}
+  name: label_marca_temporal
+  layout_properties: {column: YYFIUG}
+  data_bindings:
+  - {property: text, code: 'self.item[''marca_temporal'']'}
+- type: Label
+  properties: {}
+  name: label_operacion
+  layout_properties: {column: KQNYKC}
+  data_bindings:
+  - {property: text, code: 'self.item[''operacion'']'}
+- type: Label
+  properties: {}
+  name: label_nombre_completo_empleado
+  layout_properties: {column: EGDSQK}
+  data_bindings:
+  - {property: text, code: 'self.item[''nombre_completo_empleado'']'}
+- type: Label
+  properties: {}
+  name: label_comentarios_renglon
+  layout_properties: {column: FIMLZN}
+  data_bindings:
+  - {property: text, code: 'self.item[''comentarios_renglon'']'}
+- type: Label
+  properties: {}
+  name: label_nombre_completo_documento
+  layout_properties: {column: DIDDKO}
+  data_bindings:
+  - {property: text, code: 'self.item[''nombre_completo_documento'']'}
+- type: Label
+  properties: {}
+  name: label_status
+  layout_properties: {column: VIGVMV}
+  data_bindings:
+  - {property: text, code: 'str(self.item[''status'']).upper()'}
+- type: Label
+  properties: {}
+  name: label_tipo_archivo
+  layout_properties: {column: PMYKNX}
+  data_bindings:
+  - {property: text, code: 'self.item[''tipo_archivo'']'}
+- type: Label
+  properties: {}
+  name: label_propietario
+  layout_properties: {column: CQIBVR}
+  data_bindings:
+  - {property: text, code: 'self.item[''propietario'']'}
 is_package: true

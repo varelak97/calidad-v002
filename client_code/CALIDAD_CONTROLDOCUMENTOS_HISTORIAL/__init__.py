@@ -45,7 +45,9 @@ class CALIDAD_CONTROLDOCUMENTOS_HISTORIAL(CALIDAD_CONTROLDOCUMENTOS_HISTORIALTem
     self.repeating_panel_historial_documento.items = items
 
   def button_volver_click(self, **event_args):
+    self.content_panel.visible = False
     self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES'
     self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
+    self.content_panel.visible = True
 
   

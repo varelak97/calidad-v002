@@ -1,13 +1,19 @@
 container: {type: DataRowPanel}
 components:
 - type: Label
-  properties: {}
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
   name: label_marca_temporal
   layout_properties: {column: YYFIUG}
   data_bindings:
   - {property: text, code: 'self.item[''marca_temporal'']'}
 - type: Label
-  properties: {}
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
   name: label_operacion
   layout_properties: {column: KQNYKC}
   data_bindings:
@@ -31,13 +37,19 @@ components:
   data_bindings:
   - {property: text, code: 'self.item[''nombre_completo_documento'']'}
 - type: Label
-  properties: {}
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
   name: label_status
   layout_properties: {column: VIGVMV}
   data_bindings:
   - {property: text, code: 'str(self.item[''status'']).upper()'}
 - type: Label
-  properties: {}
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
   name: label_tipo_archivo
   layout_properties: {column: PMYKNX}
   data_bindings:
@@ -48,4 +60,28 @@ components:
   layout_properties: {column: CQIBVR}
   data_bindings:
   - {property: text, code: 'self.item[''propietario'']'}
+- type: Label
+  properties: {}
+  name: label_creadores
+  layout_properties: {column: PBHIXP}
+  data_bindings:
+  - {property: text, code: 'self.item[''creadores'']'}
+- type: Label
+  properties: {}
+  name: label_revisores
+  layout_properties: {column: WTCAHD}
+  data_bindings:
+  - {property: text, code: 'self.item[''revisores'']'}
+- type: Label
+  properties: {}
+  name: label_validadores
+  layout_properties: {column: UJEZKU}
+  data_bindings:
+  - {property: text, code: 'self.item[''validadres'']'}
+- type: Label
+  properties: {}
+  name: label_documento_base
+  layout_properties: {column: WSOVWV}
+  data_bindings:
+  - {property: text, code: 'self.item[''documento_base'']'}
 is_package: true

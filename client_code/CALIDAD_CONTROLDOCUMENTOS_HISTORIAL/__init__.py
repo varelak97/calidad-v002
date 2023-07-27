@@ -29,7 +29,10 @@ class CALIDAD_CONTROLDOCUMENTOS_HISTORIAL(CALIDAD_CONTROLDOCUMENTOS_HISTORIALTem
       nombre_completo_empleado, numero_empleado = anvil.server.call('obtener_info_empleado', dicc_inicial['id_usuario_propietario'])
       dicc_item['propietario'] = nombre_completo_empleado + f" ({numero_empleado})"
       dicc_item['comentarios_renglon'] = dicc_inicial['comentarios_renglon']
-      dicc_item['documento_base'] = anvil.server.call('obtener_renglon_documento', dicc_inicial['id_documento_base'])['nombre_completo']
+      if item['id_documento_base'] != None:
+        dicc_item['documento_base'] = anvil.server.call('obtener_renglon_documento', dicc_inicial['id_documento_base'])['nombre_completo']
+      else:
+        dicc_item['documento_base'] = ''
       equipo_trabajo_id_usuarios_erp = {
         'creadores': dicc_inicial['creadores'],
         'revisores': dicc_inicial['revisores'],

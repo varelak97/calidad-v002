@@ -4,7 +4,7 @@ container:
 components:
 - type: ColumnPanel
   properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
-    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"WTNELO":50}',
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
     spacing_below: small, background: ''}
   name: content_panel
   layout_properties: {grid_position: 'OUDLYO,QKEBXT', full_width_row: true}
@@ -21,41 +21,41 @@ components:
       full_width_row: true
     event_bindings: {click: button_volver_click}
   - type: ColumnPanel
-    properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+    properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
       wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
       spacing_below: small, background: ''}
+    name: column_panel_titulo_modulo_calidad
+    layout_properties:
+      col_widths: {}
+      grid_position: KOVHYU,AYQEIR
+      full_width_row: false
+    components:
+    - type: Label
+      properties: {role: headline, align: center, tooltip: '', border: '', foreground: 'theme:On
+          Primary', visible: true, text: NUEVO DOCUMENTO, font_size: null, font: '',
+        spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+        background: 'theme:Primary', bold: true, underline: false, icon: ''}
+      name: label_titulo_nuevo_documento
+      layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
+  - type: ColumnPanel
+    properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+      wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"QPAXME":10,"YGVMGU":10}',
+      spacing_below: small, background: ''}
     name: column_panel_formulario
-    layout_properties: {grid_position: 'OBQOUK,WTNELO', full_width_row: true}
+    layout_properties: {grid_position: 'OOYEJO,NZLQIC', full_width_row: true}
     components:
     - type: ColumnPanel
       properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
         wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
         spacing_below: small, background: ''}
-      name: column_panel_titulo_modulo_calidad
-      layout_properties:
-        col_widths: {}
-        grid_position: BKPGOO,UTIIBW
-        full_width_row: false
-      components:
-      - type: Label
-        properties: {role: headline, align: center, tooltip: '', border: '', foreground: 'theme:On
-            Primary', visible: true, text: NUEVO DOCUMENTO, font_size: null, font: '',
-          spacing_above: small, icon_align: left, spacing_below: small, italic: false,
-          background: 'theme:Primary', bold: true, underline: false, icon: ''}
-        name: label_titulo_nuevo_documento
-        layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
-    - type: ColumnPanel
-      properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
-        wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
-        spacing_below: small, background: ''}
       name: column_panel_area
-      layout_properties: {grid_position: 'GKQFLK,QPAXME'}
+      layout_properties: {grid_position: 'GKQFLK,QPAXME', full_width_row: false}
       components:
       - type: Label
         properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
           visible: true, text: ÁREA, font_size: null, font: '', spacing_above: small,
-          icon_align: left, spacing_below: none, italic: false, background: '', bold: true,
-          underline: false, icon: ''}
+          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+            Container', bold: true, underline: false, icon: ''}
         name: label_area
         layout_properties:
           col_widths: {}
@@ -88,13 +88,13 @@ components:
         wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
         spacing_below: small, background: ''}
       name: column_panel_nivel
-      layout_properties: {grid_position: 'GKQFLK,GGRMFF'}
+      layout_properties: {grid_position: 'GKQFLK,YGVMGU', full_width_row: false}
       components:
       - type: Label
         properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
           visible: true, text: NIVEL, font_size: null, font: '', spacing_above: small,
-          icon_align: left, spacing_below: none, italic: false, background: '', bold: true,
-          underline: false, icon: ''}
+          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+            Container', bold: true, underline: false, icon: ''}
         name: label_nivel
         layout_properties:
           col_widths: {}
@@ -125,40 +125,67 @@ components:
           grid_position: FRBXWW,RKIFOT
         event_bindings: {change: drop_down_nivel_change}
     - type: ColumnPanel
-      properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+      properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
         wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
         spacing_below: small, background: ''}
-      name: column_panel_formulario_nuevo_documento
+      name: column_panel_documento_base
       layout_properties:
         col_widths: {}
-        grid_position: NPNONV,DWLUWE
-        full_width_row: true
-        width: 911.422
+        grid_position: RMYIUG,JXCCRN
+        full_width_row: false
       components:
-      - type: FlowPanel
-        properties: {role: null, spacing: medium, align: left, tooltip: '', border: '',
-          foreground: '', visible: true, spacing_above: small, spacing_below: small,
-          background: ''}
-        name: flow_panel_equipo_trabajo
-        layout_properties: {grid_position: 'CRFIRF,MUVZWB', full_width_row: true}
-        components:
-        - type: ColumnPanel
-          properties: {}
-          name: column_panel_equipo_trabajo
-          layout_properties: {}
+      - type: Label
+        properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
+          visible: true, text: DOCUMENTO BASE, font_size: null, font: '', spacing_above: small,
+          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+            Container', bold: true, underline: false, icon: ''}
+        name: label_documento_base
+        layout_properties:
+          col_widths: {}
+          grid_position: ZTEKWP,HRBPTC
+      - type: DropDown
+        properties:
+          role: outlined
+          align: center
+          tooltip: ''
+          placeholder: -- ELEGIR --
+          border: ''
+          enabled: true
+          foreground: ''
+          items: ['']
+          visible: true
+          font_size: null
+          font: ''
+          spacing_above: none
+          spacing_below: small
+          italic: false
+          background: ''
+          bold: false
+          underline: false
+          include_placeholder: true
+        name: drop_down_documento_base
+        layout_properties: {grid_position: 'PQGXVY,ALILZJ'}
+        event_bindings: {}
+    - type: FlowPanel
+      properties: {role: null, spacing: medium, align: center, tooltip: '', border: '',
+        foreground: '', visible: true, spacing_above: small, spacing_below: small,
+        background: ''}
+      name: flow_panel_equipo_trabajo
+      layout_properties: {grid_position: 'WVTCFJ,YNOHQI', full_width_row: true}
+      components:
       - type: ColumnPanel
-        properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
-          wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
-          spacing_below: small, background: ''}
+        properties: {role: elevated-card, tooltip: '', border: '', foreground: '',
+          visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small,
+          col_widths: '{}', spacing_below: small, background: ''}
         name: column_panel_equipo_de_trabajo
         layout_properties:
           col_widths: {}
-          grid_position: DSBPII,VHIGSG
+          grid_position: JLDLHP,WVTBQF TXGUTM,KKRQZW
           full_width_row: true
-          width: 1256
+          width: 1211
         components:
         - type: Label
-          properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+          properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
             visible: true, text: EQUIPO DE TRABAJO, font_size: null, font: '', spacing_above: small,
             icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
               Container', bold: true, underline: false, icon: ''}
@@ -361,17 +388,20 @@ components:
             name: repeating_panel_validadores
             layout_properties: {}
         - type: ColumnPanel
-          properties: {col_widths: '{}'}
-          name: column_panel_nivel_copy
+          properties: {role: elevated-card, tooltip: '', border: '', foreground: '',
+            visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small,
+            col_widths: '{}', spacing_below: small, background: ''}
+          name: column_panel_propietario
           layout_properties:
             col_widths: {}
             grid_position: WVBQYN,UPGQBD JHLLRK,CDWAWW
+            full_width_row: true
           components:
           - type: Label
             properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
               visible: true, text: PROPIETARIO, font_size: null, font: '', spacing_above: small,
-              icon_align: left, spacing_below: none, italic: false, background: '',
-              bold: true, underline: false, icon: ''}
+              icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+                Container', bold: true, underline: false, icon: ''}
             name: label_propietario
             layout_properties:
               col_widths: {}
@@ -396,224 +426,195 @@ components:
               bold: false
               underline: false
               include_placeholder: true
-            name: drop_down_nivel_copy
+            name: drop_down_propietario
             layout_properties:
               col_widths: {}
               grid_position: FRBXWW,RKIFOT
-            event_bindings: {change: drop_down_nivel_change}
-      - type: ColumnPanel
-        properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
-          wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
-          spacing_below: small, background: ''}
-        name: column_panel_documento_base
+            event_bindings: {}
+    - type: ColumnPanel
+      properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
+        wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+        spacing_below: small, background: ''}
+      name: column_panel_tipo_documento
+      layout_properties: {grid_position: 'MZWXYU,ONMJZL', full_width_row: false}
+      components:
+      - type: Label
+        properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
+          visible: true, text: TIPO DE DOCUMENTO, font_size: null, font: '', spacing_above: small,
+          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+            Container', bold: true, underline: false, icon: ''}
+        name: label_tipo_documento
+        layout_properties: {grid_position: 'PKZISY,JTXOYS'}
+      - type: DropDown
+        properties:
+          role: outlined
+          align: center
+          tooltip: ''
+          placeholder: -- ELEGIR --
+          border: ''
+          enabled: true
+          foreground: ''
+          items: []
+          visible: true
+          font_size: null
+          font: ''
+          spacing_above: none
+          spacing_below: small
+          italic: false
+          background: ''
+          bold: false
+          underline: false
+          include_placeholder: true
+        name: drop_down_tipo_documento
+        layout_properties: {grid_position: 'FJVWTK,YWUHYP'}
+    - type: ColumnPanel
+      properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
+        wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+        spacing_below: small, background: ''}
+      name: column_panel_tipo_archivo
+      layout_properties: {grid_position: 'MZWXYU,HRTKMY', full_width_row: false}
+      components:
+      - type: Label
+        properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
+          visible: true, text: TIPO DE ARCHIVO, font_size: null, font: '', spacing_above: small,
+          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+            Container', bold: true, underline: false, icon: ''}
+        name: label_archivo
         layout_properties:
           col_widths: {}
-          grid_position: FDGWQV,DGNQFR
-        components:
-        - type: Label
-          properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
-            visible: true, text: DOCUMENTO BASE, font_size: null, font: '', spacing_above: small,
-            icon_align: left, spacing_below: none, italic: false, background: '',
-            bold: true, underline: false, icon: ''}
-          name: label_documento_base
-          layout_properties:
-            col_widths: {}
-            grid_position: ZTEKWP,HRBPTC
-        - type: DropDown
-          properties:
-            role: outlined
-            align: center
-            tooltip: ''
-            placeholder: -- ELEGIR --
-            border: ''
-            enabled: true
-            foreground: ''
-            items: ['']
-            visible: true
-            font_size: null
-            font: ''
-            spacing_above: none
-            spacing_below: small
-            italic: false
-            background: ''
-            bold: false
-            underline: false
-            include_placeholder: true
-          name: drop_down_documento_base
-          layout_properties: {grid_position: 'PQGXVY,ALILZJ'}
-          event_bindings: {}
-      - type: ColumnPanel
-        properties: {col_widths: '{}'}
-        name: column_panel_tipo_documento
-        layout_properties: {grid_position: 'MOYXFS,KIXZWM IWAZZA,KOULVG', full_width_row: false}
-        components:
-        - type: Label
-          properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
-            visible: true, text: TIPO DE DOCUMENTO, font_size: null, font: '', spacing_above: small,
-            icon_align: left, spacing_below: none, italic: false, background: '',
-            bold: true, underline: false, icon: ''}
-          name: label_tipo_documento
-          layout_properties: {grid_position: 'PKZISY,JTXOYS'}
-        - type: DropDown
-          properties:
-            role: outlined
-            align: full
-            tooltip: ''
-            placeholder: -- ELEGIR --
-            border: ''
-            enabled: true
-            foreground: ''
-            items: []
-            visible: true
-            font_size: null
-            font: ''
-            spacing_above: none
-            spacing_below: small
-            italic: false
-            background: ''
-            bold: false
-            underline: false
-            include_placeholder: true
-          name: drop_down_tipo_documento
-          layout_properties: {grid_position: 'FJVWTK,YWUHYP'}
-      - type: ColumnPanel
-        properties: {col_widths: '{}'}
-        name: column_panel_tipo_archivo
-        layout_properties: {grid_position: 'MOYXFS,KIXZWM TCCATZ,ZKWDLR'}
-        components:
-        - type: Label
-          properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
-            visible: true, text: TIPO DE ARCHIVO, font_size: null, font: '', spacing_above: small,
-            icon_align: left, spacing_below: none, italic: false, background: '',
-            bold: true, underline: false, icon: ''}
-          name: label_archivo
-          layout_properties:
-            col_widths: {}
-            grid_position: ZTEKWP,HRBPTC
-        - type: DropDown
-          properties:
-            role: outlined
-            align: full
-            tooltip: ''
-            placeholder: -- ELEGIR --
-            border: ''
-            enabled: true
-            foreground: ''
-            items: [PROCESADOR DE TEXTO, HOJA DE CÁLCULO]
-            visible: true
-            font_size: null
-            font: ''
-            spacing_above: none
-            spacing_below: small
-            italic: false
-            background: ''
-            bold: false
-            underline: false
-            include_placeholder: true
-          name: drop_down_tipo_archivo
-          layout_properties: {grid_position: 'PQGXVY,ALILZJ'}
-      - type: ColumnPanel
-        properties: {col_widths: '{}'}
-        name: column_panel_titulo
-        layout_properties: {grid_position: 'MOYXFS,XUAQIO CQEWOY,IMMQNI'}
-        components:
-        - type: Label
-          properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
-            visible: true, text: TÍTULO, font_size: null, font: '', spacing_above: small,
-            icon_align: left, spacing_below: none, italic: false, background: '',
-            bold: true, underline: false, icon: ''}
-          name: label_titulo
-          layout_properties:
-            col_widths: {}
-            grid_position: GQLLMT,PQMWPG
-        - type: TextArea
-          properties: {role: outlined, align: center, height: '', tooltip: '', placeholder: Escribe aquí...,
-            border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
-            auto_expand: true, font: '', spacing_above: none, spacing_below: small,
-            italic: false, background: '', bold: false, underline: false}
-          name: text_area_titulo
-          layout_properties: {grid_position: 'FLFXHS,QARPQH'}
-          event_bindings: {lost_focus: text_area_titulo_lost_focus}
-      - type: ColumnPanel
-        properties: {col_widths: '{}'}
-        name: column_panel_revision
+          grid_position: ZTEKWP,HRBPTC
+      - type: DropDown
+        properties:
+          role: outlined
+          align: center
+          tooltip: ''
+          placeholder: -- ELEGIR --
+          border: ''
+          enabled: true
+          foreground: ''
+          items: [PROCESADOR DE TEXTO, HOJA DE CÁLCULO]
+          visible: true
+          font_size: null
+          font: ''
+          spacing_above: none
+          spacing_below: small
+          italic: false
+          background: ''
+          bold: false
+          underline: false
+          include_placeholder: true
+        name: drop_down_tipo_archivo
+        layout_properties: {grid_position: 'PQGXVY,ALILZJ'}
+    - type: ColumnPanel
+      properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
+        wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+        spacing_below: small, background: ''}
+      name: column_panel_titulo
+      layout_properties: {grid_position: 'TJPHKL,MJWJTF', full_width_row: false}
+      components:
+      - type: Label
+        properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
+          visible: true, text: TÍTULO, font_size: null, font: '', spacing_above: small,
+          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+            Container', bold: true, underline: false, icon: ''}
+        name: label_titulo
         layout_properties:
           col_widths: {}
-          grid_position: MOYXFS,XUAQIO IQFAJQ,OFVFTR
-        components:
-        - type: Label
-          properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
-            visible: true, text: REVISIÓN, font_size: null, font: '', spacing_above: small,
-            icon_align: left, spacing_below: none, italic: false, background: '',
-            bold: true, underline: false, icon: ''}
-          name: label_revision
-          layout_properties: {grid_position: 'PKZISY,JTXOYS'}
-        - type: DropDown
-          properties:
-            role: outlined
-            align: center
-            tooltip: ''
-            placeholder: -- ELEGIR --
-            border: ''
-            enabled: true
-            foreground: ''
-            items: ['00', '01', '02', '03', '04', '05', '06', '07', 08, 09, '10']
-            visible: true
-            font_size: null
-            font: ''
-            spacing_above: small
-            spacing_below: small
-            italic: false
-            background: ''
-            bold: false
-            underline: false
-            include_placeholder: true
-          name: drop_down_revision
-          layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
-      - type: ColumnPanel
-        properties: {col_widths: '{}'}
-        name: column_panel_consecutivo
-        layout_properties:
-          col_widths: {}
-          grid_position: MOYXFS,XUAQIO AMGFBZ,JATWTW
-        components:
-        - type: Label
-          properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
-            visible: true, text: CONSECUTIVO, font_size: null, font: '', spacing_above: small,
-            icon_align: left, spacing_below: none, italic: false, background: '',
-            bold: true, underline: false, icon: ''}
-          name: label_consecutivo
-          layout_properties: {grid_position: 'PKZISY,JTXOYS'}
-        - type: DropDown
-          properties:
-            role: outlined
-            align: center
-            tooltip: ''
-            placeholder: -- ELEGIR --
-            border: ''
-            enabled: true
-            foreground: ''
-            items: ['001', '002', '003', '004', '005', '006', '007', 008, 009, '010',
-              '011', '012', '013', '014', '015', '016', '017', 018, 019, '020', '021',
-              '022', '023', '024', '025', '026', '027', 028, 029, '030', '031', '032',
-              '033', '034', '035', '036', '037', 038, 039, '040', '041', '042', '043',
-              '044', '045', '046', '047', 048, 049, '050', '051', '052', '053', '054',
-              '055', '056', '057', 058, 059, '060', '061', '062', '063', '064', '065',
-              '066', '067', 068, 069, '070', '071', '072', '073', '074', '075', '076',
-              '077', 078, 079, 080, 081, 082, 083, 084, 085, 086, 087, 088, 089, 090,
-              091, 092, 093, 094, 095, 096, 097, 098, 099, '100']
-            visible: true
-            font_size: null
-            font: ''
-            spacing_above: small
-            spacing_below: small
-            italic: false
-            background: ''
-            bold: false
-            underline: false
-            include_placeholder: true
-          name: drop_down_consecutivo
-          layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
+          grid_position: GQLLMT,PQMWPG
+      - type: TextArea
+        properties: {role: outlined, align: center, height: '', tooltip: '', placeholder: Escribe aquí...,
+          border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+          auto_expand: true, font: '', spacing_above: none, spacing_below: small,
+          italic: false, background: '', bold: false, underline: false}
+        name: text_area_titulo
+        layout_properties: {grid_position: 'FLFXHS,QARPQH'}
+        event_bindings: {lost_focus: text_area_titulo_lost_focus}
+    - type: ColumnPanel
+      properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
+        wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+        spacing_below: small, background: ''}
+      name: column_panel_revision
+      layout_properties:
+        col_widths: {}
+        grid_position: CJSYEU,EPKGOM
+        full_width_row: false
+      components:
+      - type: Label
+        properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
+          visible: true, text: REVISIÓN, font_size: null, font: '', spacing_above: small,
+          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+            Container', bold: true, underline: false, icon: ''}
+        name: label_revision
+        layout_properties: {grid_position: 'PKZISY,JTXOYS'}
+      - type: DropDown
+        properties:
+          role: outlined
+          align: center
+          tooltip: ''
+          placeholder: -- ELEGIR --
+          border: ''
+          enabled: true
+          foreground: ''
+          items: ['00', '01', '02', '03', '04', '05', '06', '07', 08, 09, '10']
+          visible: true
+          font_size: null
+          font: ''
+          spacing_above: small
+          spacing_below: small
+          italic: false
+          background: ''
+          bold: false
+          underline: false
+          include_placeholder: true
+        name: drop_down_revision
+        layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
+    - type: ColumnPanel
+      properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
+        wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+        spacing_below: small, background: ''}
+      name: column_panel_consecutivo
+      layout_properties:
+        col_widths: {}
+        grid_position: CJSYEU,OANDCW
+        full_width_row: false
+      components:
+      - type: Label
+        properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
+          visible: true, text: CONSECUTIVO, font_size: null, font: '', spacing_above: small,
+          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+            Container', bold: true, underline: false, icon: ''}
+        name: label_consecutivo
+        layout_properties: {grid_position: 'PKZISY,JTXOYS'}
+      - type: DropDown
+        properties:
+          role: outlined
+          align: center
+          tooltip: ''
+          placeholder: -- ELEGIR --
+          border: ''
+          enabled: true
+          foreground: ''
+          items: ['001', '002', '003', '004', '005', '006', '007', 008, 009, '010',
+            '011', '012', '013', '014', '015', '016', '017', 018, 019, '020', '021',
+            '022', '023', '024', '025', '026', '027', 028, 029, '030', '031', '032',
+            '033', '034', '035', '036', '037', 038, 039, '040', '041', '042', '043',
+            '044', '045', '046', '047', 048, 049, '050', '051', '052', '053', '054',
+            '055', '056', '057', 058, 059, '060', '061', '062', '063', '064', '065',
+            '066', '067', 068, 069, '070', '071', '072', '073', '074', '075', '076',
+            '077', 078, 079, 080, 081, 082, 083, 084, 085, 086, 087, 088, 089, 090,
+            091, 092, 093, 094, 095, 096, 097, 098, 099, '100']
+          visible: true
+          font_size: null
+          font: ''
+          spacing_above: small
+          spacing_below: small
+          italic: false
+          background: ''
+          bold: false
+          underline: false
+          include_placeholder: true
+        name: drop_down_consecutivo
+        layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
     - type: Button
       properties: {role: elevated-button, align: center, tooltip: '', border: '',
         enabled: true, foreground: 'theme:On Primary', visible: true, text: GENERAR DOCUMENTO,

@@ -80,6 +80,9 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
     self.repeating_panel_creadores.items = []
     self.repeating_panel_revisores.items = []
     self.repeating_panel_validadores.items = []
+    self.drop_down_propietario.placeholder = "-- SIN OPCIONES --"
+    self.drop_down_propietario.selected_value = None
+    self.drop_down_propietario.items = []
     
     if self.drop_down_area.selected_value == None:
       self.label_especificar_area.visible = True
@@ -90,6 +93,14 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       self.repeating_panel_revisores.items = equipo_trabajo['revisores']
       self.repeating_panel_validadores.items = equipo_trabajo['validadores']
       self.label_especificar_area.visible = False
+      self.drop_down_propietario.items = sorted([item['integrante'] for item in self.repeating_panel_validadores.items])
+      self.drop_down_propietario.placeholder = "-- ELEGIR --"
+      Notification(len(self.drop_down_propietario.items)).show()
+      if len(self.drop_down_propietario.items) == 1:
+        self.drop_down_propietario.selected_value = self.drop_down_propietario.items[0]
+      
+      
+      
       
   def button_generar_documento_click(self, **event_args):
     self.habilitacion_general_componentes(False)

@@ -77,7 +77,7 @@ components:
   name: label_validadores
   layout_properties: {column: UJEZKU}
   data_bindings:
-  - {property: text, code: 'self.item[''validadres'']'}
+  - {property: text, code: 'self.item[''validadores'']'}
 - type: Label
   properties: {}
   name: label_documento_base

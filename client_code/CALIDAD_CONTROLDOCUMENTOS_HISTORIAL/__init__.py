@@ -6,6 +6,7 @@ import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
+import json
 
 class CALIDAD_CONTROLDOCUMENTOS_HISTORIAL(CALIDAD_CONTROLDOCUMENTOS_HISTORIALTemplate):
   datos = {}
@@ -45,6 +46,7 @@ class CALIDAD_CONTROLDOCUMENTOS_HISTORIAL(CALIDAD_CONTROLDOCUMENTOS_HISTORIALTem
           dicc_item[sub_equipo] += empleado + "\n"
         dicc_item[sub_equipo] = dicc_item[sub_equipo][0:-1]  
       items.append(dicc_item)
+    print(json.dumps(items,indent=4))
     self.repeating_panel_historial_documento.items = items
 
   def button_volver_click(self, **event_args):

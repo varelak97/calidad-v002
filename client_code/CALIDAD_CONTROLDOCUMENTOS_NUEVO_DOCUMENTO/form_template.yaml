@@ -388,9 +388,9 @@ components:
             name: repeating_panel_validadores
             layout_properties: {}
         - type: ColumnPanel
-          properties: {role: elevated-card, tooltip: '', border: '', foreground: '',
-            visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small,
-            col_widths: '{}', spacing_below: small, background: ''}
+          properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+            wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+            spacing_below: small, background: ''}
           name: column_panel_propietario
           layout_properties:
             col_widths: {}
@@ -411,7 +411,7 @@ components:
               role: outlined
               align: center
               tooltip: ''
-              placeholder: -- ELEGIR--
+              placeholder: -- SIN OPCIONES --
               border: ''
               enabled: true
               foreground: ''
@@ -533,49 +533,10 @@ components:
       properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
         wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
         spacing_below: small, background: ''}
-      name: column_panel_revision
-      layout_properties:
-        col_widths: {}
-        grid_position: CJSYEU,EPKGOM
-        full_width_row: false
-      components:
-      - type: Label
-        properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
-          visible: true, text: REVISIÓN, font_size: null, font: '', spacing_above: small,
-          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
-            Container', bold: true, underline: false, icon: ''}
-        name: label_revision
-        layout_properties: {grid_position: 'PKZISY,JTXOYS'}
-      - type: DropDown
-        properties:
-          role: outlined
-          align: center
-          tooltip: ''
-          placeholder: -- ELEGIR --
-          border: ''
-          enabled: true
-          foreground: ''
-          items: ['00', '01', '02', '03', '04', '05', '06', '07', 08, 09, '10']
-          visible: true
-          font_size: null
-          font: ''
-          spacing_above: small
-          spacing_below: small
-          italic: false
-          background: ''
-          bold: false
-          underline: false
-          include_placeholder: true
-        name: drop_down_revision
-        layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
-    - type: ColumnPanel
-      properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
-        wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
-        spacing_below: small, background: ''}
       name: column_panel_consecutivo
       layout_properties:
         col_widths: {}
-        grid_position: CJSYEU,OANDCW
+        grid_position: CJSYEU,SDOOUK
         full_width_row: false
       components:
       - type: Label
@@ -614,6 +575,45 @@ components:
           underline: false
           include_placeholder: true
         name: drop_down_consecutivo
+        layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
+    - type: ColumnPanel
+      properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
+        wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+        spacing_below: small, background: ''}
+      name: column_panel_revision
+      layout_properties:
+        col_widths: {}
+        grid_position: CJSYEU,EPKGOM
+        full_width_row: false
+      components:
+      - type: Label
+        properties: {role: body, align: center, tooltip: '', border: '', foreground: '',
+          visible: true, text: REVISIÓN, font_size: null, font: '', spacing_above: small,
+          icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary
+            Container', bold: true, underline: false, icon: ''}
+        name: label_revision
+        layout_properties: {grid_position: 'PKZISY,JTXOYS'}
+      - type: DropDown
+        properties:
+          role: outlined
+          align: center
+          tooltip: ''
+          placeholder: -- ELEGIR --
+          border: ''
+          enabled: true
+          foreground: ''
+          items: ['00', '01', '02', '03', '04', '05', '06', '07', 08, 09, '10']
+          visible: true
+          font_size: null
+          font: ''
+          spacing_above: small
+          spacing_below: small
+          italic: false
+          background: ''
+          bold: false
+          underline: false
+          include_placeholder: true
+        name: drop_down_revision
         layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
     - type: Button
       properties: {role: elevated-button, align: center, tooltip: '', border: '',

@@ -29,16 +29,18 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       self.drop_down_revision,
       self.button_generar_documento
     ]
+    self.repeating_panel_creadores.items = []
+    self.repeating_panel_revisores.items = []
+    self.repeating_panel_validadores.items = []
+    
     self.drop_down_tipo_documento.items = anvil.server.call('obtener_lista_tipos_documentos')
     if len(self.drop_down_tipo_archivo.items) == 1:
       self.drop_down_tipo_archivo.selected_value = self.drop_down_tipo_archivo.items[0]
     self.drop_down_area.items = anvil.server.call('obtener_lista_areas', self.datos['id_usuario_erp'])
     if len(self.drop_down_area.items) == 1:
       self.drop_down_area.selected_value = self.drop_down_area.items[0]
-    self.repeating_panel_creadores.items = []
-    self.repeating_panel_revisores.items = []
-    self.repeating_panel_validadores.items = []
-
+      self.drop_down_area_change()
+    
     self.drop_down_nivel_change()
 
   def habilitacion_general_componentes(self, bandera):
@@ -53,8 +55,9 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
     if self.drop_down_nivel.selected_value == None:
       self.drop_down_documento_base.placeholder = "-- PRIMERO ES NECESARIO ESPECIFICAR EL NIVEL DEL DOCUMENTO --"
       self.drop_down_documento_base.selected_value = None
+      self.drop_down_documento_base.items =[]
     else:
-      if self.drop_down_nivel.selected_value == self.drop_down_nivel.items[3]:
+      if "4" in self.drop_down_nivel.selected_value:
         self.drop_down_documento_base.placeholder = "NO APLICA"
         self.drop_down_documento_base.selected_value = None
         self.drop_down_documento_base.items = []

@@ -8,9 +8,17 @@ import json
 import requests
 
 global url_google_script
-url_google_script = "https://script.google.com/macros/s/AKfycbwsXDwo6qFHsYwUuy5A9_H2tt4bwiljyC7-ONaAhGcI1OGdqW_T5uqTDAp5pPdwJQ/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbyZAJVnK2nv0arZvUo9sV5OpyvErop5ZUzt1r7Z-DbTG0GiALEuT2b9CMB3JUXtgyU/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
+
+@anvil.server.callable
+def obtener_id_usuario_erp_desde_numero_empleado(numero_empleado):
+  renglon_empleado = app_tables.rh_empleados_infobase.get(numero_empleado=numero_empleado, registro_principal=True)
+  renglon_usuario = app_tables.sistemas_usuarios_erp_registro.get(id_registro_empleado=renglon_empleado['id_registro_empleado'])
+  id_usuario_erp = renglon_usuario['id_registro_usuario']
+  return id_usuario_erp
+  
 @anvil.server.callable
 def obtener_lista_id_validadores():    
   lista_id_validadores =  [id_validador for r in app_tables.calidad_controldocumentos_equipotrabajo.search() for id_validador in r['validadores']]
@@ -107,7 +115,7 @@ def lanzar_background_google_script(clave_subscript, datos):
 #--- SECCIÓN FUNCIONES DE FLUJO DE DOCUMENTOS ---
 @anvil.server.background_task
 def generar_documento(datos):
-  anvil.server.task_state['respuesta'] = False
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'Comenzó pero no terminó'}
   anvil.server.task_state['proceso'] = "Preparando todo..."
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(
     id_renglon = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
@@ -124,7 +132,7 @@ def generar_documento(datos):
   	fecha_emision = None,
     tipo_app = datos['tipo_app'],
     status = "En creación",
-    id_usuario_propietario = datos['id_usuario_registrador'],
+    id_usuario_propietario = obtener_id_usuario_erp_desde_numero_empleado(datos['numero_empleado_propietario']),
     operacion = "Creación del documento",
     id_usuario_registrador = datos['id_usuario_registrador'],
     marca_temporal = datos['marca_temporal'],

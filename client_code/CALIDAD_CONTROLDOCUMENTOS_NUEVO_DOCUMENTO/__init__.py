@@ -105,28 +105,31 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
   def button_generar_documento_click(self, **event_args):
     self.habilitacion_general_componentes(False)
     error = ""
-    if self.drop_down_nivel.selected_value == None:
-      error += "\n•Nivel."
-    #if self.drop_down_documento_base.selected_value == None:
-    #  error += "\n•Documento base."
-    if len(self.text_area_titulo.text) == 0:
-      error += "\n•Título."
-    if self.drop_down_tipo_archivo.selected_value == None:
-      error += "\n•Tipo de archivo."
-    if self.drop_down_tipo_documento.selected_value == None:
-      error += "\n•Tipo de documento."
     if self.drop_down_area.selected_value == None:
       error += "\n•Área."
-    if self.drop_down_consecutivo.selected_value == None:
-      error += "\n•Consecutivo."
-    if self.drop_down_revision.selected_value == None:
-      error += "\n•Revisión."
+    if self.drop_down_nivel.selected_value == None:
+      error += "\n•Nivel."
+    if self.drop_down_area.selected_value != None and "4" not in self.drop_down_nivel.selected_value and self.drop_down_nivel.selected_value != None and self.drop_down_documento_base.selected_value == None:
+      error += "\n•Documento base."
     if len(self.repeating_panel_creadores.items) == 0:
       error += "\n•Por lo menos 1 creador."
     if len(self.repeating_panel_revisores.items) == 0:
       error += "\n•Por lo menos 1 revisor."
     if len(self.repeating_panel_validadores.items) == 0:
       error += "\n•Por lo menos 1 validador."
+    if self.drop_down_propietario.selected_value == None:
+      error += "\n•Propietario."
+    if self.drop_down_tipo_documento.selected_value == None:
+      error += "\n•Tipo de documento."
+    if self.drop_down_tipo_archivo.selected_value == None:
+      error += "\n•Tipo de archivo."
+    if len(self.text_area_titulo.text) == 0:
+      error += "\n•Título."
+    if self.drop_down_consecutivo.selected_value == None:
+      error += "\n•Consecutivo."
+    if self.drop_down_revision.selected_value == None:
+      error += "\n•Revisión."
+    
     if len(error) > 0:
       error = f"Es necesario especificar la siguiente información:{error}"
     
@@ -182,6 +185,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             "creadores": [item['integrante'] for item in self.repeating_panel_creadores.items],
             "revisores": [item['integrante'] for item in self.repeating_panel_revisores.items],
             "validadores": [item['integrante'] for item in self.repeating_panel_validadores.items],
+            "numero_empleado_propietario": str(self.drop_down_propietario.selected_value).strip('(')[1][0:-1],
             "id_usuario_registrador": self.datos['id_usuario_erp'],
             "revision": self.drop_down_revision.selected_value #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
           }
@@ -198,11 +202,12 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             if datetime.now() >= tiempo_final:
               ban_timeout = True
               break
-            elif datetime.now() >= (tiempo_inicio + timedelta(seconds=5)):
+            elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
               respuesta = self.background_task_google_script.get_state()['respuesta']
-          print(f"Respuesta = {respuesta}")
+          #print(f"Respuesta = {respuesta}")
           respuesta = self.background_task_google_script.get_state()['respuesta']
         sleep(1)
+        print(f"Respuesta = {respuesta}")
         if respuesta['exito_generacion_documento']:
           Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
           with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):

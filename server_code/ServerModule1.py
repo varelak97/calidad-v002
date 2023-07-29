@@ -116,7 +116,6 @@ def lanzar_background_google_script(clave_subscript, datos):
 @anvil.server.background_task
 def generar_documento(datos):
   anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'Comenzó pero no terminó'}
-  anvil.server.task_state['proceso'] = "Preparando todo..."
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(
     id_renglon = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
     id_registro_documento = max([r['id_registro_documento'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,

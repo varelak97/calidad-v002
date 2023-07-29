@@ -185,7 +185,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             "creadores": [item['integrante'] for item in self.repeating_panel_creadores.items],
             "revisores": [item['integrante'] for item in self.repeating_panel_revisores.items],
             "validadores": [item['integrante'] for item in self.repeating_panel_validadores.items],
-            "numero_empleado_propietario": str(self.drop_down_propietario.selected_value).strip('(')[1][0:-1],
+            "numero_empleado_propietario": int(str(self.drop_down_propietario.selected_value).split('(')[1][0:-1]),
             "id_usuario_registrador": self.datos['id_usuario_erp'],
             "revision": self.drop_down_revision.selected_value #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
           }

@@ -8,7 +8,9 @@ import json
 import requests
 
 global url_google_script
-url_google_script = "https://script.google.com/macros/s/AKfycbyZAJVnK2nv0arZvUo9sV5OpyvErop5ZUzt1r7Z-DbTG0GiALEuT2b9CMB3JUXtgyU/exec"
+#url_google_script = "https://script.google.com/macros/s/AKfycbyZAJVnK2nv0arZvUo9sV5OpyvErop5ZUzt1r7Z-DbTG0GiALEuT2b9CMB3JUXtgyU/exec"
+#url_google_script = "https://script.google.com/macros/s/AKfycbwsXDwo6qFHsYwUuy5A9_H2tt4bwiljyC7-ONaAhGcI1OGdqW_T5uqTDAp5pPdwJQ/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbwzd7mZeGrg71ek0puApuyFVlcTSmNFVBpszOudjc0RHZT1I6AXDDfeBHXFnYC33r4s/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 

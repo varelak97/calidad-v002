@@ -168,8 +168,11 @@ def generar_documento(datos):
     'operacion': "creacion",
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo'],
     'tipo_app': tipo_google_app(datos['tipo_app']),
-    'nivel': nuevo_renglon_registro_documento['nivel']
+    'nivel': nuevo_renglon_registro_documento['nivel'],
+    'folio': 'Folio: {folio}' if datos['folio'] else ''
   }
+  if datos['tipo_app'] == 'HOJA DE CÁLCULO':
+    dicc_google_script['cantidad_hojas'] = self.datos['cantidad_hojas']
   dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])
   dicc_google_script['emails_lectores'] = obtener_emails_lectores(dicc_google_script['emails_editores'])
 

@@ -42,14 +42,17 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       self.drop_down_area_change()
     
     self.drop_down_nivel_change()
+    self.drop_down_tipo_archivo_change()
 
   def habilitacion_general_componentes(self, bandera):
     for componente in self.componentes_deshabilitables:
       componente.enabled = bandera
       
   def button_volver_click(self, **event_args):
+    self.content_panel.visible = False
     self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS'
     self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
+    self.content_panel.visible = True
 
   def drop_down_nivel_change(self, **event_args):
     if self.drop_down_nivel.selected_value == None:
@@ -95,7 +98,6 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       self.label_especificar_area.visible = False
       self.drop_down_propietario.items = sorted([item['integrante'] for item in self.repeating_panel_validadores.items])
       self.drop_down_propietario.placeholder = "-- ELEGIR --"
-      Notification(len(self.drop_down_propietario.items)).show()
       if len(self.drop_down_propietario.items) == 1:
         self.drop_down_propietario.selected_value = self.drop_down_propietario.items[0]
       
@@ -103,7 +105,6 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       
       
   def button_generar_documento_click(self, **event_args):
-    self.habilitacion_general_componentes(False)
     error = ""
     if self.drop_down_area.selected_value == None:
       error += "\n•Área."
@@ -129,6 +130,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       error += "\n•Consecutivo."
     if self.drop_down_revision.selected_value == None:
       error += "\n•Revisión."
+    if self.drop_down_revision.selected_value == None:
+      error += "\n•Folio."
     
     if len(error) > 0:
       error = f"Es necesario especificar la siguiente información:{error}"
@@ -169,6 +172,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
           dismissible = False
         )
       if ban_continuar:
+        self.content_panel.visible = False
         codigo = anvil.server.call('obtener_codigo_tipo_documento', self.drop_down_tipo_documento.selected_value)
         dicc_renglon_area = anvil.server.call('obtener_codigo_y_contadores_area', self.drop_down_area.selected_value)
         #codigo += f"-{dicc_renglon_area['codigo']}-"
@@ -187,11 +191,14 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             "validadores": [item['integrante'] for item in self.repeating_panel_validadores.items],
             "numero_empleado_propietario": int(str(self.drop_down_propietario.selected_value).split('(')[1][0:-1]),
             "id_usuario_registrador": self.datos['id_usuario_erp'],
-            "revision": self.drop_down_revision.selected_value #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
+            "revision": self.drop_down_revision.selected_value, #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00",
+            "folio": True if self.drop_down_folio.selected_value == 'Yes' else False
           }
         )
         self.datos["nombre_completo"] = f"{self.datos['codigo']} R{self.datos['revision']} {self.datos['titulo']}"
         self.datos["tipo_app"] = self.drop_down_tipo_archivo.selected_value
+        if self.datos["tipo_app"] == "HOJA DE CÁLCULO":
+          self.datos["cantidad_hojas"] = self.text_box_cantidad_de_hojas.text
         self.datos["marca_temporal"] = datetime.now()
         with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
           self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generacion_documento', self.datos)
@@ -207,7 +214,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
           #print(f"Respuesta = {respuesta}")
           respuesta = self.background_task_google_script.get_state()['respuesta']
         sleep(1)
-        print(f"Respuesta = {respuesta}")
+        #print(f"Respuesta = {respuesta}")
         if respuesta['exito_generacion_documento']:
           Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
           with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
@@ -244,4 +251,24 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             title = "OCURRIÓ UN ERROR",
             dismissible=False
           )
-    self.habilitacion_general_componentes(True)
+    self.content_panel.visible = True
+
+  def drop_down_tipo_archivo_change(self, **event_args):
+    if self.drop_down_tipo_archivo.selected_value == "HOJA DE CÁLCULO":
+      self.column_panel_cantidad_de_hojas.visible = True
+    else:
+      self.column_panel_cantidad_de_hojas.visible = False
+
+  def text_box_cantidad_de_hojas_lost_focus(self, **event_args):
+    if self.text_box_cantidad_de_hojas.text == None or int(self.text_box_cantidad_de_hojas.text) < 1:
+      self.text_box_cantidad_de_hojas.text = 1
+      Notification(
+        message="La cantidad de hojas para un documento en Google Sheets debe ser por lo menos '1'.",
+        title="ENTRADA INVÁLIDA",
+        style="danger",
+        timeout=3
+      ).show()
+    else:
+      self.text_box_cantidad_de_hojas.text = int(self.text_box_cantidad_de_hojas.text)
+
+

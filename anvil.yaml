@@ -190,6 +190,9 @@ db_schema:
     - name: registro_activo
       admin_ui: {order: 3.59375, width: 200}
       type: bool
+    - name: folio
+      admin_ui: {order: 4.5625, width: 200}
+      type: bool
   calidad_controldocumentos_tipodocumentos:
     title: Calidad_ControlDocumentos_TipoDocumentos
     client: none

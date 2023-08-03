@@ -192,7 +192,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             "numero_empleado_propietario": int(str(self.drop_down_propietario.selected_value).split('(')[1][0:-1]),
             "id_usuario_registrador": self.datos['id_usuario_erp'],
             "revision": self.drop_down_revision.selected_value, #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00",
-            "folio": True if self.drop_down_folio.selected_value == 'Yes' else False
+            "folio": True if self.drop_down_folio.selected_value == 'SÍ' else False
           }
         )
         self.datos["nombre_completo"] = f"{self.datos['codigo']} R{self.datos['revision']} {self.datos['titulo']}"
@@ -211,7 +211,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
               break
             elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
               respuesta = self.background_task_google_script.get_state()['respuesta']
-          #print(f"Respuesta = {respuesta}")
+          print(f"{self.background_task_google_script.get_error()}")
           respuesta = self.background_task_google_script.get_state()['respuesta']
         sleep(1)
         #print(f"Respuesta = {respuesta}")

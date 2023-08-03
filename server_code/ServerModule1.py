@@ -6,14 +6,10 @@ from anvil.tables import app_tables
 import anvil.server
 import json
 import requests
+from time import sleep
 
 global url_google_script
-#url_google_script = "https://script.google.com/macros/s/AKfycbyZAJVnK2nv0arZvUo9sV5OpyvErop5ZUzt1r7Z-DbTG0GiALEuT2b9CMB3JUXtgyU/exec"
-#url_google_script = "https://script.google.com/macros/s/AKfycbwsXDwo6qFHsYwUuy5A9_H2tt4bwiljyC7-ONaAhGcI1OGdqW_T5uqTDAp5pPdwJQ/exec"
-#url_google_script = "https://script.google.com/macros/s/AKfycbwzd7mZeGrg71ek0puApuyFVlcTSmNFVBpszOudjc0RHZT1I6AXDDfeBHXFnYC33r4s/exec"
-#url_google_script = "https://script.google.com/macros/s/AKfycbyKI_2BQ3Kh0-vFiaA3vUo2aEo7xe2LYAdkclUQcJevraaPISY0_AQdGAvPJMnchj4/exec"
-
-url_google_script = "https://script.google.com/macros/s/AKfycbyKI_2BQ3Kh0-vFiaA3vUo2aEo7xe2LYAdkclUQcJevraaPISY0_AQdGAvPJMnchj4/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbzfk4FRssjLnbwuTRnlqfRmdBrSM_uhE2dlW6S1g7-EiDxXvR_aKw3jJzMd8prFaVArcg/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
@@ -132,6 +128,7 @@ def generar_documento(datos):
   	#revision = 0,
     revision=int(datos['revision']), #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
     titulo = datos['titulo'],
+    folio = datos['folio'],
   	nombre_completo = datos['nombre_completo'],
   	fecha_emision = None,
     tipo_app = datos['tipo_app'],
@@ -172,7 +169,7 @@ def generar_documento(datos):
     'folio': 'Folio: {folio}' if datos['folio'] else ''
   }
   if datos['tipo_app'] == 'HOJA DE CÁLCULO':
-    dicc_google_script['cantidad_hojas'] = self.datos['cantidad_hojas']
+    dicc_google_script['cantidad_hojas'] = datos['cantidad_hojas']
   dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])
   dicc_google_script['emails_lectores'] = obtener_emails_lectores(dicc_google_script['emails_editores'])
 

@@ -197,7 +197,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         )
         self.datos["nombre_completo"] = f"{self.datos['codigo']} R{self.datos['revision']} {self.datos['titulo']}"
         self.datos["tipo_app"] = self.drop_down_tipo_archivo.selected_value
-        if self.datos["tipo_app"] == "HOJA DE CÁLCULO":
+        if self.datos["tipo_app"] in ("HOJA DE CÁLCULO","PRESENTACIÓN"):
           self.datos["cantidad_hojas"] = self.text_box_cantidad_de_hojas.text
         self.datos["marca_temporal"] = datetime.now()
         with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
@@ -254,7 +254,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
     self.content_panel.visible = True
 
   def drop_down_tipo_archivo_change(self, **event_args):
-    if self.drop_down_tipo_archivo.selected_value == "HOJA DE CÁLCULO":
+    if self.drop_down_tipo_archivo.selected_value in ("HOJA DE CÁLCULO","PRESENTACIÓN"):
       self.column_panel_cantidad_de_hojas.visible = True
     else:
       self.column_panel_cantidad_de_hojas.visible = False

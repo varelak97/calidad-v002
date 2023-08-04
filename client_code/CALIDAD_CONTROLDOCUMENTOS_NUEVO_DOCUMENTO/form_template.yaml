@@ -492,7 +492,7 @@ components:
           border: ''
           enabled: true
           foreground: ''
-          items: [PROCESADOR DE TEXTO, HOJA DE CÁLCULO]
+          items: [PROCESADOR DE TEXTO, HOJA DE CÁLCULO, PRESENTACIÓN]
           visible: true
           font_size: null
           font: ''

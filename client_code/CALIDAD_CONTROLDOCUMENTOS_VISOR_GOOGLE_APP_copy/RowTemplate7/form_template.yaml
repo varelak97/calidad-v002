@@ -1,0 +1,142 @@
+container: {type: DataRowPanel}
+components:
+- type: DataRowPanel
+  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', auto_display_data: true,
+    visible: false, item: null, font_size: null, font: '', spacing_above: none, spacing_below: none,
+    italic: false, background: '', bold: false, underline: false}
+  name: data_row_panel_editable
+  layout_properties: {column: null}
+  components:
+  - type: Label
+    properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+      spacing_below: small, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
+    name: label_editable_partida
+    layout_properties: {column: KXFQHV}
+    data_bindings:
+    - {property: text, code: 'str(self.item[''partida''])'}
+  - type: TextArea
+    properties: {role: outlined, align: left, height: '', tooltip: '', placeholder: '',
+      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+      auto_expand: false, font: '', spacing_above: small, spacing_below: small, italic: false,
+      background: 'theme:On Primary', bold: false, underline: false}
+    name: text_area_pregunta
+    layout_properties: {column: WAGKGE}
+    data_bindings:
+    - {property: text, code: 'self.item[''pregunta'']', writeback: true}
+  - type: TextArea
+    properties: {role: outlined, align: left, height: '', tooltip: '', placeholder: '',
+      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+      auto_expand: false, font: '', spacing_above: small, spacing_below: small, italic: false,
+      background: 'theme:On Primary', bold: false, underline: false}
+    name: text_area_descripcion
+    layout_properties: {column: RIHMMJ}
+    data_bindings:
+    - {property: text, code: 'self.item[''descripcion'']', writeback: true}
+  - type: DropDown
+    properties:
+      role: outlined
+      align: full
+      tooltip: ''
+      placeholder: -- ELEGIR --
+      border: ''
+      enabled: true
+      foreground: ''
+      items: [RESPUESTA CORTA, PÁRRAFO, SELECTOR FECHA, SELECTOR FECHA Y HORA, SUBIR ARCHIVO,
+        CASILLA(S) DE VERIFICACIÓN, OPCIÓN MÚLTIPLE, LISTA DESPLEGABLE]
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: theme:On Primary
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: drop_down_tipo_entrada
+    layout_properties: {column: POIKCD}
+    data_bindings:
+    - {property: selected_value, code: 'self.item[''tipo_entrada'']', writeback: true}
+  - type: TextArea
+    properties: {role: outlined, align: left, height: '', tooltip: '', placeholder: '',
+      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+      auto_expand: false, font: '', spacing_above: small, spacing_below: small, italic: false,
+      background: 'theme:On Primary', bold: false, underline: false}
+    name: text_area_filas
+    layout_properties: {column: JBNDCX}
+    data_bindings:
+    - {property: text, code: 'self.item[''filas'']', writeback: true}
+  - type: TextArea
+    properties: {role: outlined, align: left, height: '', tooltip: '', placeholder: '',
+      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+      auto_expand: false, font: '', spacing_above: small, spacing_below: small, italic: false,
+      background: 'theme:On Primary', bold: false, underline: false}
+    name: text_area_columnas
+    layout_properties: {column: YUXRMG}
+    data_bindings:
+    - {property: text, code: 'self.item[''columnas'']', writeback: true}
+  - type: Button
+    properties: {role: elevated-button, align: center, tooltip: '', border: '', enabled: true,
+      foreground: 'theme:On Primary', visible: true, text: '', font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: 'theme:Green', bold: false, underline: false, icon: 'fa:floppy-o'}
+    name: button_guardar
+    layout_properties: {column: EXNZPP}
+    event_bindings: {click: button_guardar_click}
+- type: Label
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
+  name: label_indicador_partida
+  layout_properties: {column: KXFQHV}
+  data_bindings:
+  - {property: text, code: 'str(self.item[''partida''])'}
+- type: Label
+  properties: {}
+  name: label_pregunta
+  layout_properties: {column: WAGKGE}
+  data_bindings:
+  - {property: text, code: 'self.item[''pregunta'']'}
+- type: Label
+  properties: {}
+  name: label_descripcion
+  layout_properties: {column: RIHMMJ}
+  data_bindings:
+  - {property: text, code: 'self.item[''descripcion'']'}
+- type: Label
+  properties: {}
+  name: label_tipo_entrada
+  layout_properties: {column: POIKCD}
+  data_bindings:
+  - {property: text, code: 'self.item[''tipo_entrada'']'}
+- type: Label
+  properties: {}
+  name: label_filas
+  layout_properties: {column: JBNDCX}
+  data_bindings:
+  - {property: text, code: 'self.item[''filas'']'}
+- type: Label
+  properties: {}
+  name: label_columnas
+  layout_properties: {column: YUXRMG}
+  data_bindings:
+  - {property: text, code: 'self.item[''columnas'']'}
+- type: Button
+  properties: {role: elevated-button, align: center, tooltip: '', border: '', enabled: true,
+    foreground: 'theme:Blue', visible: true, text: '', font_size: null, font: '',
+    spacing_above: small, icon_align: left, spacing_below: small, italic: false, background: '',
+    bold: false, underline: false, icon: 'fa:pencil'}
+  name: button_editar
+  layout_properties: {column: EXNZPP}
+  event_bindings: {click: button_editar_click}
+- type: Button
+  properties: {role: elevated-button, align: center, tooltip: '', border: '', enabled: true,
+    foreground: 'theme:Red', visible: true, text: '', font_size: null, font: '', spacing_above: small,
+    icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+    underline: false, icon: 'fa:times'}
+  name: button_eliminar
+  layout_properties: {column: UCIHFS}
+is_package: true

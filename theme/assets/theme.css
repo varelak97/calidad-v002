@@ -1021,11 +1021,43 @@ input[disabled] ~ span {
   border-right: 0;
 }
 
-.anvil-role-tonal-data-grid .data-grid-child-panel {
+/* Wide Data Grids */
+.anvil-role-wide-tonal-data-grid.anvil-data-grid > .data-grid-child-panel>div.auto-grid-header {
+  background: linear-gradient(0deg, %color:Primary Overlay 2%, %color:Primary Overlay 2%), %color:Background%;
+  border-bottom: 1px solid %color:Surface Variant%;
+  border-radius: 24px 24px 0 0;
+}
+
+.anvil-role-wide-tonal-data-grid.anvil-data-grid > .data-grid-child-panel>div.auto-grid-header div.data-row-col > div {
+  padding: 12px;
+  text-align: center !important;
+}
+
+.anvil-role-wide-tonal-data-grid.anvil-data-grid {
+  border-radius: 24px;
+  border: 1px solid %color:Surface Variant%;
+}
+
+.anvil-role-wide-tonal-data-grid.anvil-data-grid .data-grid-child-panel div.data-row-col {
+  border-left: 1px solid %color:Surface Variant%;
+  border-bottom: 1px solid %color:Surface Variant%;
+}
+
+.anvil-role-wide-tonal-data-grid.anvil-data-grid .data-grid-child-panel div.data-row-col:first-child {
+  border-left: 0;
+}
+
+.anvil-role-wide-tonal-data-grid.anvil-data-grid > .data-grid-child-panel>div.auto-grid-header div.data-row-col {
+  border-top: 0;
+  border-bottom: 0;
+  border-right: 0;
+}
+
+.anvil-role-wide-tonal-data-grid .data-grid-child-panel {
   overflow-x: auto;
 }
 
-.anvil-role-tonal-data-grid .anvil-data-row-panel {
+.anvil-role-wide-tonal-data-grid .anvil-data-row-panel {
   flex-wrap: nowrap;
   min-width: -moz-min-content;
   min-width: min-content;

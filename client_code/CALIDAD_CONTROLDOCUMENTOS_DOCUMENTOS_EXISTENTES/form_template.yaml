@@ -45,7 +45,7 @@ components:
     components:
     - type: DataGrid
       properties:
-        role: tonal-data-grid
+        role: wide-tonal-data-grid
         columns:
         - {id: GMOJUG, title: '', data_key: '', $$hashKey: 'object:8455', width: '100'}
         - {id: QLMTBN, title: DOCUMENTO, data_key: nombre_completo, $$hashKey: 'object:8453',

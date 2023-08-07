@@ -14,6 +14,7 @@ from ..CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES import CALIDAD_CONTROLDOC
 from ..CALIDAD_CONTROLDOCUMENTOS_HISTORIAL import CALIDAD_CONTROLDOCUMENTOS_HISTORIAL
 from ..CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO import CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO
 from ..CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP import CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP
+from ..CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP_copy import CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP_copy
 
 class A02_PRINCIPAL(A02_PRINCIPALTemplate):
   datos = {}
@@ -31,7 +32,10 @@ class A02_PRINCIPAL(A02_PRINCIPALTemplate):
     #--- IN/VISIBILIDAD Y DES/HABILITACIÓN DE COMPONENTES ---
     self.content_panel.visible = False #Es necesario dejar este content_panel, pues de no hacerlo sucede un bug: inicia el form mostrando "DRAG A COLUMN PANEL HERE" y si se deja pero invisible, pierde la propiedad de ser "clicable" dejándolo inservible para siempre.
 
-    #--- INICIALIZACIÓN
+    if self.datos['id_usuario_erp'] == 1:
+      self.datos['clave_form'] = 'CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP_copy'
+      self.datos['test'] = True
+      self.actualizar_form_activo(self.datos)
     
   # --- SECCIÓN DE FUNCIONES DERIVADAS DE UN 'raise_event' EN FORMS HIJOS ---
   def actualizar_form_activo(self, datos, **event_args):
@@ -47,6 +51,8 @@ class A02_PRINCIPAL(A02_PRINCIPALTemplate):
       self.abrir_form(CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(datos))
     elif datos['clave_form'] == 'CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP':
       self.abrir_form(CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(datos))
+    elif datos['clave_form'] == 'CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP_copy':
+      self.abrir_form(CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP_copy(datos))
 
   # --- SECCIÓN DE FUNCIONES USADAS POR DIFERENTES COMPONENTES DEL PROGRAMA ---
   def abrir_form(self, form_de_interes):

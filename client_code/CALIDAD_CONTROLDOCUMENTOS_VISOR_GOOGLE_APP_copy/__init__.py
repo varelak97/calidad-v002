@@ -20,6 +20,8 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP_copy(CALIDAD_CONTROLDOCUMENTOS_
     self.init_components(**properties)
     self.datos = datos
 
+    self.set_event_handler('x-actualizar_item', self.actualizar_item_pregunta)
+
     self.componentes_deshabilitables = [
       self.button_volver,
       self.link_sin_visualizacion,
@@ -34,7 +36,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP_copy(CALIDAD_CONTROLDOCUMENTOS_
       self.button_rechazar
     ]
     if "test" in self.datos.keys():
-      self.column_panel_visor_formularios.visible = True
+      self.column_panel_formularios.visible = True
       self.repeating_panel_preguntas.items = []
     else:
       self.datos.update(anvil.server.call('obtener_renglon_documento', self.datos['id_registro_documento']))
@@ -339,18 +341,79 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP_copy(CALIDAD_CONTROLDOCUMENTOS_
       alert(f"Es necesario ingresar los siguientes datos:{error}")
     else:
       items = list(self.repeating_panel_preguntas.items)
-      items.append(
-        {
-          'partida': len(items) + 1,
-          'pregunta': self.text_area_pregunta.text,
-          'descripcion': self.text_area_descripcion.text,
-          'tipo_entrada': self.drop_down_tipo_entrada.selected_value,
-          'filas': self.text_area_filas.text if len(self.text_area_filas.text) > 0 else None,
-          'columnas': self.text_area_columnas.text if len(self.text_area_columnas.text) > 0 else None,
-        }
-      )
+      item = {
+        'partida': len(items) + 1,
+        'pregunta': self.text_area_pregunta.text,
+        'descripcion': self.text_area_descripcion.text,
+        'archivo': self.file_loader_archivo.file,
+        'tipo_entrada': self.drop_down_tipo_entrada.selected_value,
+        'filas': self.text_area_filas.text if len(self.text_area_filas.text) > 0 else None,
+        'columnas': self.text_area_columnas.text if len(self.text_area_columnas.text) > 0 else None,
+      }
+      if self.file_loader_archivo.text == "SUBIR":
+        item['nombre_archivo'] = ''
+      else:
+        item['nombre_archivo'] = self.file_loader_archivo.file.name
+      items.append(item)
       self.repeating_panel_preguntas.items = items
       self.text_area_pregunta.text = ""
       self.text_area_descripcion.text = ""
+      self.file_loader_archivo.clear()
+      self.file_loader_archivo_change(None)
       self.drop_down_tipo_entrada.selected_value = None
       self.drop_down_tipo_entrada_change()
+
+  def actualizar_item_pregunta(self, item, **event_args):
+    items = list(self.repeating_panel_preguntas.items)
+    items[item['partida'] - 1].update(**item)
+    self.repeating_panel_preguntas.items = items
+
+  def file_loader_archivo_change(self, file, **event_args):
+    if len(self.file_loader_archivo.files) > 0:
+      self.file_loader_archivo.text = self.file_loader_archivo.file.name
+    else:
+      self.file_loader_archivo.text = "SUBIR"
+
+  def button_previsualizacion_click(self, **event_args):
+    self.column_panel_formularios.visible = False
+    self.column_panel_visualizacion_formulario.visible = True
+    
+    items = list(self.repeating_panel_preguntas.items)
+    for item in items:
+      card = ColumnPanel(role='elevated-card')
+      card.add_component(Label(align='center',role='headline',bold=True, text=item['pregunta']))
+      if item['descripcion'] != '':
+        card.add_component(Label(align='center',role='body',text=item['descripcion']))
+      #AQUÍ VA LO DE LOS ARCHIVOS
+      if item['tipo_entrada'] == 'RESPUESTA CORTA':
+        card.add_component(TextBox(align='center',role='outlined'))
+      if item['tipo_entrada'] == 'PÁRRAFO':
+        card.add_component(TextArea(role='outlined'))
+      if item['tipo_entrada'] == 'SELECTOR FECHA':
+        card.add_component(DatePicker(format='%Y-%m-%d',role='outlined'))
+      if item['tipo_entrada'] == 'SELECTOR FECHA Y HORA':
+        card.add_component(DatePicker(format='%Y-%m-%d',pick_time=True,role='outlined'))
+      if item['tipo_entrada'] == 'SUBIR ARCHIVO':
+        card.add_component(FileLoader(role='elevated-button',text="SUBIR"))
+      if item['tipo_entrada'] == 'CASILLA(S) DE VERIFICACIÓN':
+        for sub_item in item['filas'].split('\n'):
+          check_box = CheckBox(text=sub_item)
+          card.add_component(check_box)
+      
+      """
+      SELECTOR FECHA
+      SELECTOR FECHA Y HORA
+      SUBIR ARCHIVO
+      CASILLA(S) DE VERIFICACIÓN
+      OPCIÓN MÚLTIPLE
+      LISTA DESPLEGABLE
+      """
+      self.card_visualizacion_formulario.add_component(card)
+
+  def button_cerrar_visuzalizacion_click(self, **event_args):
+    self.card_visualizacion_formulario.clear()
+    self.column_panel_visualizacion_formulario.visible = False
+    self.column_panel_formularios.visible = True
+
+      
+

@@ -85,6 +85,42 @@ components:
     name: button_guardar
     layout_properties: {column: EXNZPP}
     event_bindings: {click: button_guardar_click}
+  - type: FileLoader
+    properties:
+      role: elevated-button
+      show_state: true
+      align: center
+      tooltip: ''
+      border: ''
+      file_types: null
+      enabled: true
+      files: []
+      foreground: ''
+      visible: true
+      text: SUBIR
+      font_size: null
+      font: ''
+      spacing_above: small
+      icon_align: left
+      spacing_below: small
+      italic: false
+      file: null
+      background: ''
+      bold: false
+      underline: false
+      multiple: false
+      icon: fa:upload
+    name: file_loader_archivo
+    layout_properties: {column: QEBGDQ}
+    event_bindings: {change: file_loader_archivo_change}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: ELIMINAR, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: button_eliminar_archivo
+    layout_properties: {column: QEBGDQ}
+    event_bindings: {click: button_eliminar_archivo_click}
 - type: Label
   properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
     visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
@@ -139,4 +175,10 @@ components:
     underline: false, icon: 'fa:times'}
   name: button_eliminar
   layout_properties: {column: UCIHFS}
+- type: Link
+  properties: {}
+  name: link_archivo
+  layout_properties: {column: QEBGDQ}
+  data_bindings:
+  - {property: text, code: 'self.item[''nombre_archivo'']'}
 is_package: true

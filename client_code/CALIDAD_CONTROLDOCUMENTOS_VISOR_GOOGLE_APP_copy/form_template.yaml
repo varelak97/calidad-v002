@@ -152,10 +152,10 @@ components:
     full_width_row: true
   components: []
 - type: ColumnPanel
-  properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
+  properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
     wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
     spacing_below: small, background: ''}
-  name: column_panel_visor_formularios
+  name: column_panel_formularios
   layout_properties:
     col_widths: {}
     grid_position: PQQVTK,YHSZOJ
@@ -181,11 +181,11 @@ components:
       rows_per_page: 100
       visible: true
       wrap_on: never
-      show_page_controls: true
+      show_page_controls: false
       spacing_above: small
       spacing_below: small
       background: ''
-    name: data_grid_interior_formulario
+    name: data_grid_formulario
     layout_properties: {grid_position: 'VVAREP,TFZWRU', full_width_row: true}
     components:
     - type: RepeatingPanel
@@ -261,6 +261,64 @@ components:
         name: button_agregar
         layout_properties: {column: EXNZPP}
         event_bindings: {click: button_agregar_click}
+      - type: FileLoader
+        properties:
+          role: elevated-button
+          show_state: true
+          align: center
+          tooltip: ''
+          border: ''
+          file_types: null
+          enabled: true
+          files: []
+          foreground: ''
+          visible: true
+          text: SUBIR
+          font_size: null
+          font: ''
+          spacing_above: small
+          icon_align: left
+          spacing_below: small
+          italic: false
+          file: null
+          background: ''
+          bold: false
+          underline: false
+          multiple: false
+          icon: fa:upload
+        name: file_loader_archivo
+        layout_properties: {column: QEBGDQ}
+        event_bindings: {change: file_loader_archivo_change}
+    - type: Button
+      properties: {role: elevated-button, align: center, tooltip: '', border: '',
+        enabled: true, foreground: '', visible: true, text: PREVISUALIZACIÓN, font_size: null,
+        font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+        background: '', bold: false, underline: false, icon: 'fa:file-text'}
+      name: button_previsualizacion
+      layout_properties: {slot: footer, grid_position: 'QMTOIZ,FTIOII'}
+      event_bindings: {click: button_previsualizacion_click}
+- type: ColumnPanel
+  properties: {role: null, tooltip: '', border: '', foreground: '', visible: false,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: column_panel_visualizacion_formulario
+  layout_properties: {grid_position: 'FJKXKX,UGEFYQ'}
+  components:
+  - type: Button
+    properties: {role: elevated-button, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: CERRAR PREVISUALIZACIÓN, font_size: null,
+      font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: 'theme:Yellow', bold: false, underline: false, icon: 'fa:times-circle'}
+    name: button_cerrar_visuzalizacion
+    layout_properties: {grid_position: 'KVFLXA,REUOMU'}
+    event_bindings: {click: button_cerrar_visuzalizacion_click}
+  - type: ColumnPanel
+    properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
+      wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+      spacing_below: small, background: 'theme:Outline'}
+    name: card_visualizacion_formulario
+    layout_properties: {grid_position: 'MOUDKA,IEGOVR'}
+    components: []
 - type: Button
   properties: {role: elevated-button, align: center, tooltip: '', border: '', enabled: true,
     foreground: 'theme:On Primary', visible: false, text: ENVIAR A REVISIÓN, font_size: null,

@@ -1021,7 +1021,7 @@ input[disabled] ~ span {
   border-right: 0;
 }
 
-/* Wide Data Grids */
+/* Wide Data Grids */ /* ESTE ES UN TEMA CUSTOMIZADO POR SISTEMAS*/
 .anvil-role-wide-tonal-data-grid.anvil-data-grid > .data-grid-child-panel>div.auto-grid-header {
   background: linear-gradient(0deg, %color:Primary Overlay 2%, %color:Primary Overlay 2%), %color:Background%;
   border-bottom: 1px solid %color:Surface Variant%;

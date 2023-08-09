@@ -4,7 +4,7 @@ container:
 components:
 - type: ColumnPanel
   properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
-    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"IFEUPU":10,"VYOGSC":40,"OVJTGZ":10}',
     spacing_below: small, background: ''}
   name: content_panel
   layout_properties: {grid_position: 'OUDLYO,QKEBXT', full_width_row: true}
@@ -27,8 +27,8 @@ components:
     name: column_panel_titulo_modulo_calidad
     layout_properties:
       col_widths: {}
-      grid_position: KOVHYU,AYQEIR
-      full_width_row: false
+      grid_position: ACEVVC,VYOGSC
+      full_width_row: true
     components:
     - type: Label
       properties: {role: headline, align: center, tooltip: '', border: '', foreground: 'theme:On
@@ -37,6 +37,10 @@ components:
         background: 'theme:Primary', bold: true, underline: false, icon: ''}
       name: label_titulo_nuevo_documento
       layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
+  - type: Spacer
+    properties: {height: 32}
+    name: spacer_1
+    layout_properties: {grid_position: 'ACEVVC,OVJTGZ', full_width_row: true}
   - type: ColumnPanel
     properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
       wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"QPAXME":10,"YGVMGU":10}',

@@ -1,6 +1,6 @@
 container:
   type: ColumnPanel
-  properties: {col_widths: '{}'}
+  properties: {col_widths: '{"XAEZUC":10,"GLYTIO":40,"NUZJAK":10}'}
 components:
 - type: Button
   properties: {role: elevated-button, align: left, tooltip: '', border: '', enabled: true,
@@ -13,6 +13,23 @@ components:
     grid_position: XJTKQY,XAEZUC
     full_width_row: true
   event_bindings: {click: button_volver_click}
+- type: ColumnPanel
+  properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: column_panel_titulo_modulo_calidad
+  layout_properties:
+    col_widths: {}
+    grid_position: XJTKQY,GLYTIO
+    full_width_row: true
+  components:
+  - type: Label
+    properties: {role: headline, align: center, tooltip: '', border: '', foreground: 'theme:On
+        Primary', visible: true, text: VISOR DE GOOGLE APP, font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: 'theme:Primary', bold: true, underline: false, icon: ''}
+    name: label_titulo_visor_google_app
+    layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
 - type: Link
   properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
     visible: true, text: OCULTAR ENCABEZADO, font_size: null, wrap_on: mobile, font: '',
@@ -26,22 +43,6 @@ components:
   name: column_panel_detalles_encabezado
   layout_properties: {grid_position: 'YUNPIL,WFJSYC'}
   components:
-  - type: ColumnPanel
-    properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
-      wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
-      spacing_below: small, background: ''}
-    name: column_panel_titulo_modulo_calidad
-    layout_properties:
-      col_widths: {}
-      grid_position: AKIXCK,FREOGS
-    components:
-    - type: Label
-      properties: {role: headline, align: center, tooltip: '', border: '', foreground: 'theme:On
-          Primary', visible: true, text: VISOR DE GOOGLE APP, font_size: null, font: '',
-        spacing_above: small, icon_align: left, spacing_below: small, italic: false,
-        background: 'theme:Primary', bold: true, underline: false, icon: ''}
-      name: label_titulo_visor_google_app
-      layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
   - type: ColumnPanel
     properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
       wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',

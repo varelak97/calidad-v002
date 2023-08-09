@@ -4,7 +4,7 @@ container:
 components:
 - type: ColumnPanel
   properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
-    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"WSEULP":10,"CXORCN":40,"KQDTSW":10}',
     spacing_below: small, background: ''}
   name: content_panel
   layout_properties: {grid_position: 'UFYUHT,TMMYBG', full_width_row: true}
@@ -27,7 +27,8 @@ components:
     name: column_panel_titulo_documentos_existentes
     layout_properties:
       col_widths: {}
-      grid_position: FLWWIR,VMFWEP
+      grid_position: GRBNSL,CXORCN
+      full_width_row: true
     components:
     - type: Label
       properties: {role: headline, align: center, tooltip: '', border: '', foreground: 'theme:On
@@ -36,6 +37,10 @@ components:
         background: 'theme:Primary', bold: true, underline: false, icon: ''}
       name: label_titulo_documentos_existentes
       layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
+  - type: Spacer
+    properties: {height: 32}
+    name: spacer_1
+    layout_properties: {grid_position: 'GRBNSL,KQDTSW', full_width_row: true}
   - type: ColumnPanel
     properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true,
       wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',

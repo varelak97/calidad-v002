@@ -59,7 +59,7 @@ components:
         grid_position: MUEOTB,LDXNUJ
     - type: DataGrid
       properties:
-        role: wide-tonal-data-grid
+        role: null
         columns:
         - {id: YYFIUG, title: MARCA TEMPORAL, data_key: marca_temporal, $$hashKey: 'object:16568',
           width: '100'}

@@ -10,6 +10,10 @@ components:
   data_bindings:
   - {property: text, code: 'self.item[''marca_temporal'']'}
 - type: Label
+  properties: {}
+  name: label_1
+  layout_properties: {column: YYFIUG}
+- type: Label
   properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
     visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
     spacing_below: small, italic: false, background: '', bold: false, underline: false,

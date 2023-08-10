@@ -11,11 +11,13 @@ from datetime import date
 class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTESTemplate):
   datos = {}
   lista_buttons_ordenamiento = []
+  items = []
   def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
-    self.repeating_panel_documentos_existentes.items = anvil.server.call('obtener_documentos_existentes')
-
+    self.items = list(anvil.server.call('obtener_documentos_existentes'))
+    self.repeating_panel_documentos_existentes.items = self.items
+    
     self.lista_buttons_ordenamiento = [
       self.button_nombre_completo,
       self.button_fecha_emision,
@@ -32,7 +34,7 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
     self.content_panel.visible = True
 
   def actualizar_lista_documentos_existentes(self, **event_args):
-    items = list(anvil.server.call('obtener_documentos_existentes'))
+    items = self.items.copy()
     if self.drop_down_estado.selected_value != None:
       items = [item for item in items if item['status'].upper() == self.drop_down_estado.selected_value]
     if self.drop_down_nivel.selected_value != None:

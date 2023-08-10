@@ -48,6 +48,13 @@ components:
     name: column_panel_documentos_existente
     layout_properties: {grid_position: 'BQJJOO,KFUEWH', full_width_row: true, width: 1086}
     components:
+    - type: Button
+      properties: {role: elevated-button, align: center, tooltip: '', border: '',
+        enabled: true, foreground: '', visible: true, text: ACTUALIZAR, font_size: null,
+        font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+        background: '', bold: false, underline: false, icon: 'fa:refresh'}
+      name: button_actualizar
+      layout_properties: {grid_position: 'DQTNFM,DIZMHI'}
     - type: DataGrid
       properties:
         role: wide-tonal-data-grid

@@ -9,7 +9,8 @@ import requests
 from time import sleep
 
 global url_google_script
-url_google_script = "https://script.google.com/macros/s/AKfycbzfk4FRssjLnbwuTRnlqfRmdBrSM_uhE2dlW6S1g7-EiDxXvR_aKw3jJzMd8prFaVArcg/exec"
+#ESTE ES EL BUENO: url_google_script = "https://script.google.com/macros/s/AKfycbzfk4FRssjLnbwuTRnlqfRmdBrSM_uhE2dlW6S1g7-EiDxXvR_aKw3jJzMd8prFaVArcg/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbxHeBZczNGCzOvnhKrSLXG6OugteRb9LO6SpnbsAXSh2iq82f0R4PFa4Wm8KL1StUMxHw/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
@@ -436,9 +437,9 @@ def obtener_documentos_existentes():
   empleados = {str(renglon['id_registro_empleado']): renglon['nombre_completo'] + f" ({renglon['numero_empleado']})" for renglon in renglones_empleados}
   renglones_usuarios = [dict(r) for r in app_tables.sistemas_usuarios_erp_registro.search(registro_principal=True)]
   usuarios = {str(renglon['id_registro_usuario']): empleados[str(renglon['id_registro_empleado'])] for renglon in renglones_usuarios}
-  renglones_documentos = [dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]
+  renglones_documentos = [dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True, registro_activo=True)]
   documentos_base = {str(renglon['id_registro_documento']): renglon['nombre_completo'] for renglon in renglones_documentos}
-  documentos_existentes = sorted([dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)], key=lambda d:d['nombre_completo'])
+  documentos_existentes = sorted([dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True, registro_activo=True)], key=lambda d:d['nombre_completo'])
   for documento in documentos_existentes:
     documento.update(
       {
@@ -459,3 +460,11 @@ def obtener_ids_equipo_de_documento(nombre_documento):
   ids_usuarios_equipo_trabajo.extend(renglon_documento['validadores'])
   ids_usuarios_equipo_trabajo = list(set(ids_usuarios_equipo_trabajo))
   return ids_usuarios_equipo_trabajo
+
+@anvil.server.callable
+def obtener_documentos_registrados():
+  return app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True, registro_activo=True)
+
+@anvil.server.callable
+def obteter_tipos_documentos():
+  return 

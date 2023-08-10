@@ -56,15 +56,15 @@ components:
         - {id: QLMTBN, title: DOCUMENTO, data_key: nombre_completo, $$hashKey: 'object:8453',
           width: '400'}
         - {id: CWTNPX, title: ESTADO, data_key: status, $$hashKey: 'object:8454',
-          width: '100'}
-        - {id: JQMDBS, title: NIVEL, data_key: nivel, $$hashKey: 'object:9193', width: '100'}
+          width: '150'}
+        - {id: JQMDBS, title: NIVEL, data_key: nivel, $$hashKey: 'object:9193', width: '150'}
         - {id: LBCOCK, title: TIPO DE DOCUMENTO, data_key: tipo_documento, $$hashKey: 'object:8551',
           width: '200'}
         - {id: YCYIED, title: ÁREA, data_key: area, $$hashKey: 'object:8553', width: '150'}
         - {id: UKZUKF, title: TIPO ARCHIVO, data_key: tipo_app, $$hashKey: 'object:9028',
           width: '175'}
         - {id: ZWWICS, title: FECHA DE EMISIÓN, data_key: fecha_emision, $$hashKey: 'object:9030',
-          width: '150'}
+          width: '200'}
         - {id: HTFPCH, title: PROPIETARIO, data_key: propietario, $$hashKey: 'object:8549',
           width: '300'}
         - {id: ZPOTZY, title: BASADO EN, data_key: documento_base, $$hashKey: 'object:9195',
@@ -73,7 +73,7 @@ components:
         tooltip: ''
         border: ''
         foreground: ''
-        rows_per_page: 50
+        rows_per_page: 500
         visible: true
         wrap_on: never
         show_page_controls: true
@@ -81,8 +81,254 @@ components:
         spacing_below: small
         background: ''
       name: data_grid_documentos_existentes
-      layout_properties: {grid_position: 'REVIXC,BQBGIY', full_width_row: true}
+      layout_properties: {grid_position: 'KNITKA,FGMPDN', full_width_row: true, column: null}
       components:
+      - type: DataRowPanel
+        properties: {}
+        name: data_row_panel_filtros
+        layout_properties: {}
+        components:
+        - type: TextBox
+          properties: {role: outlined, align: center, hide_text: false, tooltip: '',
+            placeholder: Buscar..., border: '', enabled: true, foreground: '', visible: true,
+            text: '', font_size: null, font: '', spacing_above: small, type: text,
+            spacing_below: small, italic: false, background: '', bold: false, underline: false}
+          name: text_box_nombre_completo
+          layout_properties: {column: QLMTBN}
+          event_bindings: {change: text_box_documento_change}
+        - type: Button
+          properties: {role: elevated-button, align: center, tooltip: '', border: '',
+            enabled: true, foreground: '', visible: true, text: '', font_size: null,
+            font: '', spacing_above: small, icon_align: left, spacing_below: small,
+            italic: false, background: 'theme:On Primary', bold: false, underline: false,
+            icon: 'fa:arrow-circle-down'}
+          name: button_nombre_completo
+          layout_properties:
+            col_widths: {}
+            grid_position: NXQNUF,VHTYQH
+            column: QLMTBN
+          data_bindings:
+          - {property: tag, code: '''nombre_completo'''}
+          event_bindings: {click: button_nombre_completo_click}
+        - type: DropDown
+          properties:
+            role: outlined
+            align: full
+            tooltip: ''
+            placeholder: -- ELEGIR --
+            border: ''
+            enabled: true
+            foreground: ''
+            items: []
+            visible: false
+            font_size: null
+            font: ''
+            spacing_above: small
+            spacing_below: small
+            italic: false
+            background: ''
+            bold: false
+            underline: false
+            include_placeholder: true
+          name: drop_down_tipo_documento
+          layout_properties: {column: LBCOCK}
+          event_bindings: {change: drop_down_tipo_documento_change}
+        - type: DropDown
+          properties:
+            role: outlined
+            align: full
+            tooltip: ''
+            placeholder: -- ELEGIR --
+            border: ''
+            enabled: true
+            foreground: ''
+            items: []
+            visible: false
+            font_size: null
+            font: ''
+            spacing_above: small
+            spacing_below: small
+            italic: false
+            background: ''
+            bold: false
+            underline: false
+            include_placeholder: true
+          name: drop_down_area
+          layout_properties: {column: YCYIED}
+          event_bindings: {change: drop_down_area_change}
+        - type: DropDown
+          properties:
+            role: outlined
+            align: full
+            tooltip: ''
+            placeholder: -- ELEGIR --
+            border: ''
+            enabled: true
+            foreground: ''
+            items: []
+            visible: true
+            font_size: null
+            font: ''
+            spacing_above: small
+            spacing_below: small
+            italic: false
+            background: ''
+            bold: false
+            underline: false
+            include_placeholder: true
+          name: drop_down_tipo_archivo
+          layout_properties: {column: UKZUKF}
+          event_bindings: {change: drop_down_tipo_archivo_change}
+        - type: DropDown
+          properties:
+            role: outlined
+            align: full
+            tooltip: ''
+            placeholder: -- ELEGIR --
+            border: ''
+            enabled: true
+            foreground: ''
+            items: [SIN FECHA, UNA FECHA, ENTRE DOS FECHAS]
+            visible: true
+            font_size: null
+            font: ''
+            spacing_above: small
+            spacing_below: small
+            italic: false
+            background: ''
+            bold: false
+            underline: false
+            include_placeholder: true
+          name: drop_down_fecha_emision
+          layout_properties: {column: ZWWICS}
+          event_bindings: {change: drop_down_fecha_emision_change}
+        - type: DatePicker
+          properties: {role: outlined, align: left, max_date: now, pick_time: false,
+            tooltip: '', placeholder: '', border: '', enabled: true, foreground: '',
+            visible: false, font_size: null, font: '', spacing_above: small, spacing_below: small,
+            italic: false, date: '', min_date: '', background: '', bold: false, underline: false,
+            format: '%Y-%m-%d'}
+          name: date_picker_fecha_1
+          layout_properties: {column: ZWWICS}
+          event_bindings: {change: date_picker_fecha_1_change}
+        - type: DatePicker
+          properties: {role: outlined, align: left, max_date: now, pick_time: false,
+            tooltip: '', placeholder: '', border: '', enabled: true, foreground: '',
+            visible: false, font_size: null, font: '', spacing_above: small, spacing_below: small,
+            italic: false, date: '', min_date: '', background: '', bold: false, underline: false,
+            format: '%Y-%m-%d'}
+          name: date_picker_fecha_2
+          layout_properties: {column: ZWWICS}
+          event_bindings: {change: date_picker_fecha_2_change}
+        - type: Button
+          properties: {role: elevated-button, align: center, tooltip: '', border: '',
+            enabled: true, foreground: '', visible: false, text: '', font_size: null,
+            font: '', spacing_above: small, icon_align: left, spacing_below: small,
+            italic: false, background: '', bold: false, underline: false, icon: 'fa:circle-o'}
+          name: button_fecha_emision
+          layout_properties:
+            col_widths: {}
+            grid_position: WVTBRD,CYQIKR
+            column: ZWWICS
+          data_bindings:
+          - {property: tag, code: '''fecha_emision'''}
+          event_bindings: {click: button_fecha_emision_click}
+        - type: TextBox
+          properties: {role: outlined, align: center, hide_text: false, tooltip: '',
+            placeholder: Buscar..., border: '', enabled: true, foreground: '', visible: false,
+            text: '', font_size: null, font: '', spacing_above: small, type: number,
+            spacing_below: small, italic: false, background: '', bold: false, underline: false}
+          name: text_box_documento_base
+          layout_properties: {column: ZPOTZY}
+          event_bindings: {change: text_box_documento_base_change}
+        - type: Button
+          properties: {role: elevated-button, align: center, tooltip: '', border: '',
+            enabled: true, foreground: '', visible: false, text: '', font_size: null,
+            font: '', spacing_above: small, icon_align: left, spacing_below: small,
+            italic: false, background: '', bold: false, underline: false, icon: 'fa:circle-o'}
+          name: button_documento_base
+          layout_properties:
+            col_widths: {}
+            grid_position: IRCWAU,WMARJB
+            column: ZPOTZY
+          data_bindings:
+          - {property: tag, code: '''documento_base'''}
+          event_bindings: {click: button_documento_base_click}
+        - type: DropDown
+          properties:
+            role: outlined
+            align: full
+            tooltip: ''
+            placeholder: --ELEGIR --
+            border: ''
+            enabled: true
+            foreground: ''
+            items: [EN CREACIÓN, EN REVISIÓN, LIBERADO, RECHAZADO]
+            visible: true
+            font_size: null
+            font: ''
+            spacing_above: small
+            spacing_below: small
+            italic: false
+            background: ''
+            bold: false
+            underline: false
+            include_placeholder: true
+          name: drop_down_estado
+          layout_properties: {column: CWTNPX}
+          event_bindings: {change: drop_down_estado_change}
+        - type: DropDown
+          properties:
+            role: outlined
+            align: full
+            tooltip: ''
+            placeholder: -- ELEGIR --
+            border: ''
+            enabled: true
+            foreground: ''
+            items: ['1', '2', '3', '4']
+            visible: true
+            font_size: null
+            font: ''
+            spacing_above: small
+            spacing_below: small
+            italic: false
+            background: ''
+            bold: false
+            underline: false
+            include_placeholder: true
+          name: drop_down_nivel
+          layout_properties: {column: JQMDBS}
+          event_bindings: {change: drop_down_nivel_change}
+        - type: TextBox
+          properties: {role: outlined, align: center, hide_text: false, tooltip: '',
+            placeholder: Buscar..., border: '', enabled: true, foreground: '', visible: true,
+            text: '', font_size: null, font: '', spacing_above: small, type: text,
+            spacing_below: small, italic: false, background: '', bold: false, underline: false}
+          name: text_box_propietario
+          layout_properties: {column: HTFPCH}
+          event_bindings: {change: text_box_propietario_change}
+        - type: Button
+          properties: {role: elevated-button, align: center, tooltip: '', border: '',
+            enabled: true, foreground: '', visible: true, text: '', font_size: null,
+            font: '', spacing_above: small, icon_align: left, spacing_below: small,
+            italic: false, background: '', bold: false, underline: false, icon: 'fa:circle-o'}
+          name: button_propietario
+          layout_properties:
+            col_widths: {}
+            grid_position: KALSMM,QCMDBG
+            column: HTFPCH
+          data_bindings:
+          - {property: tag, code: '''propietario'''}
+          event_bindings: {click: button_propietario_click}
+        - type: Button
+          properties: {role: elevated-button, align: center, tooltip: '', border: '',
+            enabled: true, foreground: 'theme:Orange', visible: true, text: '', font_size: null,
+            font: '', spacing_above: small, icon_align: left, spacing_below: small,
+            italic: false, background: '', bold: false, underline: false, icon: 'fa:eraser'}
+          name: button_borrar_filtros
+          layout_properties: {column: GMOJUG}
+          event_bindings: {click: button_borrar_filtros_click}
       - type: RepeatingPanel
         properties: {spacing_above: none, spacing_below: none, item_template: CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES.RowTemplate5}
         name: repeating_panel_documentos_existentes

@@ -448,6 +448,7 @@ def obtener_documentos_existentes():
         'tipo_documento': tipos_documento[documento['codigo'][0:3]],
         'area': areas[documento['codigo'][4:7]],
         'propietario': usuarios[str(documento['id_usuario_propietario'])],
+        'fecha_emision': "" if documento['fecha_emision'] == None else str(documento['fecha_emision'])
       }
     )
     if documento['id_documento_base'] != None:

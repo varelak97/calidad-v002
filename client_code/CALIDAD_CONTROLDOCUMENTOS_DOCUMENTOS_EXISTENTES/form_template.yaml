@@ -55,6 +55,7 @@ components:
         background: '', bold: false, underline: false, icon: 'fa:refresh'}
       name: button_actualizar
       layout_properties: {grid_position: 'DQTNFM,DIZMHI'}
+      event_bindings: {click: button_actualizar_click}
     - type: DataGrid
       properties:
         role: wide-tonal-data-grid
@@ -127,7 +128,7 @@ components:
             enabled: true
             foreground: ''
             items: []
-            visible: false
+            visible: true
             font_size: null
             font: ''
             spacing_above: small
@@ -150,7 +151,7 @@ components:
             enabled: true
             foreground: ''
             items: []
-            visible: false
+            visible: true
             font_size: null
             font: ''
             spacing_above: small
@@ -183,9 +184,9 @@ components:
             bold: false
             underline: false
             include_placeholder: true
-          name: drop_down_tipo_archivo
+          name: drop_down_tipo_app
           layout_properties: {column: UKZUKF}
-          event_bindings: {change: drop_down_tipo_archivo_change}
+          event_bindings: {change: drop_down_tipo_app_change}
         - type: DropDown
           properties:
             role: outlined
@@ -229,7 +230,7 @@ components:
           event_bindings: {change: date_picker_fecha_2_change}
         - type: Button
           properties: {role: elevated-button, align: center, tooltip: '', border: '',
-            enabled: true, foreground: '', visible: false, text: '', font_size: null,
+            enabled: true, foreground: '', visible: true, text: '', font_size: null,
             font: '', spacing_above: small, icon_align: left, spacing_below: small,
             italic: false, background: '', bold: false, underline: false, icon: 'fa:circle-o'}
           name: button_fecha_emision
@@ -242,15 +243,15 @@ components:
           event_bindings: {click: button_fecha_emision_click}
         - type: TextBox
           properties: {role: outlined, align: center, hide_text: false, tooltip: '',
-            placeholder: Buscar..., border: '', enabled: true, foreground: '', visible: false,
-            text: '', font_size: null, font: '', spacing_above: small, type: number,
+            placeholder: Buscar..., border: '', enabled: true, foreground: '', visible: true,
+            text: '', font_size: null, font: '', spacing_above: small, type: text,
             spacing_below: small, italic: false, background: '', bold: false, underline: false}
           name: text_box_documento_base
           layout_properties: {column: ZPOTZY}
           event_bindings: {change: text_box_documento_base_change}
         - type: Button
           properties: {role: elevated-button, align: center, tooltip: '', border: '',
-            enabled: true, foreground: '', visible: false, text: '', font_size: null,
+            enabled: true, foreground: '', visible: true, text: '', font_size: null,
             font: '', spacing_above: small, icon_align: left, spacing_below: small,
             italic: false, background: '', bold: false, underline: false, icon: 'fa:circle-o'}
           name: button_documento_base

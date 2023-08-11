@@ -196,7 +196,7 @@ components:
             border: ''
             enabled: true
             foreground: ''
-            items: [SIN FECHA, UNA FECHA, ENTRE DOS FECHAS]
+            items: [SIN FECHA, UNA FECHA]
             visible: true
             font_size: null
             font: ''
@@ -243,7 +243,7 @@ components:
           event_bindings: {click: button_fecha_emision_click}
         - type: TextBox
           properties: {role: outlined, align: center, hide_text: false, tooltip: '',
-            placeholder: Buscar..., border: '', enabled: true, foreground: '', visible: true,
+            placeholder: Buscar..., border: '', enabled: true, foreground: '', visible: false,
             text: '', font_size: null, font: '', spacing_above: small, type: text,
             spacing_below: small, italic: false, background: '', bold: false, underline: false}
           name: text_box_documento_base
@@ -251,7 +251,7 @@ components:
           event_bindings: {change: text_box_documento_base_change}
         - type: Button
           properties: {role: elevated-button, align: center, tooltip: '', border: '',
-            enabled: true, foreground: '', visible: true, text: '', font_size: null,
+            enabled: true, foreground: '', visible: false, text: '', font_size: null,
             font: '', spacing_above: small, icon_align: left, spacing_below: small,
             italic: false, background: '', bold: false, underline: false, icon: 'fa:circle-o'}
           name: button_documento_base

@@ -57,7 +57,7 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
         items = [item for item in items if item['fecha_emision'] in ("",None)]
       elif self.drop_down_fecha_emision.selected_value == "UNA FECHA":
         if self.date_picker_fecha_1.date != None:
-          items = [item for item in items if item['fecha_emision'] == self.date_picker_fecha_1.date]
+          items = [item for item in items if item['fecha_emision'] == str(self.date_picker_fecha_1.date)]
       elif self.drop_down_fecha_emision.selected_value == "ENTRE DOS FECHAS":
         if self.date_picker_fecha_2.date != None:
           items = [item for item in items if item['fecha_emision'] != None and item['fecha_emision'] >= self.date_picker_fecha_1.date and item['fecha_emision'] <= self.date_picker_fecha_2.date]

@@ -272,6 +272,8 @@ def rechazar_documento(datos):
   respuesta = []
   try:
     respuesta = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
+    if nuevo_renglon_registro_documento['tipo_app'] == "PRESENTACIÓN":
+      nuevo_renglon_registro_documento['id_google'] = respuesta
   except Exception as Ex:
     #try / except para borrar la carpeta correspondiente en Google Drive.
     nuevo_renglon_registro_documento.delete()

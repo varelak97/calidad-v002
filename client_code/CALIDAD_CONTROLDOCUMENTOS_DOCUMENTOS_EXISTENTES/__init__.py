@@ -157,7 +157,7 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
     self.drop_down_fecha_emision_change()
     self.text_box_propietario.text = ""
     self.text_box_documento_base.text = ""
-    self.button_nombre_completo.icon = None
+    self.button_nombre_completo.icon = 'fa:circle-o'
     self.actualizar_lista_documentos_existentes()
     self.button_nombre_completo_click()
 

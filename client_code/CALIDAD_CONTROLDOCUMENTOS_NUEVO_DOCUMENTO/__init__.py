@@ -130,8 +130,6 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       error += "\n•Consecutivo."
     if self.drop_down_revision.selected_value == None:
       error += "\n•Revisión."
-    if self.drop_down_revision.selected_value == None:
-      error += "\n•Folio."
     
     if len(error) > 0:
       error = f"Es necesario especificar la siguiente información:{error}"
@@ -191,8 +189,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             "validadores": [item['integrante'] for item in self.repeating_panel_validadores.items],
             "numero_empleado_propietario": int(str(self.drop_down_propietario.selected_value).split('(')[1][0:-1]),
             "id_usuario_registrador": self.datos['id_usuario_erp'],
-            "revision": self.drop_down_revision.selected_value, #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00",
-            "folio": True if self.drop_down_folio.selected_value == 'SÍ' else False
+            "revision": self.drop_down_revision.selected_value #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00",
           }
         )
         self.datos["nombre_completo"] = f"{self.datos['codigo']} R{self.datos['revision']} {self.datos['titulo']}"

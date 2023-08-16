@@ -128,7 +128,6 @@ def generar_documento(datos):
   	#revision = 0,
     revision=int(datos['revision']), #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
     titulo = datos['titulo'],
-    folio = datos['folio'],
   	nombre_completo = datos['nombre_completo'],
   	fecha_emision = None,
     tipo_app = datos['tipo_app'],
@@ -165,8 +164,7 @@ def generar_documento(datos):
     'operacion': "creacion",
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo'],
     'tipo_app': tipo_google_app(datos['tipo_app']),
-    'nivel': nuevo_renglon_registro_documento['nivel'],
-    'folio': 'Folio: {folio}' if datos['folio'] else ''
+    'nivel': nuevo_renglon_registro_documento['nivel']
   }
   if datos['tipo_app'] == "HOJA DE CÁLCULO":
     dicc_google_script['cantidad_hojas'] = datos['cantidad_hojas']

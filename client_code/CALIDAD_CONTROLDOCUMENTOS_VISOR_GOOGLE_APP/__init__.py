@@ -92,7 +92,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
           break
         elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
           respuesta = self.background_task_google_script.get_state()['respuesta']
-      #print(f"{self.background_task_google_script.get_error()}")
+      print(f"{self.background_task_google_script.get_error()}")
       respuesta = self.background_task_google_script.get_state()['respuesta']
     sleep(1)
     #print(f"Respuesta = {respuesta}")
@@ -108,7 +108,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
         respuesta_envio_email = anvil.server.call(
           'enviar_email_notificacion',
           {
-            'id_registro_documento': respuesta[id_registro_documento],
+            'id_registro_documento': respuesta['id_registro_documento'],
             'operacion': 'revisión'
           }
         )

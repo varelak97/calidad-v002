@@ -207,7 +207,7 @@ def generar_documento(datos):
     anvil.server.task_state['respuesta'] = respuesta
     sleep(2)
 
-@anvil.server.callable
+@anvil.server.background_task
 def enviar_documento_a_revision(datos):
   anvil.server.task_state['respuesta'] = {'exito_envio_a_revision_documento': None, 'error':'Comenzó pero no terminó'}
   anterior_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.get(id_registro_documento=datos['id_registro_documento'], registro_principal=True)

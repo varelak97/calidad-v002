@@ -9,7 +9,7 @@ import requests
 from time import sleep
 
 global url_google_script
-url_google_script = "https://script.google.com/macros/s/AKfycbyOzlQb8EyYJVD0M0p-MLQnsKcEq_uVmuZuUaEmJaRS8UqLMcPlA6lF8BLIkt9kQUc/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbweUoXWAaIzfV_xjbbkgnyHFd1dPC6eed6BrumZIaBw5fCwdBq6qNqAPRxTZ1TrWnQ/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 

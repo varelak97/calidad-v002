@@ -114,6 +114,8 @@ def lanzar_background_google_script(clave_subscript, datos):
     return anvil.server.launch_background_task('enviar_documento_a_revision', datos)
   elif clave_subscript == 'rechazo_documento':
     return anvil.server.launch_background_task('rechazar_documento', datos)
+  elif clave_subscript == 'liberacion_documento':
+    return anvil.server.launch_background_task('liberar_documento', datos)
 
 
 #--- SECCIÓN FUNCIONES DE FLUJO DE DOCUMENTOS ---
@@ -259,8 +261,9 @@ def enviar_documento_a_revision(datos):
     sleep(2)
     #return respuesta 
 
-@anvil.server.callable
+@anvil.server.background_task
 def rechazar_documento(datos):
+  anvil.server.task_state['respuesta'] = {'exito_rechazo_documento': None, 'error':'Comenzó pero no terminó'}
   anterior_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.get(id_registro_documento=datos['id_registro_documento'], registro_principal=True)
   info_renglon_documento_actual = dict(anterior_renglon_registro_documento)
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(**info_renglon_documento_actual)
@@ -283,22 +286,30 @@ def rechazar_documento(datos):
   }
   dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])
   dicc_google_script['emails_lectores'] = obtener_emails_lectores(dicc_google_script['emails_editores'])
-  respuesta = []
+  respuesta = {}
+  anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
   try:
-    respuesta = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
+    id_doc = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
     if nuevo_renglon_registro_documento['tipo_app'] == "PRESENTACIÓN":
-      nuevo_renglon_registro_documento['id_google'] = respuesta
+      nuevo_renglon_registro_documento['id_google'] = id_doc
   except Exception as Ex:
     #try / except para borrar la carpeta correspondiente en Google Drive.
     nuevo_renglon_registro_documento.delete()
-    respuesta = [False, f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"]
+    respuesta = {
+      'exito_rechazo_documento': False,
+      'error': f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"
+    }
   else:
     nuevo_renglon_registro_documento['registro_principal'] = True
     anterior_renglon_registro_documento.update(registro_principal=False)
     nuevo_renglon_registro_documento['comentarios_renglon'] = f"Motivo de rechazo:\n{datos['motivo_rechazo']}"
-    respuesta = [True, nuevo_renglon_registro_documento['id_registro_documento']]
+    respuesta = {
+      'exito_rechazo_documento': True,
+      'id_registro_documento': nuevo_renglon_registro_documento['id_registro_documento']
+    }
   finally:
-    return respuesta
+    anvil.server.task_state['respuesta'] = respuesta
+    sleep(2)
     
 @anvil.server.callable
 def enviar_documento_a_validacion(datos):
@@ -313,8 +324,10 @@ def enviar_documento_a_validacion(datos):
   anterior_renglon_registro_documento.update(registro_principal=False)
   return [True, nuevo_renglon_registro_documento['id_registro_documento']]
 
-@anvil.server.callable
+@anvil.server.background_task
 def liberar_documento(datos):
+  anvil.server.task_state['respuesta'] = {'exito_liberacion_documento': None, 'error':'Comenzó pero no terminó'}
+  
   anterior_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.get(id_registro_documento=datos['id_registro_documento'], registro_principal=True)
   info_renglon_documento_actual = dict(anterior_renglon_registro_documento)
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(**info_renglon_documento_actual)
@@ -338,21 +351,29 @@ def liberar_documento(datos):
   if nuevo_renglon_registro_documento['nivel'] == 4:
     dicc_google_script['fecha_formato'] = dicc_google_script['fecha_documento']
     
-  respuesta = []
+  respuesta = {}
+  anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
+  
   try:
     respuesta = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
   except Exception as Ex:
     #try / except para borrar la carpeta correspondiente en Google Drive.
     nuevo_renglon_registro_documento.delete()
-    respuesta = [False, f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"]
+    respuesta = {
+      'exito_liberacion_documento': False,
+      'error': f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"
+    }
   else:
     anterior_renglon_registro_documento.update(registro_principal=False)
     nuevo_renglon_registro_documento['registro_principal'] = True
     nuevo_renglon_registro_documento['fecha_emision'] = datos['fecha_emision']
-    respuesta = [True, nuevo_renglon_registro_documento['id_registro_documento']]
+    respuesta = {
+      'exito_liberacion_documento': True,
+      'id_registro_documento': nuevo_renglon_registro_documento['id_registro_documento']
+    }
   finally:
-    return respuesta
-  
+    anvil.server.task_state['respuesta'] = respuesta
+    sleep(2)
     
 @anvil.server.callable
 def enviar_email_notificacion(datos):

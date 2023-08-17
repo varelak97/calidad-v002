@@ -92,7 +92,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
           break
         elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
           respuesta = self.background_task_google_script.get_state()['respuesta']
-      print(f"{self.background_task_google_script.get_error()}")
+      #print(f"{self.background_task_google_script.get_error()}")
       respuesta = self.background_task_google_script.get_state()['respuesta']
     sleep(1)
     #print(f"Respuesta = {respuesta}")
@@ -204,15 +204,27 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
     self.datos['fecha_emision'] = date.today()
     
     with Notification("Liberando documento. Por favor espera...", title="PROCESANDO PETICIÓN"):
-      respuesta = anvil.server.call('liberar_documento', self.datos)
+      self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'liberacion_documento', self.datos)
+      tiempo_inicio = datetime.now()
+      tiempo_final = tiempo_inicio + timedelta(minutes=1, seconds=30)
+      ban_timeout = False
+      while self.background_task_google_script.is_running():
+        if datetime.now() >= tiempo_final:
+          ban_timeout = True
+          break
+        elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
+          respuesta = self.background_task_google_script.get_state()['respuesta']
+      #print(f"{self.background_task_google_script.get_error()}")
+      respuesta = self.background_task_google_script.get_state()['respuesta']
     sleep(1)
-    if respuesta[0]:
+    #print(f"Respuesta = {respuesta}")
+    if respuesta['exito_liberacion_documento']:
       Notification(f"El documento {self.datos['codigo']} ha sido liberado satisfactoriamente y está listo para su uso productivo.", title="¡ÉXITO!", style='success').show()
       with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
         respuesta_envio_email = anvil.server.call(
           'enviar_email_notificacion',
           {
-            'id_registro_documento': respuesta[1],
+            'id_registro_documento': respuesta['id_registro_documento'],
             'operacion': 'Liberación'
           }
         )
@@ -234,7 +246,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
       self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
     else:
       alert(
-        content = respuesta[1] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
+        content = respuesta['error'] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
         title = "OCURRIÓ UN ERROR",
         dismissible=False
       )
@@ -266,15 +278,27 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
       self.datos['id_usuario_registrador'] = self.datos['id_usuario_erp']
       self.datos['marca_temporal'] = datetime.now()
       with Notification("Devolviendo documento a etapa inicial de creación. Por favor espera...", title="PROCESANDO PETICIÓN"):
-        respuesta = anvil.server.call('rechazar_documento', self.datos)
+        self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'rechazo_documento', self.datos)
+        tiempo_inicio = datetime.now()
+        tiempo_final = tiempo_inicio + timedelta(minutes=1, seconds=30)
+        ban_timeout = False
+        while self.background_task_google_script.is_running():
+          if datetime.now() >= tiempo_final:
+            ban_timeout = True
+            break
+          elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
+            respuesta = self.background_task_google_script.get_state()['respuesta']
+        #print(f"{self.background_task_google_script.get_error()}")
+        respuesta = self.background_task_google_script.get_state()['respuesta']
       sleep(1)
-      if respuesta[0]:
+      #print(f"Respuesta = {respuesta}")
+      if respuesta['exito_rechazo_documento']:
         Notification(f"El documento {self.datos['codigo']} ha sido rechazado satisfactoriamente.", title="¡ÉXITO!", style='success').show()
         with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
           respuesta_envio_email = anvil.server.call(
             'enviar_email_notificacion',
             {
-              'id_registro_documento': respuesta[1],
+              'id_registro_documento': respuesta['id_registro_documento'],
               'operacion': 'Rechazo',
               'motivo_rechazo': text_area.text,
               'origen_rechazo': str(self.label_status.text).split()[-1]
@@ -307,7 +331,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
         self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
       else:
         alert(
-          content = respuesta[1] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
+          content = respuesta['error'] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
           title = "OCURRIÓ UN ERROR",
           dismissible=False
         )

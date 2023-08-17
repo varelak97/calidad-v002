@@ -160,7 +160,7 @@ components:
   name: button_enviar_a_revision
   layout_properties:
     col_widths: {}
-    grid_position: EQRGVV,LVNBEP
+    grid_position: WBBZAE,ADDWQE
   event_bindings: {click: button_enviar_a_revision_click}
 - type: FlowPanel
   properties: {role: null, spacing: medium, align: center, tooltip: '', border: '',

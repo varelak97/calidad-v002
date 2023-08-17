@@ -8,7 +8,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 from anvil.js.window import jQuery
 from anvil.js import get_dom_node
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from time import sleep
 
 class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APPTemplate):
@@ -82,15 +82,33 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
     self.datos['id_usuario_registrador'] = self.datos['id_usuario_erp']
     self.datos['marca_temporal'] = datetime.now()
     with Notification("Enviando documento a revisión. Por favor espera...", title="PROCESANDO PETICIÓN"):
-      respuesta = anvil.server.call('enviar_documento_a_revision', self.datos)
+      self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'envio_a_revision_documento', self.datos)
+      tiempo_inicio = datetime.now()
+      tiempo_final = tiempo_inicio + timedelta(minutes=1, seconds=30)
+      ban_timeout = False
+      while self.background_task_google_script.is_running():
+        if datetime.now() >= tiempo_final:
+          ban_timeout = True
+          break
+        elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
+          respuesta = self.background_task_google_script.get_state()['respuesta']
+      #print(f"{self.background_task_google_script.get_error()}")
+      respuesta = self.background_task_google_script.get_state()['respuesta']
     sleep(1)
-    if respuesta[0]:
+    #print(f"Respuesta = {respuesta}")
+    if respuesta['exito_envio_a_revision_documento']:
+      """
+        
+        respuesta = anvil.server.call('enviar_documento_a_revision', self.datos)
+      sleep(1)
+      if respuesta[0]:
+      """
       Notification(f"El documento {self.datos['codigo']} ha sido enviado a revisión satisfactoriamente.", title="¡ÉXITO!", style='success').show()
       with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
         respuesta_envio_email = anvil.server.call(
           'enviar_email_notificacion',
           {
-            'id_registro_documento': respuesta[1],
+            'id_registro_documento': respuesta[id_registro_documento],
             'operacion': 'revisión'
           }
         )
@@ -121,7 +139,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
       self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
     else:
       alert(
-        content = respuesta[1] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
+        content = respuesta['error'] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
         title = "OCURRIÓ UN ERROR",
         dismissible=False
       )

@@ -61,6 +61,8 @@ components:
         role: wide-tonal-data-grid
         columns:
         - {id: GMOJUG, title: '', data_key: '', $$hashKey: 'object:8455', width: '100'}
+        - {id: KMOABL, title: ÚLTIMA EDICIÓN, data_key: marca_temporal, $$hashKey: 'object:1705',
+          width: '100'}
         - {id: QLMTBN, title: DOCUMENTO, data_key: nombre_completo, $$hashKey: 'object:8453',
           width: '400'}
         - {id: CWTNPX, title: ESTADO, data_key: status, $$hashKey: 'object:8454',
@@ -109,7 +111,7 @@ components:
             enabled: true, foreground: '', visible: true, text: '', font_size: null,
             font: '', spacing_above: small, icon_align: left, spacing_below: small,
             italic: false, background: 'theme:On Primary', bold: false, underline: false,
-            icon: 'fa:arrow-circle-down'}
+            icon: 'fa:circle-o'}
           name: button_nombre_completo
           layout_properties:
             col_widths: {}
@@ -337,6 +339,24 @@ components:
           name: button_borrar_filtros
           layout_properties: {column: GMOJUG}
           event_bindings: {click: button_borrar_filtros_click}
+        - type: Spacer
+          properties: {height: 44}
+          name: spacer_2
+          layout_properties: {column: KMOABL}
+        - type: Button
+          properties: {role: elevated-button, align: center, tooltip: '', border: '',
+            enabled: true, foreground: '', visible: true, text: '', font_size: null,
+            font: '', spacing_above: small, icon_align: left, spacing_below: small,
+            italic: false, background: 'theme:On Primary', bold: false, underline: false,
+            icon: 'fa:arrow-circle-up'}
+          name: button_ultima_edicion
+          layout_properties:
+            col_widths: {}
+            grid_position: NXQNUF,VHTYQH
+            column: KMOABL
+          data_bindings:
+          - {property: tag, code: '''marca_temporal'''}
+          event_bindings: {click: button_ultima_edicion_click}
       - type: RepeatingPanel
         properties: {spacing_above: none, spacing_below: none, item_template: CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES.RowTemplate5}
         name: repeating_panel_documentos_existentes

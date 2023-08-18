@@ -17,6 +17,7 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
     self.datos = datos
     self.lista_buttons_ordenamiento = [
       self.button_nombre_completo,
+      self.button_ultima_edicion,
       self.button_fecha_emision,
       self.button_propietario,
       self.button_documento_base
@@ -34,6 +35,7 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
   def button_actualizar_click(self, **event_args):
     self.items = list(anvil.server.call('obtener_documentos_existentes'))
     self.repeating_panel_documentos_existentes.items = self.items
+    self.ordenar_lista_documentos_existentes()
     self.drop_down_estado.items = sorted(list(set([item['status'].upper() for item in self.items])))
     self.drop_down_nivel.items = sorted(list(set([str(item['nivel']) for item in self.items])))
     self.drop_down_tipo_documento.items = sorted(list(set([item['tipo_documento'] for item in self.items])))
@@ -92,7 +94,15 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
         boton.icon = 'fa:circle-o'
     self.ordenar_lista_documentos_existentes()
 
+  def depurar_texto(self, texto):
+    texto = texto.upper()
+    while "  " in texto:
+      texto.replace("  "," ")
+    texto.strip()
+    return texto
+    
   def text_box_documento_change(self, **event_args):
+    self.text_box_nombre_completo.text = self.depurar_texto(self.text_box_nombre_completo.text)
     self.actualizar_lista_documentos_existentes()
 
   def drop_down_estado_change(self, **event_args):
@@ -139,14 +149,19 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
         Notification("La segunda fecha debe ser posterior o igual a la primera", title="ERROR", style="danger")
 
   def text_box_propietario_change(self, **event_args):
+    self.text_box_propietario.text = self.depurar_texto(self.text_box_propietario.text)
     self.actualizar_lista_documentos_existentes()
 
   def text_box_documento_base_change(self, **event_args):
+    self.text_box_documento_base.text = self.depurar_texto(self.text_box_documento_base.text)
     self.actualizar_lista_documentos_existentes()
     
   def button_nombre_completo_click(self, **event_args):
     self.actualizar_botones_ordenamiento(self.button_nombre_completo)
-
+  
+  def button_ultima_edicion_click(self, **event_args):
+    self.actualizar_botones_ordenamiento(self.button_ultima_edicion)
+    
   def button_fecha_emision_click(self, **event_args):
     self.actualizar_botones_ordenamiento(self.button_fecha_emision)
 
@@ -167,7 +182,10 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
     self.drop_down_fecha_emision_change()
     self.text_box_propietario.text = ""
     self.text_box_documento_base.text = ""
-    self.button_nombre_completo.icon = 'fa:circle-o'
-    self.button_nombre_completo_click()
+    self.button_ultima_edicion.icon = 'fa:arrow-circle-down'
+    self.button_ultima_edicion_click()
     self.actualizar_lista_documentos_existentes()
+
+  
+
     

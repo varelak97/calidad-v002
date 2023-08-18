@@ -85,4 +85,13 @@ components:
   layout_properties: {column: ZPOTZY}
   data_bindings:
   - {property: text, code: 'self.item[''documento_base'']'}
+- type: Label
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
+  name: label_marca_temporal
+  layout_properties: {column: KMOABL}
+  data_bindings:
+  - {property: text, code: 'str(self.item[''marca_temporal''])[0:19]'}
 is_package: true

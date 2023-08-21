@@ -64,6 +64,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         self.drop_down_documento_base.placeholder = "NO APLICA"
         self.drop_down_documento_base.selected_value = None
         self.drop_down_documento_base.items = []
+        self.drop_down_tipo_archivo.enabled = True
       else:
         self.drop_down_documento_base.items = anvil.server.call('obtener_documentos_base')
         if len(self.drop_down_documento_base.items) == 0:
@@ -71,6 +72,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         else:
           self.drop_down_documento_base.placeholder = "-- ELEGIR --"
         self.drop_down_documento_base.selected_value = None
+        self.drop_down_tipo_archivo.enabled = False
       
   def text_area_titulo_lost_focus(self, **event_args):
     self.text_area_titulo.text = str(self.text_area_titulo.text).upper()
@@ -194,9 +196,13 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         )
         self.datos["nombre_completo"] = f"{self.datos['codigo']} R{self.datos['revision']} {self.datos['titulo']}"
         self.datos["tipo_app"] = self.drop_down_tipo_archivo.selected_value
-        if self.datos["tipo_app"] == "HOJA DE CÁLCULO":
+        if self.datos["tipo_app"] == "HOJA DE CÁLCULO" and self.datos['nivel'] != 4:
           self.datos["cantidad_hojas"] = self.text_box_cantidad_de_hojas.text
         self.datos["marca_temporal"] = datetime.now()
+        
+        for k,v in self.datos.items():
+          print(k,":",v)
+        
         with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
           self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generacion_documento', self.datos)
           tiempo_inicio = datetime.now()
@@ -268,4 +274,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
     else:
       self.text_box_cantidad_de_hojas.text = int(self.text_box_cantidad_de_hojas.text)
 
-
+  def drop_down_documento_base_change(self, **event_args):
+    if self.drop_down_nivel.selected_value not in (None,"4. Formatos"):
+      id_registro_documento_base = anvil.server.call('obtener_id_registro', self.drop_down_documento_base.selected_value)
+      tipo_archivo = anvil.server.call('obtener_renglon_documento', id_registro_documento_base)['tipo_app']
+      self.drop_down_tipo_archivo.selected_value = tipo_archivo

@@ -171,12 +171,14 @@ def generar_documento(datos):
     'tipo_app': tipo_google_app(datos['tipo_app']),
     'nivel': nuevo_renglon_registro_documento['nivel']
   }
-  if datos['tipo_app'] == "HOJA DE CÁLCULO":
+  if datos['tipo_app'] == "HOJA DE CÁLCULO" and datos['nivel'] != 4:
     dicc_google_script['cantidad_hojas'] = datos['cantidad_hojas']
+  if datos['nivel'] != 4:
+    dicc_google_script['id_doc_base'] = renglon_documento_base['id_google']
   dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])
   dicc_google_script['emails_lectores'] = obtener_emails_lectores(dicc_google_script['emails_editores'])
 
-  #print(json.dumps(dicc_google_script, indent=4))
+  print(json.dumps(dicc_google_script, indent=4))
   
   respuesta = {} #Declarando antes del Try porque genera un error --> UnboundLocalError: local variable 'respuesta' referenced before assignment
   anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
@@ -205,7 +207,6 @@ def generar_documento(datos):
       'id_registro_documento': nuevo_renglon_registro_documento['id_registro_documento']
     }
   finally:
-    #return respuesta
     anvil.server.task_state['respuesta'] = respuesta
     sleep(2)
 

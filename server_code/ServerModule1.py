@@ -9,8 +9,8 @@ import requests
 from time import sleep
 
 global url_google_script
-url_google_script = "https://script.google.com/macros/s/AKfycbzfsOlAj3Bza_btXoqgjIw3cqA1QZnqrJbgg4chYHKQrpP8jiclyV_I-M_GupC9sNpB/exec"
-#url_google_script = "https://script.google.com/macros/s/AKfycbwVbzIugXlOMmVPipWZevSwzya1P7gZWkS3cHtmCbRp55o25g1lbgI46Wfj36vNFF8/exec"
+#url_google_script = "https://script.google.com/macros/s/AKfycbzfsOlAj3Bza_btXoqgjIw3cqA1QZnqrJbgg4chYHKQrpP8jiclyV_I-M_GupC9sNpB/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbwDTIoTFoA4yp4zfRhDv7fo7V5MNc3bR6jNYLw6u-1YPfQGot24iWP5XNgAkzdWotER/exec"
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
 @anvil.server.callable

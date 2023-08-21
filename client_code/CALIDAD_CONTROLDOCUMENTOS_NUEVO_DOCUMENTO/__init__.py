@@ -214,10 +214,10 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
               break
             elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
               respuesta = self.background_task_google_script.get_state()['respuesta']
-          print(f"{self.background_task_google_script.get_error()}")
+          #print(f"{self.background_task_google_script.get_error()}")
           respuesta = self.background_task_google_script.get_state()['respuesta']
         sleep(1)
-        #print(f"Respuesta = {respuesta}")
+        print(f"Respuesta = {respuesta}")
         if respuesta['exito_generacion_documento']:
           Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
           with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):

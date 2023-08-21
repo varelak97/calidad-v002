@@ -171,7 +171,7 @@ def generar_documento(datos):
     'tipo_app': tipo_google_app(datos['tipo_app']),
     'nivel': nuevo_renglon_registro_documento['nivel']
   }
-  if datos['tipo_app'] == "HOJA DE CÁLCULO" and datos['nivel'] != 4:
+  if datos['tipo_app'] == "HOJA DE CÁLCULO" and datos['nivel'] == 4:
     dicc_google_script['cantidad_hojas'] = datos['cantidad_hojas']
   if datos['nivel'] != 4:
     dicc_google_script['id_doc_base'] = renglon_documento_base['id_google']

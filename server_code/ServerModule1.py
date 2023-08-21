@@ -165,16 +165,17 @@ def generar_documento(datos):
     'revision_documento': nuevo_renglon_registro_documento['revision'],
     'codigo_formato': nuevo_renglon_registro_documento['codigo'] if documento_base == None else renglon_documento_base['codigo'],
     'revision_formato': nuevo_renglon_registro_documento['revision'] if documento_base == None else renglon_documento_base['revision'],
-    'fecha_formato': None if documento_base == None else str(renglon_documento_base['fecha_emision']),
+    'fecha_formato': "BASURA" if documento_base == None else str(renglon_documento_base['fecha_emision']),
     'operacion': "creacion",
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo'],
     'tipo_app': tipo_google_app(datos['tipo_app']),
-    'nivel': nuevo_renglon_registro_documento['nivel']
+    'nivel': nuevo_renglon_registro_documento['nivel'],
+    'id_doc_base': None if datos['nivel'] == 4 else renglon_documento_base['id_google']
   }
   if datos['tipo_app'] == "HOJA DE CÁLCULO" and datos['nivel'] == 4:
     dicc_google_script['cantidad_hojas'] = datos['cantidad_hojas']
-  if datos['nivel'] != 4:
-    dicc_google_script['id_doc_base'] = renglon_documento_base['id_google']
+    
+    
   dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])
   dicc_google_script['emails_lectores'] = obtener_emails_lectores(dicc_google_script['emails_editores'])
 
@@ -200,7 +201,7 @@ def generar_documento(datos):
     renglon_area = app_tables.calidad_controldocumentos_areas.get(codigo=codigo_area)
     renglon_area['contador_'+codigo_tipo_documento] += 1
     """
-    anvil.server.task_state['proceso'] = "¡Scipt de Google terminado!"
+    anvil.server.task_state['proceso'] = "¡Script de Google terminado!"
     anvil.server.task_state['ban_finalizado'] = True
     respuesta = {
       'exito_generacion_documento': True,

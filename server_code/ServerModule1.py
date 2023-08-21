@@ -165,7 +165,7 @@ def generar_documento(datos):
     'revision_documento': nuevo_renglon_registro_documento['revision'],
     'codigo_formato': nuevo_renglon_registro_documento['codigo'] if documento_base == None else renglon_documento_base['codigo'],
     'revision_formato': nuevo_renglon_registro_documento['revision'] if documento_base == None else renglon_documento_base['revision'],
-    'fecha_formato': "BASURA" if documento_base == None else str(renglon_documento_base['fecha_emision']),
+    'fecha_formato': None if documento_base == None else str(renglon_documento_base['fecha_emision']),
     'operacion': "creacion",
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo'],
     'tipo_app': tipo_google_app(datos['tipo_app']),

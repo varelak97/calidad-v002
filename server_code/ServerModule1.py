@@ -10,7 +10,7 @@ from time import sleep
 
 global url_google_script
 #url_google_script = "https://script.google.com/macros/s/AKfycbzfsOlAj3Bza_btXoqgjIw3cqA1QZnqrJbgg4chYHKQrpP8jiclyV_I-M_GupC9sNpB/exec"
-url_google_script = "https://script.google.com/macros/s/AKfycbwDTIoTFoA4yp4zfRhDv7fo7V5MNc3bR6jNYLw6u-1YPfQGot24iWP5XNgAkzdWotER/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbxI4o9uwUfpLMRMGeiQrqMRxxWVI6iGl_4p1AjE3r_zjU2oF-rpK9M1_NmVxYiqyOBL/exec"
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
 @anvil.server.callable

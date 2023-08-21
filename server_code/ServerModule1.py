@@ -9,8 +9,8 @@ import requests
 from time import sleep
 
 global url_google_script
-url_google_script = "https://script.google.com/macros/s/AKfycbweUoXWAaIzfV_xjbbkgnyHFd1dPC6eed6BrumZIaBw5fCwdBq6qNqAPRxTZ1TrWnQ/exec"
-
+url_google_script = "https://script.google.com/macros/s/AKfycbzfsOlAj3Bza_btXoqgjIw3cqA1QZnqrJbgg4chYHKQrpP8jiclyV_I-M_GupC9sNpB/exec"
+#url_google_script = "https://script.google.com/macros/s/AKfycbwVbzIugXlOMmVPipWZevSwzya1P7gZWkS3cHtmCbRp55o25g1lbgI46Wfj36vNFF8/exec"
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
 @anvil.server.callable
@@ -170,7 +170,7 @@ def generar_documento(datos):
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo'],
     'tipo_app': tipo_google_app(datos['tipo_app']),
     'nivel': nuevo_renglon_registro_documento['nivel'],
-    'id_doc_base': None if datos['nivel'] == 4 else renglon_documento_base['id_google']
+    'id_google_doc_base': None if datos['nivel'] == 4 else renglon_documento_base['id_google']
   }
   if datos['tipo_app'] == "HOJA DE CÁLCULO" and datos['nivel'] == 4:
     dicc_google_script['cantidad_hojas'] = datos['cantidad_hojas']

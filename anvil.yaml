@@ -122,25 +122,25 @@ db_schema:
     server: full
     columns:
     - name: id_renglon
-      admin_ui: {width: 200}
+      admin_ui: {order: 0, width: 93}
       type: number
     - name: id_registro_documento
-      admin_ui: {width: 200}
+      admin_ui: {order: 1, width: 177}
       type: number
     - name: id_version_documento
-      admin_ui: {width: 200}
+      admin_ui: {order: 3, width: 90}
       type: number
     - name: registro_principal
-      admin_ui: {width: 200}
+      admin_ui: {order: 3.5625, width: 131}
       type: bool
     - name: nivel
-      admin_ui: {width: 200}
+      admin_ui: {order: 3.625, width: 50}
       type: number
     - name: codigo
-      admin_ui: {width: 200}
+      admin_ui: {order: 4, width: 93}
       type: string
     - name: revision
-      admin_ui: {width: 200}
+      admin_ui: {order: 4.5, width: 70}
       type: number
     - name: titulo
       admin_ui: {width: 200}
@@ -149,34 +149,34 @@ db_schema:
       admin_ui: {width: 200}
       type: string
     - name: fecha_emision
-      admin_ui: {width: 200}
+      admin_ui: {order: 5, width: 117}
       type: date
     - name: tipo_app
-      admin_ui: {width: 200}
+      admin_ui: {order: 7, width: 145}
       type: string
     - name: id_documento_base
-      admin_ui: {width: 200}
+      admin_ui: {order: 8, width: 157}
       type: number
     - name: status
-      admin_ui: {width: 200}
+      admin_ui: {order: 8.5, width: 91}
       type: string
     - name: id_google
-      admin_ui: {width: 200}
+      admin_ui: {order: 8.875, width: 99}
       type: string
     - name: creadores
-      admin_ui: {width: 200}
+      admin_ui: {order: 9, width: 85}
       type: simpleObject
     - name: revisores
-      admin_ui: {width: 200}
+      admin_ui: {order: 9.5, width: 78}
       type: simpleObject
     - name: validadores
-      admin_ui: {width: 200}
+      admin_ui: {order: 9.75, width: 96}
       type: simpleObject
     - name: id_usuario_propietario
-      admin_ui: {width: 200}
+      admin_ui: {order: 9.875, width: 171}
       type: number
     - name: operacion
-      admin_ui: {width: 200}
+      admin_ui: {order: 10, width: 157}
       type: string
     - name: comentarios_renglon
       admin_ui: {width: 200}
@@ -188,10 +188,7 @@ db_schema:
       admin_ui: {width: 200}
       type: datetime
     - name: registro_activo
-      admin_ui: {order: 3.59375, width: 200}
-      type: bool
-    - name: folio
-      admin_ui: {order: 4.5625, width: 200}
+      admin_ui: {order: 3.59375, width: 119}
       type: bool
   calidad_controldocumentos_tipodocumentos:
     title: Calidad_ControlDocumentos_TipoDocumentos

@@ -155,7 +155,7 @@ def generar_documento(datos):
   if documento_base != None:
     documento_base = datos['nombre_documento_base'].split()
     renglon_documento_base = app_tables.calidad_controldocumentos_registrodocumentos.get(codigo=documento_base[0],status="Liberado",registro_principal=True)
-    nuevo_renglon_registro_documento['id_documento_base'] = renglon_documento_base['id_documento_base']
+    nuevo_renglon_registro_documento['id_documento_base'] = renglon_documento_base['id_registro_documento']
   
   dicc_google_script = {
     'id_registro_documento': nuevo_renglon_registro_documento['id_registro_documento'],

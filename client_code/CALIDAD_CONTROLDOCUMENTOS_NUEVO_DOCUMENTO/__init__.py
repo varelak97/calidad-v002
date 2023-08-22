@@ -196,7 +196,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         )
         self.datos["nombre_completo"] = f"{self.datos['codigo']} R{self.datos['revision']} {self.datos['titulo']}"
         self.datos["tipo_app"] = self.drop_down_tipo_archivo.selected_value
-        if self.datos["tipo_app"] == "HOJA DE CÁLCULO" and self.datos['nivel'] != 4:
+        if self.datos["tipo_app"] == "HOJA DE CÁLCULO" and self.datos['nivel'] == 4:
           self.datos["cantidad_hojas"] = self.text_box_cantidad_de_hojas.text
         self.datos["marca_temporal"] = datetime.now()
         

@@ -13,6 +13,27 @@ url_google_script = "https://script.google.com/macros/s/AKfycbyDThc91c9r9hXynjW3
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
 @anvil.server.callable
+def aux():
+  dicc_areas = {str(r['id_registro_area']):r['area'] for r in app_tables.calidad_controldocumentos_areas.search()}
+  """
+  print("AREAS")
+  for k,v in dicc_areas.items():
+    print(f"{k}: {v}")
+  """
+  dicc_empleados = {str(r['id_registro_empleado']):r['nombre_completo'] for r in app_tables.rh_empleados_infobase.search()}
+  """
+  print("AREAS")
+  for k,v in dicc_empleados.items():
+    print(f"{k}: {v}")
+  """
+  dicc_usuarios = {str(r['id_registro_usuario']):dicc_empleados[str(r['id_registro_empleado'])] for r in app_tables.sistemas_usuarios_erp_registro.search()}
+  """
+  print("AREAS")
+  for k,v in dicc_usuarios.items():
+    print(f"{k}: {v}")
+  """
+  
+@anvil.server.callable
 def obtener_id_usuario_erp_desde_numero_empleado(numero_empleado):
   renglon_empleado = app_tables.rh_empleados_infobase.get(numero_empleado=numero_empleado, registro_principal=True)
   renglon_usuario = app_tables.sistemas_usuarios_erp_registro.get(id_registro_empleado=renglon_empleado['id_registro_empleado'], registro_principal=True)

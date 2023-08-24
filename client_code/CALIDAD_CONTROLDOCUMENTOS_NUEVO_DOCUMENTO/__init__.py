@@ -55,6 +55,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
     self.content_panel.visible = True
 
   def drop_down_nivel_change(self, **event_args):
+    self.drop_down_tipo_archivo.selected_value = None
+    self.drop_down_tipo_archivo_change()
     if self.drop_down_nivel.selected_value == None:
       self.drop_down_documento_base.placeholder = "-- PRIMERO ES NECESARIO ESPECIFICAR EL NIVEL DEL DOCUMENTO --"
       self.drop_down_documento_base.selected_value = None
@@ -73,6 +75,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
           self.drop_down_documento_base.placeholder = "-- ELEGIR --"
         self.drop_down_documento_base.selected_value = None
         self.drop_down_tipo_archivo.enabled = False
+        
       
   def text_area_titulo_lost_focus(self, **event_args):
     self.text_area_titulo.text = str(self.text_area_titulo.text).upper()
@@ -102,9 +105,6 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       self.drop_down_propietario.placeholder = "-- ELEGIR --"
       if len(self.drop_down_propietario.items) == 1:
         self.drop_down_propietario.selected_value = self.drop_down_propietario.items[0]
-      
-      
-      
       
   def button_generar_documento_click(self, **event_args):
     error = ""
@@ -180,80 +180,89 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         #codigo += f"{'0' * (3 - len(str(consecutivo)))}{consecutivo}"
         codigo += f"-{dicc_renglon_area['codigo']}-{self.drop_down_consecutivo.selected_value}" #Línea temporalmente usada para que Ada pueda subir documentos con consecutivos que no comienzan en "001"
         #alert(codigo) #LÍNEA PARA PRUEBAS
-        self.datos.update(
-          {
-            "nivel": int(str(self.drop_down_nivel.selected_value).split('.')[0]),
-            "nombre_documento_base": self.drop_down_documento_base.selected_value,
-            "titulo": self.text_area_titulo.text,
-            "codigo": codigo,
-            "creadores": [item['integrante'] for item in self.repeating_panel_creadores.items],
-            "revisores": [item['integrante'] for item in self.repeating_panel_revisores.items],
-            "validadores": [item['integrante'] for item in self.repeating_panel_validadores.items],
-            "numero_empleado_propietario": int(str(self.drop_down_propietario.selected_value).split('(')[1][0:-1]),
-            "id_usuario_registrador": self.datos['id_usuario_erp'],
-            "revision": self.drop_down_revision.selected_value #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00",
-          }
-        )
-        self.datos["nombre_completo"] = f"{self.datos['codigo']} R{self.datos['revision']} {self.datos['titulo']}"
-        self.datos["tipo_app"] = self.drop_down_tipo_archivo.selected_value
-        if self.datos["tipo_app"] == "HOJA DE CÁLCULO" and self.datos['nivel'] == 4:
-          self.datos["cantidad_hojas"] = self.text_box_cantidad_de_hojas.text
-        self.datos["marca_temporal"] = datetime.now()
-        
-        for k,v in self.datos.items():
-          print(k,":",v)
-        
-        with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
-          self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generacion_documento', self.datos)
-          tiempo_inicio = datetime.now()
-          tiempo_final = tiempo_inicio + timedelta(minutes=1, seconds=30)
-          ban_timeout = False
-          while self.background_task_google_script.is_running():
-            if datetime.now() >= tiempo_final:
-              ban_timeout = True
-              break
-            elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
-              respuesta = self.background_task_google_script.get_state()['respuesta']
-          #print(f"{self.background_task_google_script.get_error()}")
-          respuesta = self.background_task_google_script.get_state()['respuesta']
-        sleep(1)
-        print(f"Respuesta = {respuesta}")
-        if respuesta['exito_generacion_documento']:
-          Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
-          with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
-            respuesta_envio_email = anvil.server.call(
-              'enviar_email_notificacion',
-              {
-                'id_registro_documento': respuesta['id_registro_documento'],
-                'operacion': 'creación'
-              }
-            )
-            if not respuesta_envio_email[0]:
-              empleados_creadores = ""
-              for creador in self.datos['creadores']:
-                empleados_creadores += f'\n•{creador}'
-              alert(
-                content = f"El documento {self.datos['nombre_completo']} fue generado satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\n{respuesta_envio_email[1]}\n\nPor favor informa a la(s) siguiente(s) persona(s) que la creación del documento ya ha sido realizada y puede(n) comenzar a trabajar en él:{empleados_creadores}",
-                title = "ERROR DURANTE ENVÍO DE NOTIFICACIÓN",
-                large=True,
-                dismissible=False
-              )
-            else:
-              Notification("Notificación a equipo de trabajo enviada por correo electrónico", title="¡ÉXITO!", style='success').show()
-              sleep(2)
-          Notification("Por favor espera...", title="REDIRIGIENDO")
-          self.datos = {
-            'id_usuario_erp': self.datos['id_usuario_erp'],
-            'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP',
-            'id_registro_documento': respuesta['id_registro_documento']
-          }
-          self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
+        ban_continuar_2 = anvil.server.call('comprobacion_codigo_no_repetido',codigo)
+        if not ban_continuar_2:
+          Notification(
+            message = f"El código '{codigo}' ya fue generado anteriormente para otro documento.",
+            title = "ACCIÓN DENEGADA",
+            style='danger',
+            timeout = 4
+          ).show()
         else:
-          alert(
-            content = respuesta['error'] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
-            title = "OCURRIÓ UN ERROR",
-            dismissible=False
+          self.datos.update(
+            {
+              "nivel": int(str(self.drop_down_nivel.selected_value).split('.')[0]),
+              "nombre_documento_base": self.drop_down_documento_base.selected_value,
+              "titulo": self.text_area_titulo.text,
+              "codigo": codigo,
+              "creadores": [item['integrante'] for item in self.repeating_panel_creadores.items],
+              "revisores": [item['integrante'] for item in self.repeating_panel_revisores.items],
+              "validadores": [item['integrante'] for item in self.repeating_panel_validadores.items],
+              "numero_empleado_propietario": int(str(self.drop_down_propietario.selected_value).split('(')[1][0:-1]),
+              "id_usuario_registrador": self.datos['id_usuario_erp'],
+              "revision": self.drop_down_revision.selected_value #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00",
+            }
           )
+          self.datos["nombre_completo"] = f"{self.datos['codigo']} R{self.datos['revision']} {self.datos['titulo']}"
+          self.datos["tipo_app"] = self.drop_down_tipo_archivo.selected_value
+          if self.datos["tipo_app"] == "HOJA DE CÁLCULO" and self.datos['nivel'] == 4:
+            self.datos["cantidad_hojas"] = self.text_box_cantidad_de_hojas.text
+          self.datos["marca_temporal"] = datetime.now()
+          
+          for k,v in self.datos.items():
+            print(k,":",v)
+          
+          with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
+            self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generacion_documento', self.datos)
+            tiempo_inicio = datetime.now()
+            tiempo_final = tiempo_inicio + timedelta(minutes=1, seconds=30)
+            ban_timeout = False
+            while self.background_task_google_script.is_running():
+              if datetime.now() >= tiempo_final:
+                ban_timeout = True
+                break
+              elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
+                respuesta = self.background_task_google_script.get_state()['respuesta']
+            #print(f"{self.background_task_google_script.get_error()}")
+            respuesta = self.background_task_google_script.get_state()['respuesta']
+          sleep(1)
+          print(f"Respuesta = {respuesta}")
+          if respuesta['exito_generacion_documento']:
+            Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
+            with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):
+              respuesta_envio_email = anvil.server.call(
+                'enviar_email_notificacion',
+                {
+                  'id_registro_documento': respuesta['id_registro_documento'],
+                  'operacion': 'creación'
+                }
+              )
+              if not respuesta_envio_email[0]:
+                empleados_creadores = ""
+                for creador in self.datos['creadores']:
+                  empleados_creadores += f'\n•{creador}'
+                alert(
+                  content = f"El documento {self.datos['nombre_completo']} fue generado satisfactoriamente, pero no fue posible enviar su respectiva notificación por correo electrónico al equipo de trabajo.\n\n{respuesta_envio_email[1]}\n\nPor favor informa a la(s) siguiente(s) persona(s) que la creación del documento ya ha sido realizada y puede(n) comenzar a trabajar en él:{empleados_creadores}",
+                  title = "ERROR DURANTE ENVÍO DE NOTIFICACIÓN",
+                  large=True,
+                  dismissible=False
+                )
+              else:
+                Notification("Notificación a equipo de trabajo enviada por correo electrónico", title="¡ÉXITO!", style='success').show()
+                sleep(2)
+            Notification("Por favor espera...", title="REDIRIGIENDO")
+            self.datos = {
+              'id_usuario_erp': self.datos['id_usuario_erp'],
+              'clave_form': 'CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP',
+              'id_registro_documento': respuesta['id_registro_documento']
+            }
+            self.parent.raise_event('x-actualizar_form_activo', datos=self.datos)
+          else:
+            alert(
+              content = respuesta['error'] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
+              title = "OCURRIÓ UN ERROR",
+              dismissible=False
+            )
     self.content_panel.visible = True
 
   def drop_down_tipo_archivo_change(self, **event_args):

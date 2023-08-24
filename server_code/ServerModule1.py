@@ -106,6 +106,13 @@ def obtener_emails_lectores(emails_editores):
   return emails_lectores[0:-1]
 
 @anvil.server.callable
+def comprobacion_codigo_no_repetido(codigo):
+  if len(app_tables.calidad_controldocumentos_registrodocumentos.search(codigo=codigo,registro_principal=True)) == 0:
+    return True
+  else:
+    return False
+
+@anvil.server.callable
 def lanzar_background_google_script(clave_subscript, datos):
   if clave_subscript == 'generacion_documento':
     return anvil.server.launch_background_task('generar_documento', datos)

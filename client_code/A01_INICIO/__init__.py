@@ -15,6 +15,6 @@ class A01_INICIO(A01_INICIOTemplate):
     open_form(
       'A02_PRINCIPAL', 
       {
-        'id_usuario_erp': 18
+        'id_usuario_erp': 1
       }
     )

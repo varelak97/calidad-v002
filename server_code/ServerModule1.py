@@ -15,7 +15,7 @@ url_google_script = "https://script.google.com/macros/s/AKfycbyDThc91c9r9hXynjW3
 @anvil.server.callable
 def obtener_id_usuario_erp_desde_numero_empleado(numero_empleado):
   renglon_empleado = app_tables.rh_empleados_infobase.get(numero_empleado=numero_empleado, registro_principal=True)
-  renglon_usuario = app_tables.sistemas_usuarios_erp_registro.get(id_registro_empleado=renglon_empleado['id_registro_empleado'])
+  renglon_usuario = app_tables.sistemas_usuarios_erp_registro.get(id_registro_empleado=renglon_empleado['id_registro_empleado'], registro_principal=True)
   id_usuario_erp = renglon_usuario['id_registro_usuario']
   return id_usuario_erp
   
@@ -120,7 +120,67 @@ def lanzar_background_google_script(clave_subscript, datos):
 #--- SECCIÓN FUNCIONES DE FLUJO DE DOCUMENTOS ---
 @anvil.server.background_task
 def generar_documento(datos):
-  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'Comenzó pero no terminó'}
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'1. Comenzó pero no terminó'}
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'datos:\n{datos}'}
+
+  """
+    id_renglon = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
+    id_registro_documento = max([r['id_registro_documento'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
+  	id_version_documento = 1,
+    registro_principal = True,
+    registro_activo = True,
+    nivel = datos['nivel'],
+    codigo = datos['codigo'],
+  	#revision = 0,
+    revision=int(datos['revision']), #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
+    titulo = datos['titulo'],
+  	nombre_completo = datos['nombre_completo'],
+  	fecha_emision = None,
+    tipo_app = datos['tipo_app'],
+    status = "En creación",
+    id_usuario_propietario = obtener_id_usuario_erp_desde_numero_empleado(datos['numero_empleado_propietario']),
+    operacion = "Creación del documento",
+    id_usuario_registrador = datos['id_usuario_registrador'],
+    marca_temporal = datos['marca_temporal']
+  
+  id_renglon = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'id_renglon:\n{id_renglon}'}
+  id_registro_documento = max([r['id_registro_documento'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'id_registro_documento:\n{id_registro_documento}'}
+  id_version_documento = 1
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'id_version_documento:\n{id_version_documento}'}
+  registro_principal = True
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'registro_principal:\n{registro_principal}'}
+  registro_activo = True
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'registro_activo:\n{registro_activo}'}
+  nivel = datos['nivel']
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'nivel:\n{nivel}'}
+  codigo = datos['codigo']
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'codigo:\n{codigo}'}
+  #revision = 0,
+  revision=int(datos['revision']) #Línea temporalmente usada para que Ada pueda subir documentos con revisión que no comienzan en "00"
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'revision:\n{revision}'}
+  titulo = datos['titulo']
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'titulo:\n{titulo}'}
+  nombre_completo = datos['nombre_completo']
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'nombre_completo:\n{nombre_completo}'}
+  fecha_emision = None
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'fecha_emision:\n{fecha_emision}'}
+  tipo_app = datos['tipo_app']
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'tipo_app:\n{tipo_app}'}
+  status = "En creación"
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'status:\n{status}'}
+  #id_usuario_propietario = obtener_id_usuario_erp_desde_numero_empleado(datos['numero_empleado_propietario'])
+  id_usuario_propietario = 18
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'id_usuario_propietario:\n{id_usuario_propietario}'}
+  operacion = "Creación del documento"
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'operacion:\n{operacion}'}
+  id_usuario_registrador = datos['id_usuario_registrador']
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'id_usuario_registrador:\n{id_usuario_registrador}'}
+  marca_temporal = datos['marca_temporal']
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'marca_temporal:\n{marca_temporal}'}
+  """
+  
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(
     id_renglon = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
     id_registro_documento = max([r['id_registro_documento'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1 if len(app_tables.calidad_controldocumentos_registrodocumentos.search()) > 0 else 1,
@@ -139,9 +199,10 @@ def generar_documento(datos):
     id_usuario_propietario = obtener_id_usuario_erp_desde_numero_empleado(datos['numero_empleado_propietario']),
     operacion = "Creación del documento",
     id_usuario_registrador = datos['id_usuario_registrador'],
-    marca_temporal = datos['marca_temporal'],
+    marca_temporal = datos['marca_temporal']
   )
   
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'2. Generé renglón nuevo'}
   for sub_equipo in ('creadores','revisores','validadores'):
     id_usuario_integrantes = []
     for integrante in datos[sub_equipo]:
@@ -151,10 +212,14 @@ def generar_documento(datos):
       id_usuario_integrantes.append(app_tables.sistemas_usuarios_erp_registro.get(id_registro_empleado=id_registro_empleado, registro_principal=True)['id_registro_usuario'])
     nuevo_renglon_registro_documento[sub_equipo] = id_usuario_integrantes.copy()
   documento_base = datos['nombre_documento_base']
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'3. Obtuve integrantes del equipo.'}
+  
   if documento_base != None:
     documento_base = datos['nombre_documento_base'].split()
     renglon_documento_base = app_tables.calidad_controldocumentos_registrodocumentos.get(codigo=documento_base[0],status="Liberado",registro_principal=True)
     nuevo_renglon_registro_documento['id_documento_base'] = renglon_documento_base['id_registro_documento']
+    anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'3.1 actualicé id_documento_base'}
+  
   
   dicc_google_script = {
     'id_registro_documento': nuevo_renglon_registro_documento['id_registro_documento'],
@@ -171,22 +236,27 @@ def generar_documento(datos):
     'nivel': nuevo_renglon_registro_documento['nivel'],
     'id_google_doc_base': None if datos['nivel'] == 4 else renglon_documento_base['id_google']
   }
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':f'4. Llené primera parte de dicc_google_script {dicc_google_script}'}
+  
   if datos['tipo_app'] == "HOJA DE CÁLCULO" and datos['nivel'] == 4:
     dicc_google_script['cantidad_hojas'] = datos['cantidad_hojas']
-    
+    anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'4.1 indiqué cantidad de hojas para Sheets.'}
     
   dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])
   dicc_google_script['emails_lectores'] = obtener_emails_lectores(dicc_google_script['emails_editores'])
+  anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'5. Asigné lista de emails de editores y lectores'}
 
   print(json.dumps(dicc_google_script, indent=4))
   
   respuesta = {} #Declarando antes del Try porque genera un error --> UnboundLocalError: local variable 'respuesta' referenced before assignment
   anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
+  
   try:
+    anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'6. Llamando al script de Google'}
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
   except Exception as Ex:
     #try / except para borrar la carpeta correspondiente en Google Drive.
-    anvil.server.task_state['proceso'] = "Script de Google fallido..."
+    anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'7.Falló el script de Google'}
     nuevo_renglon_registro_documento.delete()
     respuesta = {
       'exito_generacion_documento': False,
@@ -200,7 +270,7 @@ def generar_documento(datos):
     renglon_area = app_tables.calidad_controldocumentos_areas.get(codigo=codigo_area)
     renglon_area['contador_'+codigo_tipo_documento] += 1
     """
-    anvil.server.task_state['proceso'] = "¡Script de Google terminado!"
+    anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'8. Script de Google finalizado'}
     anvil.server.task_state['ban_finalizado'] = True
     respuesta = {
       'exito_generacion_documento': True,

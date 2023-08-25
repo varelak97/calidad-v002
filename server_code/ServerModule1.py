@@ -27,11 +27,11 @@ def aux():
     print(f"{k}: {v}")
   """
   dicc_usuarios = {str(r['id_registro_usuario']):dicc_empleados[str(r['id_registro_empleado'])] for r in app_tables.sistemas_usuarios_erp_registro.search()}
-  """
-  print("AREAS")
+  #"""
+  print("USUARIOS")
   for k,v in dicc_usuarios.items():
     print(f"{k}: {v}")
-  """
+  #"""
   
 @anvil.server.callable
 def obtener_id_usuario_erp_desde_numero_empleado(numero_empleado):

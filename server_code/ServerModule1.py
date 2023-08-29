@@ -17,14 +17,14 @@ url_google_script = "https://script.google.com/macros/s/AKfycbxFX3NZD4B7sw42xGBo
 @anvil.server.callable
 def aux():
   dicc_areas = {str(r['id_registro_area']):r['area'] for r in app_tables.calidad_controldocumentos_areas.search()}
-  """
+  
   print("AREAS")
   for k,v in dicc_areas.items():
     print(f"{k}: {v}")
-  """
+    
   dicc_empleados = {str(r['id_registro_empleado']):r['nombre_completo'] for r in app_tables.rh_empleados_infobase.search()}
   """
-  print("AREAS")
+  print("EMPLEADOS")
   for k,v in dicc_empleados.items():
     print(f"{k}: {v}")
   """

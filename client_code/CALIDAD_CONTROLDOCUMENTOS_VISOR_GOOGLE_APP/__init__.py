@@ -65,7 +65,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
       
   def agregar_visor_app_google(self, **event_args):
     tipo_google_app = anvil.server.call('tipo_google_app', self.datos['tipo_app'])
-    self.iframe = jQuery("<iframe width='100%' height='800px'>").attr("src",f"https://docs.google.com/{tipo_google_app}/d/{self.datos['id_google']}/edit?usp=sharing?&embedded=true")
+    self.iframe = jQuery("<iframe class='zoom' width='100%' height='800px'>").attr("src",f"https://docs.google.com/{tipo_google_app}/d/{self.datos['id_google']}/edit?usp=sharing?&embedded=true")
     self.iframe.appendTo(get_dom_node(self.column_panel_visor_app_google))
 
   def link_sin_visualizacion_click(self, **event_args):

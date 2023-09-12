@@ -147,6 +147,10 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
     self.button_enviar_a_revision.enabled=True
       
   def button_aprobar_click(self, **event_args):
+    self.button_aprobar.enabled = False
+    self.button_aprobar_revision_y_liberar.enabled = False
+    self.button_rechazar.enabled = False
+    
     if self.datos['status'] == "En revisión":
       with Notification("Enviando documento a validación. Por favor espera...", title="PROCESANDO PETICIÓN"):
         self.datos['id_usuario_registrador'] = self.datos['id_usuario_erp']
@@ -196,9 +200,19 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
         )
     elif self.datos['status'] == "En validación":
       self.liberar_documento()
-
+    self.button_aprobar.enabled = True
+    self.button_aprobar_revision_y_liberar.enabled = True
+    self.button_rechazar.enabled = True
+    
   def button_aprobar_revision_y_liberar_click(self, **event_args):
+    self.button_aprobar.enabled = False
+    self.button_aprobar_revision_y_liberar.enabled = False
+    self.button_rechazar.enabled = False
     self.liberar_documento()
+    self.button_aprobar.enabled = True
+    self.button_aprobar_revision_y_liberar.enabled = True
+    self.button_rechazar.enabled = True
+    
   
   def liberar_documento(self, **event_args):
     self.datos['id_usuario_registrador'] = self.datos['id_usuario_erp']
@@ -254,6 +268,9 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
       )
     
   def button_rechazar_click(self, **event_args):
+    self.button_aprobar.enabled = False
+    self.button_aprobar_revision_y_liberar.enabled = False
+    self.button_rechazar.enabled = False
     card = ColumnPanel(role='elevated-card')
     text_area = TextArea(auto_expand=True,height=100,role='outlined')
     card.add_component(text_area)
@@ -337,7 +354,9 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
           title = "OCURRIÓ UN ERROR",
           dismissible=False
         )
-
+    self.button_aprobar.enabled = True
+    self.button_aprobar_revision_y_liberar.enabled = True
+    self.button_rechazar.enabled = True
   def link_detalles_encabezado_click(self, **event_args):
     if "OCULTAR" in str(self.link_detalles_encabezado.text):
       self.column_panel_detalles_encabezado.visible = False

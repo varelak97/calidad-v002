@@ -79,6 +79,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
     self.link_sin_visualizacion.visible = True
 
   def button_enviar_a_revision_click(self, **event_args):
+    self.button_enviar_a_revision.enabled=False
     self.datos['id_usuario_registrador'] = self.datos['id_usuario_erp']
     self.datos['marca_temporal'] = datetime.now()
     with Notification("Enviando documento a revisión. Por favor espera...", title="PROCESANDO PETICIÓN"):
@@ -143,6 +144,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
         title = "OCURRIÓ UN ERROR",
         dismissible=False
       )
+    self.button_enviar_a_revision.enabled=True
       
   def button_aprobar_click(self, **event_args):
     if self.datos['status'] == "En revisión":

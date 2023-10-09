@@ -34,6 +34,17 @@ def aux():
   for k,v in dicc_usuarios.items():
     print(f"{k}: {v}")
   #"""
+
+@anvil.server.callable
+def aux2():
+  for r in app_tables.calidad_controldocumentos_equipotrabajo.search():
+    if 14 in r['revisores']:
+      r['revisores'] = [7, 14]
+      
+  for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True):
+    if 14 in r['revisores']:
+      r['revisores'] = [7, 14]
+  
   
 @anvil.server.callable
 def obtener_id_usuario_erp_desde_numero_empleado(numero_empleado):

@@ -577,7 +577,12 @@ def obtener_id_registro(nombre_completo):
   return app_tables.calidad_controldocumentos_registrodocumentos.get(nombre_completo=nombre_completo, registro_principal=True)['id_registro_documento']
 
 @anvil.server.callable
+def lanzar_background_task_obtener_documentos_existentes():
+  return anvil.server.launch_background_task('obtener_documentos_existentes')
+
+@anvil.server.background_task
 def obtener_documentos_existentes():
+  anvil.server.task_state['progreso'] = "Cargando..."
   renglones_tipos_documento = [dict(r) for r in app_tables.calidad_controldocumentos_tipodocumentos.search()]
   tipos_documento = {renglon['codigo']: renglon['tipo'] for renglon in renglones_tipos_documento}
   renglones_areas = [dict(r) for r in app_tables.calidad_controldocumentos_areas.search()]
@@ -600,7 +605,9 @@ def obtener_documentos_existentes():
     )
     if documento['id_documento_base'] != None:
       documento['documento_base'] = documentos_base[str(documento['id_documento_base'])]
-  return documentos_existentes
+  anvil.server.task_state['progreso'] = "Terminado"
+  anvil.server.task_state['items'] = documentos_existentes
+  #return documentos_existentes
 
 @anvil.server.callable
 def obtener_ids_equipo_de_documento(nombre_documento):

@@ -7,6 +7,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 from datetime import date
+from time import sleep
 
 class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTESTemplate):
   datos = {}
@@ -33,15 +34,24 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
     self.content_panel.visible = True
     
   def button_actualizar_click(self, **event_args):
-    self.items = list(anvil.server.call('obtener_documentos_existentes'))
-    self.repeating_panel_documentos_existentes.items = self.items
-    self.ordenar_lista_documentos_existentes()
-    self.drop_down_estado.items = sorted(list(set([item['status'].upper() for item in self.items])))
-    self.drop_down_nivel.items = sorted(list(set([str(item['nivel']) for item in self.items])))
-    self.drop_down_tipo_documento.items = sorted(list(set([item['tipo_documento'] for item in self.items])))
-    self.drop_down_area.items = sorted(list(set([item['area'] for item in self.items])))
-    self.drop_down_tipo_app.items = sorted(list(set([item['tipo_app'] for item in self.items])))
-    
+    self.repeating_panel_documentos_existentes.items = []
+    task_obtener_documentos_existentes = anvil.server.call('lanzar_background_task_obtener_documentos_existentes')
+    sleep(2)
+    with Notification(task_obtener_documentos_existentes.get_state()['progreso']):
+      while task_obtener_documentos_existentes.is_running():
+        pass
+    if task_obtener_documentos_existentes.get_termination_status() == 'completed':
+      self.items = list(task_obtener_documentos_existentes.get_state()['items'])
+      self.repeating_panel_documentos_existentes.items = self.items
+      self.ordenar_lista_documentos_existentes()
+      self.drop_down_estado.items = sorted(list(set([item['status'].upper() for item in self.items])))
+      self.drop_down_nivel.items = sorted(list(set([str(item['nivel']) for item in self.items])))
+      self.drop_down_tipo_documento.items = sorted(list(set([item['tipo_documento'] for item in self.items])))
+      self.drop_down_area.items = sorted(list(set([item['area'] for item in self.items])))
+      self.drop_down_tipo_app.items = sorted(list(set([item['tipo_app'] for item in self.items])))
+    else:
+      alert("Ocurrió un problema al intentar cargar la base de datos con los registros de la biblioteca virtual:\nERROR WHEN TRYING TO LAUNCH BACKGROUND TASK\n\nNotifica este error al equipo de Sistemas.")
+
   def actualizar_lista_documentos_existentes(self, **event_args):
     items = self.items.copy()
     if self.drop_down_estado.selected_value != None:

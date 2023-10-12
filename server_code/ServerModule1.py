@@ -38,12 +38,12 @@ def aux():
 @anvil.server.callable
 def aux2():
   for r in app_tables.calidad_controldocumentos_equipotrabajo.search():
-    if 14 in r['revisores']:
-      r['revisores'] = [7, 14]
+    if 15 in r['revisores']:
+      r['revisores'] = [7, 15]
       
   for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True):
-    if 14 in r['revisores']:
-      r['revisores'] = [7, 14]
+    if 15 in r['revisores']:
+      r['revisores'] = [7, 15]
   
   
 @anvil.server.callable

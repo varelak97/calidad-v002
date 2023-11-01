@@ -12,6 +12,6 @@ class AUX(AUXTemplate):
     self.init_components(**properties)
 
   def button_1_click(self, **event_args):
-    anvil.server.call('aux2')
+    anvil.server.call('aux')
     Notification("",title="¡TERMINADO!", style="success").show()
 

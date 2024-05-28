@@ -580,10 +580,12 @@ def obtener_id_registro(nombre_completo):
 
 @anvil.server.callable
 def lanzar_background_task_obtener_documentos_existentes():
+  print("lanzando funcion get docs existentes")
   return anvil.server.launch_background_task('obtener_documentos_existentes')
 
 @anvil.server.background_task
 def obtener_documentos_existentes():
+  print("obteniendo docs existentes..")
   anvil.server.task_state['progreso'] = "Cargando..."
   renglones_tipos_documento = [dict(r) for r in app_tables.calidad_controldocumentos_tipodocumentos.search()]
   tipos_documento = {renglon['codigo']: renglon['tipo'] for renglon in renglones_tipos_documento}

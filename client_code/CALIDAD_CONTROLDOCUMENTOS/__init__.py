@@ -12,7 +12,6 @@ class CALIDAD_CONTROLDOCUMENTOS(CALIDAD_CONTROLDOCUMENTOSTemplate):
   def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
-    print(f"entro al sistema:{self.datos['id_usuario_erp']}")
     if self.datos['id_usuario_erp'] not in [18, 6]: #user paco: 404, id_usuario_erp: 12, pass: 181300
       self.button_documentos_existentes.enabled = False
       self.button_nuevo_documento.enabled = False

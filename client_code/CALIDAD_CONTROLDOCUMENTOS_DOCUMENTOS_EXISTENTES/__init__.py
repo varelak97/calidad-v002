@@ -39,7 +39,6 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
     sleep(2)
     with Notification(task_obtener_documentos_existentes.get_state()['progreso']):
       while task_obtener_documentos_existentes.is_running():
-        print("corriento task....######")
         pass
     if task_obtener_documentos_existentes.get_termination_status() == 'completed':
       self.items = list(task_obtener_documentos_existentes.get_state()['items'])

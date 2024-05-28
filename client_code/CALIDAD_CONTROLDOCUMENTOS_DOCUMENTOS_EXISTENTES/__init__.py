@@ -35,10 +35,14 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
     
   def button_actualizar_click(self, **event_args):
     self.repeating_panel_documentos_existentes.items = []
+    print("antes de llamar a task")
     task_obtener_documentos_existentes = anvil.server.call('lanzar_background_task_obtener_documentos_existentes')
+    print("despues de llamar a task")
     sleep(2)
     with Notification(task_obtener_documentos_existentes.get_state()['progreso']):
+      print("en progreso")
       while task_obtener_documentos_existentes.is_running():
+        print("dentro de while")
         pass
     if task_obtener_documentos_existentes.get_termination_status() == 'completed':
       self.items = list(task_obtener_documentos_existentes.get_state()['items'])

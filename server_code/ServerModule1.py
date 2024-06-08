@@ -338,17 +338,54 @@ def enviar_documento_a_revision(datos):
   nuevo_renglon_registro_documento['marca_temporal'] = datos['marca_temporal']
   nuevo_renglon_registro_documento['comentarios_renglon'] = None
 
+  dicc_google_script = {
+    'id_registro_documento': anterior_renglon_registro_documento['id_registro_documento'],
+    'id_version_documento': anterior_renglon_registro_documento['id_version_documento'],
+    'id_google': anterior_renglon_registro_documento['id_google'],
+    'revision_documento': anterior_renglon_registro_documento['revision'],
+    'tipo_app': tipo_google_app(anterior_renglon_registro_documento['tipo_app']),
+    'operacion': 'revision',
+    'emails_lectores': obtener_emails_lectores(""),
+    'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
+  }
+  respuesta = {}
+  anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
+  try:
+    nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
+  except Exception as Ex:
+    #try / except para borrar la carpeta correspondiente en Google Drive.
+    nuevo_renglon_registro_documento.delete()
+    respuesta = {
+      'exito_envio_a_revision_documento': False,
+      'error': f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"
+    }
+    #respuesta = [False, f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"]
+  else:
+    nuevo_renglon_registro_documento['registro_principal'] = True
+    anterior_renglon_registro_documento.update(registro_principal=False)
+    anvil.server.task_state['proceso'] = "¡Scipt de Google terminado!"
+    anvil.server.task_state['ban_finalizado'] = True
+    respuesta = {
+      'exito_envio_a_revision_documento': True,
+      'id_registro_documento': nuevo_renglon_registro_documento['id_registro_documento']
+    }
+    #respuesta = [True, nuevo_renglon_registro_documento['id_registro_documento']]
+  finally:
+    anvil.server.task_state['respuesta'] = respuesta
+    sleep(2)
+    #return respuesta 
+
 @anvil.server.background_task
 def generar_nueva_revision(datos):
-  anvil.server.task_state['respuesta'] = {'exito_envio_a_revision_documento': None, 'error':'Comenzó pero no terminó'}
+  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error':'Comenzó pero no terminó'}
   anterior_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.get(id_registro_documento=datos['id_registro_documento'], registro_principal=True)
   info_renglon_documento_actual = dict(anterior_renglon_registro_documento)
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(**info_renglon_documento_actual)
   nuevo_renglon_registro_documento['id_renglon'] = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1
   nuevo_renglon_registro_documento['registro_principal'] = False
-  nuevo_renglon_registro_documento['id_version_documento'] += 1
-  nuevo_renglon_registro_documento['status'] = 'En revisión'
-  nuevo_renglon_registro_documento['operacion'] = "Envío a revisión"
+  nuevo_renglon_registro_documento['revision'] += 1
+  nuevo_renglon_registro_documento['status'] = 'En creación'
+  nuevo_renglon_registro_documento['operacion'] = "Creación"
   nuevo_renglon_registro_documento['id_usuario_registrador'] = datos['id_usuario_registrador']
   nuevo_renglon_registro_documento['marca_temporal'] = datos['marca_temporal']
   nuevo_renglon_registro_documento['comentarios_renglon'] = None
@@ -389,6 +426,8 @@ def generar_nueva_revision(datos):
     anvil.server.task_state['respuesta'] = respuesta
     sleep(2)
     #return respuesta 
+
+
 
 @anvil.server.background_task
 def rechazar_documento(datos):

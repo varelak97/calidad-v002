@@ -128,7 +128,7 @@ db_schema:
       admin_ui: {order: 1, width: 177}
       type: number
     - name: id_version_documento
-      admin_ui: {order: 3, width: 90}
+      admin_ui: {order: 3, width: 188}
       type: number
     - name: registro_principal
       admin_ui: {order: 3.5625, width: 131}

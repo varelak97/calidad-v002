@@ -338,6 +338,21 @@ def enviar_documento_a_revision(datos):
   nuevo_renglon_registro_documento['marca_temporal'] = datos['marca_temporal']
   nuevo_renglon_registro_documento['comentarios_renglon'] = None
 
+@anvil.server.background_task
+def generar_nueva_revision(datos):
+  anvil.server.task_state['respuesta'] = {'exito_envio_a_revision_documento': None, 'error':'Comenzó pero no terminó'}
+  anterior_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.get(id_registro_documento=datos['id_registro_documento'], registro_principal=True)
+  info_renglon_documento_actual = dict(anterior_renglon_registro_documento)
+  nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(**info_renglon_documento_actual)
+  nuevo_renglon_registro_documento['id_renglon'] = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1
+  nuevo_renglon_registro_documento['registro_principal'] = False
+  nuevo_renglon_registro_documento['id_version_documento'] += 1
+  nuevo_renglon_registro_documento['status'] = 'En revisión'
+  nuevo_renglon_registro_documento['operacion'] = "Envío a revisión"
+  nuevo_renglon_registro_documento['id_usuario_registrador'] = datos['id_usuario_registrador']
+  nuevo_renglon_registro_documento['marca_temporal'] = datos['marca_temporal']
+  nuevo_renglon_registro_documento['comentarios_renglon'] = None
+
   dicc_google_script = {
     'id_registro_documento': anterior_renglon_registro_documento['id_registro_documento'],
     'id_version_documento': anterior_renglon_registro_documento['id_version_documento'],

@@ -68,3 +68,9 @@ class RowTemplate5(RowTemplate5Template):
           }
           self.parent.parent.parent.parent.parent.parent.raise_event('x-actualizar_form_activo', datos=datos)
           self.parent.parent.parent.parent.visible = True
+        else:
+            alert(
+              content = respuesta['error'] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
+              title = "OCURRIÓ UN ERROR",
+              dismissible=False
+            )

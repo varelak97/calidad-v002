@@ -55,7 +55,7 @@ class RowTemplate5(RowTemplate5Template):
             elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
               respuesta = background_task_google_script.get_state()['respuesta']
           #print(f"{self.background_task_google_script.get_error()}")
-          respuesta = background_task_google_script.get_state()['respuesta']
+        respuesta = background_task_google_script.get_state()['respuesta']
         sleep(1)
         print(f"Respuesta = {respuesta}")
         if respuesta['exito_creacion_nueva_revision']:

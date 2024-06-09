@@ -10,7 +10,8 @@ from time import sleep
 
 global url_google_script
 #url_google_script = "https://script.google.com/macros/s/AKfycbyDThc91c9r9hXynjW3NKZAkH-cS1jMyY0W1TPchwEAd-eDKGRFqEuuIwNAzvEBL3A/exec"
-url_google_script = "https://script.google.com/macros/s/AKfycbxFX3NZD4B7sw42xGBorO_yjl-EQj-sDjpXtQchpmKnqw-P54mKgJTpdk4cEmdk_xc/exec"
+#url_google_script = "https://script.google.com/macros/s/AKfycbxFX3NZD4B7sw42xGBorO_yjl-EQj-sDjpXtQchpmKnqw-P54mKgJTpdk4cEmdk_xc/exec" #VERSION ANTERIOR SI NUEVA REVISION
+url_google_script = "https://script.google.com/macros/s/AKfycbyZ__7N_9Vy1n_eAvs_oZ8MD0Inbo5_GMoZtYWffHrbvE2A4az5yFhKBdLpEsL2t7E/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
@@ -158,6 +159,8 @@ def lanzar_background_google_script(clave_subscript, datos):
     return anvil.server.launch_background_task('rechazar_documento', datos)
   elif clave_subscript == 'liberacion_documento':
     return anvil.server.launch_background_task('liberar_documento', datos)
+  elif clave_subscript == 'generar_nueva_revision':
+    return anvil.server.launch_background_task('generar_nueva_revision', datos)
 
 
 #--- SECCIÓN FUNCIONES DE FLUJO DE DOCUMENTOS ---
@@ -409,7 +412,7 @@ def generar_nueva_revision(datos):
     #try / except para borrar la carpeta correspondiente en Google Drive.
     nuevo_renglon_registro_documento.delete()
     respuesta = {
-      'exito_envio_a_revision_documento': False,
+      'exito_creacion_nueva_revision': False,
       'error': f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"
     }
     #respuesta = [False, f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"]

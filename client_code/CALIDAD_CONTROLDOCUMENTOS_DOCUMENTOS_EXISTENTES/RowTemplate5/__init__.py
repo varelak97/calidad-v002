@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from time import sleep
 
 class RowTemplate5(RowTemplate5Template):
+  background_task_google_script = None
   def __init__(self, **properties):
     self.init_components(**properties)
 
@@ -44,18 +45,18 @@ class RowTemplate5(RowTemplate5Template):
         }
         with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
           print(f"lo que se envia al servidor:{datos}")
-          background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generar_nueva_revision', datos)
+          self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generar_nueva_revision', datos)
           tiempo_inicio = datetime.now()
           tiempo_final = tiempo_inicio + timedelta(minutes=1, seconds=30)
           ban_timeout = False
-          while background_task_google_script.is_running():
+          while self.background_task_google_script.is_running():
             if datetime.now() >= tiempo_final:
               ban_timeout = True
               break
             elif datetime.now() >= (tiempo_inicio + timedelta(seconds=2)):
-              respuesta = background_task_google_script.get_state()['respuesta']
+              respuesta = self.background_task_google_script.get_state()['respuesta']
           #print(f"{self.background_task_google_script.get_error()}")
-        respuesta = background_task_google_script.get_state()['respuesta']
+        respuesta = self.background_task_google_script.get_state()['respuesta']
         sleep(1)
         print(f"Respuesta = {respuesta}")
         if respuesta['exito_creacion_nueva_revision']:

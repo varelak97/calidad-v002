@@ -10,8 +10,8 @@ from time import sleep
 
 global url_google_script
 #url_google_script = "https://script.google.com/macros/s/AKfycbyDThc91c9r9hXynjW3NKZAkH-cS1jMyY0W1TPchwEAd-eDKGRFqEuuIwNAzvEBL3A/exec"
-#url_google_script = "https://script.google.com/macros/s/AKfycbxFX3NZD4B7sw42xGBorO_yjl-EQj-sDjpXtQchpmKnqw-P54mKgJTpdk4cEmdk_xc/exec" #VERSION ANTERIOR SI NUEVA REVISION
-url_google_script = "https://script.google.com/macros/s/AKfycbyZ__7N_9Vy1n_eAvs_oZ8MD0Inbo5_GMoZtYWffHrbvE2A4az5yFhKBdLpEsL2t7E/exec"
+#url_google_script = "https://script.google.com/macros/s/AKfycbxFX3NZD4B7sw42xGBorO_yjl-EQj-sDjpXtQchpmKnqw-P54mKgJTpdk4cEmdk_xc/exec" #VERSION ANTERIOR SIN NUEVA REVISION
+url_google_script = "https://script.google.com/macros/s/AKfycby4u3bBg1AgFs5D08ftcG3wDkRViqgU1fFVXcBROTUxeHrjYW9ia7GiwB6jmbf96UQ/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
@@ -340,7 +340,7 @@ def enviar_documento_a_revision(datos):
   nuevo_renglon_registro_documento['id_usuario_registrador'] = datos['id_usuario_registrador']
   nuevo_renglon_registro_documento['marca_temporal'] = datos['marca_temporal']
   nuevo_renglon_registro_documento['comentarios_renglon'] = None
-
+  
   dicc_google_script = {
     'id_registro_documento': anterior_renglon_registro_documento['id_registro_documento'],
     'id_version_documento': anterior_renglon_registro_documento['id_version_documento'],
@@ -352,6 +352,7 @@ def enviar_documento_a_revision(datos):
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
   }
   respuesta = {}
+  anvil.server.task_state['respuesta'] = dicc_google_script#eliminaaaaaaaaaaaaaaaaaaaaa!!!!!!
   anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
   try:
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
@@ -380,7 +381,7 @@ def enviar_documento_a_revision(datos):
 
 @anvil.server.background_task
 def generar_nueva_revision(datos):
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error':'Comenzó pero no terminó'}
+  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': False, 'error':'Comenzó pero no terminó generar nueva revision'}
   anterior_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.get(id_registro_documento=datos['id_registro_documento'], registro_principal=True)
   info_renglon_documento_actual = dict(anterior_renglon_registro_documento)
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(**info_renglon_documento_actual)
@@ -404,11 +405,12 @@ def generar_nueva_revision(datos):
     'emails_lectores': obtener_emails_lectores(""),
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
   }
-  print(f"los datos del diccionario:{dicc_google_script}")
-  respuesta = {}
+
+  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': dicc_google_script} #borraaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!
+
+  """"respuesta = {}
   anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
   try:
-    print("intentando ejecutar script")
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
   except Exception as Ex:
     print("ocurrio una excepcion")
@@ -430,9 +432,10 @@ def generar_nueva_revision(datos):
     }
     #respuesta = [True, nuevo_renglon_registro_documento['id_registro_documento']]
   finally:
+    respuesta['error'] = dicc_google_script
     anvil.server.task_state['respuesta'] = respuesta
     sleep(2)
-    #return respuesta 
+    #return respuesta """
 
 
 

@@ -387,20 +387,20 @@ def generar_nueva_revision(datos):
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(**info_renglon_documento_actual)
   nuevo_renglon_registro_documento['id_renglon'] = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1
   nuevo_renglon_registro_documento['registro_principal'] = False
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de id_version_documento = 1"}
+  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de id_version_documento = 1"}
   nuevo_renglon_registro_documento['id_version_documento'] = 1
   nuevo_renglon_registro_documento['revision'] += 1
   nuevo_renglon_registro_documento['status'] = 'En creación'
   nuevo_renglon_registro_documento['operacion'] = "Creación"
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de id usuario registrador"}
+  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de id usuario registrador"}
   nuevo_renglon_registro_documento['id_usuario_registrador'] = datos['id_usuario_registrador']
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "despues de id usuario registrador"}
+  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "despues de id usuario registrador"}
   nuevo_renglon_registro_documento['marca_temporal'] = datos['marca_temporal']
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "despues de marca temporal"}
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de comentarios"}
+  """anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "despues de marca temporal"}
+  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de comentarios"}"""
   nuevo_renglon_registro_documento['comentarios_renglon'] = None
 
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de generar dicc"}
+  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de generar dicc"}
 
   dicc_google_script = {
     'id_registro_documento': anterior_renglon_registro_documento['id_registro_documento'],
@@ -413,9 +413,9 @@ def generar_nueva_revision(datos):
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
   }
 
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': dicc_google_script} #borraaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!
+  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': dicc_google_script} #borraaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!
 
-  """"respuesta = {}
+  respuesta = {}
   anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
   try:
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
@@ -442,7 +442,7 @@ def generar_nueva_revision(datos):
     respuesta['error'] = dicc_google_script
     anvil.server.task_state['respuesta'] = respuesta
     sleep(2)
-    #return respuesta """
+    #return respuesta
 
 
 

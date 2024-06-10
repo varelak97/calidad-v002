@@ -404,11 +404,14 @@ def generar_nueva_revision(datos):
     'emails_lectores': obtener_emails_lectores(""),
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
   }
+  print(f"los datos del diccionario:{dicc_google_script}")
   respuesta = {}
   anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
   try:
+    print("intentando ejecutar script")
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
   except Exception as Ex:
+    print("ocurrio una excepcion")
     #try / except para borrar la carpeta correspondiente en Google Drive.
     nuevo_renglon_registro_documento.delete()
     respuesta = {

@@ -381,7 +381,7 @@ def enviar_documento_a_revision(datos):
 
 @anvil.server.background_task
 def generar_nueva_revision(datos):
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': False, 'error':'Comenzó pero no terminó generar nueva revision'}
+  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': False, 'error':'Comenzó pero no terminó generar nueva revision test'}
   anterior_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.get(id_registro_documento=datos['id_registro_documento'], registro_principal=True)
   info_renglon_documento_actual = dict(anterior_renglon_registro_documento)
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(**info_renglon_documento_actual)
@@ -394,6 +394,8 @@ def generar_nueva_revision(datos):
   nuevo_renglon_registro_documento['id_usuario_registrador'] = datos['id_usuario_registrador']
   nuevo_renglon_registro_documento['marca_temporal'] = datos['marca_temporal']
   nuevo_renglon_registro_documento['comentarios_renglon'] = None
+
+  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de generar dicc"}
 
   dicc_google_script = {
     'id_registro_documento': anterior_renglon_registro_documento['id_registro_documento'],

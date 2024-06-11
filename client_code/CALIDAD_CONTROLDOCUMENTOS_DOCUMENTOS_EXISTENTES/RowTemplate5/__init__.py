@@ -38,7 +38,7 @@ class RowTemplate5(RowTemplate5Template):
           buttons=(("SI", True),("No", False))
         )
         if confirmacion:
-          self.parent.parent.parent.parent.visible = False
+          #self.parent.parent.parent.parent.visible = False
           datos = {
             'id_usuario_registrador': id_usuario_erp,
             'marca_temporal': datetime.now(),
@@ -77,11 +77,11 @@ class RowTemplate5(RowTemplate5Template):
                 dismissible=False
               )
       else:
-        self.parent.parent.parent.parent.visible = False
+        #self.parent.parent.parent.parent.visible = False
         datos = {
             'id_usuario_erp': id_usuario_erp,
             'clave_form': evento,
             'id_registro_documento': anvil.server.call('obtener_id_registro', self.label_nombre_documento.text)
           }
         self.parent.parent.parent.parent.parent.parent.raise_event('x-actualizar_form_activo', datos=datos)
-        self.parent.parent.parent.parent.visible = True
+        #self.parent.parent.parent.parent.visible = True

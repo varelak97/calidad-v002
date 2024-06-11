@@ -407,6 +407,7 @@ def generar_nueva_revision(datos):
     'id_version_documento': 1,
     'id_google': anterior_renglon_registro_documento['id_google'],
     'revision_documento': anterior_renglon_registro_documento['revision'],
+    'fecha_documento': str(anterior_renglon_registro_documento['fecha_emision']),
     'tipo_app': tipo_google_app(anterior_renglon_registro_documento['tipo_app']),
     'operacion': 'nueva_revision',
     'emails_lectores': obtener_emails_lectores(""),
@@ -430,6 +431,7 @@ def generar_nueva_revision(datos):
     #respuesta = [False, f"Tipo de error:\n{type(Ex)}\n\nMensaje de error:\n{Ex}"]
   else:
     nuevo_renglon_registro_documento['registro_principal'] = True
+    nuevo_renglon_registro_documento['fecha_emision'] = None
     anterior_renglon_registro_documento.update(registro_principal=False)
     anvil.server.task_state['proceso'] = "¡Scipt de Google terminado!"
     anvil.server.task_state['ban_finalizado'] = True

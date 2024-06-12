@@ -412,7 +412,7 @@ def generar_nueva_revision(datos):
     'tipo_app': tipo_google_app(anterior_renglon_registro_documento['tipo_app']),
     'operacion': 'nueva_revision',
     'test':"prueba",
-    'email_editores': "",
+    'emails_editores': "",
     'emails_lectores': "",
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
   }
@@ -422,7 +422,7 @@ def generar_nueva_revision(datos):
 
   anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': dicc_google_script} #borraaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!
 
-  """respuesta = {}
+  respuesta = {}
   anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
   try:
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
@@ -450,7 +450,7 @@ def generar_nueva_revision(datos):
     respuesta['error'] = dicc_google_script
     anvil.server.task_state['respuesta'] = respuesta
     sleep(2)
-    #return respuesta"""
+    #return respuesta
 
 
 

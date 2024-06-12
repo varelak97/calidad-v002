@@ -412,10 +412,13 @@ def generar_nueva_revision(datos):
     'tipo_app': tipo_google_app(anterior_renglon_registro_documento['tipo_app']),
     'operacion': 'nueva_revision',
     'test':"prueba",
-    'nueva_rev': nuevo_renglon_registro_documento['revision'], #borrar solo prueba
+    'email_editores': obtener_emails_editores(),
     'emails_lectores': obtener_emails_lectores(""),
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
   }
+
+  dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])
+  dicc_google_script['emails_lectores'] = obtener_emails_lectores(dicc_google_script['emails_editores'])
 
   #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': dicc_google_script} #borraaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!
 

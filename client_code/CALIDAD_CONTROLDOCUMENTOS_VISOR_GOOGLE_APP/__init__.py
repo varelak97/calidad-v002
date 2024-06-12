@@ -19,6 +19,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
   def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
+    print(f"al entrar:{self.datos}")
     
     self.componentes_deshabilitables = [
       self.button_volver,
@@ -35,6 +36,7 @@ class CALIDAD_CONTROLDOCUMENTOS_VISOR_GOOGLE_APP(CALIDAD_CONTROLDOCUMENTOS_VISOR
     ]
     
     self.datos.update(anvil.server.call('obtener_renglon_documento', self.datos['id_registro_documento']))
+    print(f"despues de obtener renglon:{self.datos}")
     self.label_codigo_documento.text = self.datos['nombre_completo']
     self.label_status.text = f"Estado: {self.datos['status']}"
     if self.datos['status'] == 'Rechazado':

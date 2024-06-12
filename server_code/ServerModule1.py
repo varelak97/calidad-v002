@@ -11,7 +11,7 @@ from time import sleep
 global url_google_script
 #url_google_script = "https://script.google.com/macros/s/AKfycbyDThc91c9r9hXynjW3NKZAkH-cS1jMyY0W1TPchwEAd-eDKGRFqEuuIwNAzvEBL3A/exec"
 #url_google_script = "https://script.google.com/macros/s/AKfycbxFX3NZD4B7sw42xGBorO_yjl-EQj-sDjpXtQchpmKnqw-P54mKgJTpdk4cEmdk_xc/exec" #VERSION ANTERIOR SIN NUEVA REVISION
-url_google_script = "https://script.google.com/macros/s/AKfycby9wS3-4Yvy__R-mQPwQyiSYgxHtIv8A3qCmjUMOwFkaG8VLydX7IVHLv-ijKAi0OI/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbwldPv5LGsY1tN2dtTPzPIbTQFy020jzBxsLmNx8WIL4EF_yiTo-9SiFCtLFqUSUa8/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
@@ -399,6 +399,7 @@ def generar_nueva_revision(datos):
   """anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "despues de marca temporal"}
   anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de comentarios"}"""
   nuevo_renglon_registro_documento['comentarios_renglon'] = None
+  nuevo_renglon_registro_documento['nombre_completo'] = f"{nuevo_renglon_registro_documento['codigo']} R{str(nuevo_renglon_registro_documento['revision']).zfill(2)} {nuevo_renglon_registro_documento['titulo']}"
 
   #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de generar dicc"}
 
@@ -410,6 +411,8 @@ def generar_nueva_revision(datos):
     'fecha_documento': str(anterior_renglon_registro_documento['fecha_emision']),
     'tipo_app': tipo_google_app(anterior_renglon_registro_documento['tipo_app']),
     'operacion': 'nueva_revision',
+    'test':"prueba",
+    'nueva_rev': nuevo_renglon_registro_documento['revision'], #borrar solo prueba
     'emails_lectores': obtener_emails_lectores(""),
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
   }

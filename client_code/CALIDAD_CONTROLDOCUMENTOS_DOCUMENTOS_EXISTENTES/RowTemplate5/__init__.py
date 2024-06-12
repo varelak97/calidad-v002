@@ -61,7 +61,7 @@ class RowTemplate5(RowTemplate5Template):
           sleep(1)
           print(f"Respuesta = {respuesta}")
           if respuesta['exito_creacion_nueva_revision']:
-            Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
+            Notification("La nueva revisión ha sido generada satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
             Notification("Por favor espera...", title="REDIRIGIENDO")
             datos = {
               'id_usuario_erp': id_usuario_erp,

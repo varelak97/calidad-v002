@@ -11,7 +11,7 @@ from time import sleep
 global url_google_script
 #url_google_script = "https://script.google.com/macros/s/AKfycbyDThc91c9r9hXynjW3NKZAkH-cS1jMyY0W1TPchwEAd-eDKGRFqEuuIwNAzvEBL3A/exec"
 #url_google_script = "https://script.google.com/macros/s/AKfycbxFX3NZD4B7sw42xGBorO_yjl-EQj-sDjpXtQchpmKnqw-P54mKgJTpdk4cEmdk_xc/exec" #VERSION ANTERIOR SIN NUEVA REVISION
-url_google_script = "https://script.google.com/macros/s/AKfycbzp7OsL1ZMTWY3AWIkhTT_LVcpplyoQi2mYLAzPtsq3Wq4ijjoeK2qf2U0nNIZaUWw/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbzsgGcBt06VBgPPdxNdVXyQTV4bQHU5dFJKvkzOVP7MUpClUywCdgyV9r-PnkFzcTQ/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
@@ -420,9 +420,9 @@ def generar_nueva_revision(datos):
   dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])
   dicc_google_script['emails_lectores'] = obtener_emails_lectores(dicc_google_script['emails_editores'])
 
-  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': dicc_google_script} #borraaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!
+  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': dicc_google_script} #borraaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!
 
-  respuesta = {}
+  """respuesta = {}
   anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
   try:
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
@@ -450,7 +450,7 @@ def generar_nueva_revision(datos):
     respuesta['error'] = dicc_google_script
     anvil.server.task_state['respuesta'] = respuesta
     sleep(2)
-    #return respuesta
+    #return respuesta"""
 
 
 

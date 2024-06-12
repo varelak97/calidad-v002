@@ -11,7 +11,7 @@ from time import sleep
 global url_google_script
 #url_google_script = "https://script.google.com/macros/s/AKfycbyDThc91c9r9hXynjW3NKZAkH-cS1jMyY0W1TPchwEAd-eDKGRFqEuuIwNAzvEBL3A/exec"
 #url_google_script = "https://script.google.com/macros/s/AKfycbxFX3NZD4B7sw42xGBorO_yjl-EQj-sDjpXtQchpmKnqw-P54mKgJTpdk4cEmdk_xc/exec" #VERSION ANTERIOR SIN NUEVA REVISION
-url_google_script = "https://script.google.com/macros/s/AKfycbwldPv5LGsY1tN2dtTPzPIbTQFy020jzBxsLmNx8WIL4EF_yiTo-9SiFCtLFqUSUa8/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbzp7OsL1ZMTWY3AWIkhTT_LVcpplyoQi2mYLAzPtsq3Wq4ijjoeK2qf2U0nNIZaUWw/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 
@@ -412,8 +412,8 @@ def generar_nueva_revision(datos):
     'tipo_app': tipo_google_app(anterior_renglon_registro_documento['tipo_app']),
     'operacion': 'nueva_revision',
     'test':"prueba",
-    'email_editores': obtener_emails_editores(),
-    'emails_lectores': obtener_emails_lectores(""),
+    'email_editores': "",
+    'emails_lectores': "",
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
   }
 

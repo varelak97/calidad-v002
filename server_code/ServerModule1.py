@@ -401,7 +401,7 @@ def generar_nueva_revision(datos):
   nuevo_renglon_registro_documento['comentarios_renglon'] = None
   nuevo_renglon_registro_documento['nombre_completo'] = f"{nuevo_renglon_registro_documento['codigo']} R{str(nuevo_renglon_registro_documento['revision']).zfill(2)} {nuevo_renglon_registro_documento['titulo']}"
 
-  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de generar dicc"}
+  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de generar dicc"}
 
   dicc_google_script = {
     'id_registro_documento': anterior_renglon_registro_documento['id_registro_documento'],
@@ -424,7 +424,7 @@ def generar_nueva_revision(datos):
 
   anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': dicc_google_script} #borraaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!
 
-  respuesta = {}
+  """respuesta = {}
   anvil.server.task_state['proceso'] = "Comunicando con Google Apps Scripts..."
   try:
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
@@ -452,7 +452,7 @@ def generar_nueva_revision(datos):
     respuesta['error'] = dicc_google_script
     anvil.server.task_state['respuesta'] = respuesta
     sleep(2)
-    #return respuesta
+    #return respuesta"""
 
 
 

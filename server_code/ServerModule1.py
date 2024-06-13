@@ -414,7 +414,8 @@ def generar_nueva_revision(datos):
     'test':"prueba",
     'emails_editores': "",
     'emails_lectores': "",
-    'nombre_completo': nuevo_renglon_registro_documento['nombre_completo']
+    'titulo': nuevo_renglon_registro_documento['nombre_completo'],
+    'codigo_documento': nuevo_renglon_registro_documento['codigo']
   }
 
   dicc_google_script['emails_editores'] = obtener_emails_editores(nuevo_renglon_registro_documento['id_registro_documento'])

@@ -414,7 +414,8 @@ def generar_nueva_revision(datos):
     'test':"prueba",
     'emails_editores': "",
     'emails_lectores': "",
-    'titulo': nuevo_renglon_registro_documento['nombre_completo'],
+    'titulo': nuevo_renglon_registro_documento['titulo'],
+    'nombre_completo': nuevo_renglon_registro_documento['nombre_completo'],
     'codigo_documento': nuevo_renglon_registro_documento['codigo']
   }
 

@@ -39,12 +39,18 @@ class RowTemplate5(RowTemplate5Template):
         )
         if confirmacion:
           #self.parent.parent.parent.parent.visible = False
-          datos = {
-            'id_usuario_registrador': id_usuario_erp,
-            'marca_temporal': datetime.now(),
-            'id_registro_documento': anvil.server.call('obtener_id_registro', self.label_nombre_documento.text)
-          }
           with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
+            datos = {
+              'id_usuario_registrador': id_usuario_erp,
+              'marca_temporal': datetime.now(),
+              'id_registro_documento': anvil.server.call('obtener_id_registro', self.label_nombre_documento.text)
+            }
+            
+            equipo_trabajo = anvil.server.call('obtener_ids_equipos_trabajo_por_area', self.label_area.text)
+            datos['creadores'] = equipo_trabajo['creadores']
+            datos['revisores'] = equipo_trabajo['revisores']
+            datos['validadores'] = equipo_trabajo['validadores']
+            
             print(f"lo que se envia al servidor:{datos}")
             self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generar_nueva_revision', datos)
             tiempo_inicio = datetime.now()

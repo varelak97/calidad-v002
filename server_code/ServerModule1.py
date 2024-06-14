@@ -114,6 +114,15 @@ def obtener_nombres_equipo_trabajo_por_area(area):
     
   return equipo_trabajo
 
+@anvil.server.callable
+def obtener_ids_equipos_trabajo_por_area(area):
+  id_registro_area = app_tables.calidad_controldocumentos_areas.get(area=area)['id_registro_area']
+  renglon_equipo_trabajo = app_tables.calidad_controldocumentos_equipotrabajo.get(id_registro_area=id_registro_area, registro_principal=True)
+  equipo_trabajo = {}
+  for sub_equipo in ['creadores','revisores','validadores']:
+    equipo_trabajo[sub_equipo] = renglon_equipo_trabajo[sub_equipo]
+  return equipo_trabajo
+
 #--- SECCIÓN DE FUNCIONES LLAMADAS DESDE OTRAS FUNCIONES DE ESTE SERVER MODULE ---
 @anvil.server.callable
 def tipo_google_app(tipo):
@@ -387,17 +396,15 @@ def generar_nueva_revision(datos):
   nuevo_renglon_registro_documento = app_tables.calidad_controldocumentos_registrodocumentos.add_row(**info_renglon_documento_actual)
   nuevo_renglon_registro_documento['id_renglon'] = max([r['id_renglon'] for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True)]) + 1
   nuevo_renglon_registro_documento['registro_principal'] = False
-  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de id_version_documento = 1"}
   nuevo_renglon_registro_documento['id_version_documento'] = 1
   nuevo_renglon_registro_documento['revision'] += 1
   nuevo_renglon_registro_documento['status'] = 'En creación'
+  nuevo_renglon_registro_documento['creadores'] = datos['creadores']
+  nuevo_renglon_registro_documento['revisores'] = datos['revisores']
+  nuevo_renglon_registro_documento['validadores'] = datos['validadores']
   nuevo_renglon_registro_documento['operacion'] = "Creación"
-  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de id usuario registrador"}
   nuevo_renglon_registro_documento['id_usuario_registrador'] = datos['id_usuario_registrador']
-  #anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "despues de id usuario registrador"}
   nuevo_renglon_registro_documento['marca_temporal'] = datos['marca_temporal']
-  """anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "despues de marca temporal"}
-  anvil.server.task_state['respuesta'] = {'exito_creacion_nueva_revision': None, 'error': "antes de comentarios"}"""
   nuevo_renglon_registro_documento['comentarios_renglon'] = None
   nuevo_renglon_registro_documento['nombre_completo'] = f"{nuevo_renglon_registro_documento['codigo']} R{str(nuevo_renglon_registro_documento['revision']).zfill(2)} {nuevo_renglon_registro_documento['titulo']}"
 

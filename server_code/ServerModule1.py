@@ -676,8 +676,8 @@ def obtener_documentos_existentes():
   usuarios = {str(renglon['id_registro_usuario']): empleados[str(renglon['id_registro_empleado'])] for renglon in renglones_usuarios}
   renglones_documentos = [dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True, registro_activo=True)]
   documentos_base = {str(renglon['id_registro_documento']): renglon['nombre_completo'] for renglon in renglones_documentos}
-  #REGRESAR SIGUIENTE LINEA SINO FUNCIONA!
-  documentos_existentes = sorted(renglones_documentos, key=lambda d:d['nombre_completo'])#sorted([dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True, registro_activo=True)], key=lambda d:d['nombre_completo'])
+  documentos_existentes = sorted([dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True, registro_activo=True)], key=lambda d:d['nombre_completo'])
+  #sorted(renglones_documentos, key=lambda d:d['nombre_completo'])#se usó como prueba
   for documento in documentos_existentes:
     documento.update(
       {

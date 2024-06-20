@@ -431,6 +431,7 @@ def generar_nueva_revision(datos):
     'emails_lectores': "",
     'titulo': nuevo_renglon_registro_documento['titulo'],
     'nombre_completo': nuevo_renglon_registro_documento['nombre_completo'],
+    'nombre_completo_anterior': anterior_renglon_registro_documento['nombre_completo'],
     'codigo_documento': nuevo_renglon_registro_documento['codigo'],
     'ids_creadores': datos['creadores'],
     'ids_revisores': datos['revisores'],

@@ -34,7 +34,7 @@ class RowTemplate5(RowTemplate5Template):
     if evento != None:
       if evento == "NUEVA REVISION":
         confirmacion = alert(
-          content = "¿Confirma que desea generar una nueva revisión de este documento?",
+          content = f"¿Confirma que desea generar una nueva revisión del documento: {self.label_nombre_documento.text}?",
           buttons=(("SI", True),("No", False))
         )
         if confirmacion:

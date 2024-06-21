@@ -11,7 +11,7 @@ from time import sleep
 global url_google_script
 #url_google_script = "https://script.google.com/macros/s/AKfycbyDThc91c9r9hXynjW3NKZAkH-cS1jMyY0W1TPchwEAd-eDKGRFqEuuIwNAzvEBL3A/exec"
 #url_google_script = "https://script.google.com/macros/s/AKfycbxFX3NZD4B7sw42xGBorO_yjl-EQj-sDjpXtQchpmKnqw-P54mKgJTpdk4cEmdk_xc/exec" #VERSION ANTERIOR SIN NUEVA REVISION
-url_google_script = "https://script.google.com/macros/s/AKfycbxoJXNwVW-e735XddtEztsaUKbB1pE-gVCmix00dopUyToPA_23pbsms-I2yODd32r1/exec"
+url_google_script = "https://script.google.com/macros/s/AKfycbyrLe0Y-131VVT8kZIH8G842o_CKjk2cF2q0lVVAsTyuiic4rfyfJyIgPouTdCHDfI/exec"
 
 #--- SECCIÓN DE FUNCIONES PARA FORMULARIO DE MENÚ PRINCIPAL ---
 

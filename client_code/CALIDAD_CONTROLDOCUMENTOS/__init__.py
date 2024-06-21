@@ -12,10 +12,10 @@ class CALIDAD_CONTROLDOCUMENTOS(CALIDAD_CONTROLDOCUMENTOSTemplate):
   def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
-    if self.datos['id_usuario_erp'] not in [18]: #user paco: 404, id_usuario_erp: 12, pass: 181300
+    """if self.datos['id_usuario_erp'] not in [18]: #user paco: 404, id_usuario_erp: 12, pass: 181300
       self.button_documentos_existentes.enabled = False
       self.button_nuevo_documento.enabled = False
-      self.label_titulo_seccion_control_de_documentos.text = "MÓDULO NO DISPONIBLE"
+      self.label_titulo_seccion_control_de_documentos.text = "MÓDULO NO DISPONIBLE"""
     
   def button_volver_click(self, **event_args):
     self.content_panel.visible = False

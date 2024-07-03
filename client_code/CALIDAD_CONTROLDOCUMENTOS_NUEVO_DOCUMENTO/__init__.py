@@ -328,10 +328,9 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         array = [int(item.split("-")[2]) for item in encontrados if pref in item]
         contadores[pref] = max(array) if len(array) > 0 else 0
     with Notification("Actualizando contadores, espere...", title="ACTUALIZANDO.", style="notification"):
-      registro_area = anvil.server.call('obtener_codigo_y_contadores_por_codigo', self.text_box_pref.text)
-      for pref in nuevas_terminaciones:
-        if contadores[pref] > 0:
-          registro_area[f"contador_{pref[0:3]}"] = contadores[pref]
+      anvil.server.call('actualizar_contadores', contadores, nuevas_terminaciones, self.text_box_pref.text)
+      #registro_area = anvil.server.call('obtener_codigo_y_contadores_por_codigo', self.text_box_pref.text)
+      
     Notification("Registro actualizado con éxito.", title="HECHO!", style="success").show(3)
     
     

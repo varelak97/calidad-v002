@@ -101,6 +101,13 @@ def obtener_codigo_y_contadores_por_codigo(codigo):
   return app_tables.calidad_controldocumentos_areas.get(codigo=codigo)
 
 @anvil.server.callable
+def actualizar_contadores(contadores, prefijos, codigo):
+  registro_area = obtener_codigo_y_contadores_por_codigo(codigo)
+  for pref in prefijos:
+        if contadores[pref] > 0:
+          registro_area[f"contador_{pref[0:3]}"] = contadores[pref]
+
+@anvil.server.callable
 def obtener_nombres_equipo_trabajo_por_area(area):
   id_registro_area = app_tables.calidad_controldocumentos_areas.get(area=area)['id_registro_area']
   renglon_equipo_trabajo = app_tables.calidad_controldocumentos_equipotrabajo.get(id_registro_area=id_registro_area, registro_principal=True)

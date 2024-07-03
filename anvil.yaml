@@ -15,7 +15,7 @@ startup_form: null
 db_schema:
   calidad_controldocumentos_areas:
     title: Calidad_ControlDocumentos_Areas
-    client: full
+    client: none
     server: full
     columns:
     - name: id_registro_area

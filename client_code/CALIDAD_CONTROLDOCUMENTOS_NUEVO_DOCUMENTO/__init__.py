@@ -179,7 +179,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         consecutivo = dicc_renglon_area['contador_'+codigo[0:3]] + 1
         codigo += f"{'0' * (3 - len(str(consecutivo)))}{consecutivo}"
         #codigo += f"-{dicc_renglon_area['codigo']}-{self.drop_down_consecutivo.selected_value}" #Línea temporalmente usada para que Ada pueda subir documentos con consecutivos que no comienzan en "001"
-        #alert(codigo) #LÍNEA PARA PRUEBAS
+        alert(codigo) #LÍNEA PARA PRUEBAS
         
         
         ban_continuar_2 = True#anvil.server.call('comprobacion_codigo_no_repetido',codigo)
@@ -292,28 +292,12 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       tipo_archivo = anvil.server.call('obtener_renglon_documento', id_registro_documento_base)['tipo_app']
       self.drop_down_tipo_archivo.selected_value = tipo_archivo
 
-  def button_get_last_click(self, **event_args):
-    terminaciones = [
-      "MDG",
-      "MOP",
-      "PRO",
-      "PDC",
-      "DIF",
-      "INS",
-      "ADM",
-      "AVI",
-      "FOR",
-      "TAR",
-      "LAY",
-      "REG",
-      "ETI",
-      "MAT",
-      "PCO",
-      "PIN",
-      "TIN"
-    ]
+  def button_actualizar_contadores_click(self, **event_args):
+    #inserar boton con el nombre: button_actualizar_contadores
+    #insertar textbox con el nombre: text_box_pref
+    terminaciones = ["MDG","MOP","PRO","PDC","DIF","INS","ADM","AVI","FOR","TAR","LAY","REG","ETI","MAT","PCO","PIN","TIN"]
     nuevas_terminaciones = []
-    with Notification("Buscando ultimo contador de cada codigo, espere...", title="BUSCANDO.", style="notification"):
+    with Notification("Buscando ultimo numero generado de cada codigo, espere...", title="BUSCANDO.", style="notification"):
       for item in terminaciones:
         item = f"{item}-{self.text_box_pref.text}"
         nuevas_terminaciones.append(item)
@@ -329,8 +313,6 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         contadores[pref] = max(array) if len(array) > 0 else 0
     with Notification("Actualizando contadores, espere...", title="ACTUALIZANDO.", style="notification"):
       anvil.server.call('actualizar_contadores', contadores, nuevas_terminaciones, self.text_box_pref.text)
-      #registro_area = anvil.server.call('obtener_codigo_y_contadores_por_codigo', self.text_box_pref.text)
-      
     Notification("Registro actualizado con éxito.", title="HECHO!", style="success").show(3)
     
     

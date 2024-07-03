@@ -294,29 +294,41 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
 
   def button_get_last_click(self, **event_args):
     terminaciones = [
-      "DIR-MDG",
-      "DIR-MOP",
-      "DIR-PRO",
-      "DIR-PDC",
-      "DIR-DIF",
-      "DIR-INS",
-      "DIR-ADM",
-      "DIR-AVI",
-      "DIR-FOR",
-      "DIR-TAR",
-      "DIR-LAY",
-      "DIR-REG",
-      "DIR-ETI",
-      "DIR-MAT",
-      "DIR-PCO",
-      "DIRPIN",
-      "DIR-TIN"
+      "MDG",
+      "MOP",
+      "PRO",
+      "PDC",
+      "DIF",
+      "INS",
+      "ADM",
+      "AVI",
+      "FOR",
+      "TAR",
+      "LAY",
+      "REG",
+      "ETI",
+      "MAT",
+      "PCO",
+      "PIN",
+      "TIN"
     ]
+    nuevas_terminaciones = []
+    for item in terminaciones:
+      item = f"{item}-{self.text_box_pref.text}"
+      nuevas_terminaciones.append(item)
     registros_documentos = anvil.server.call('obtener_documentos_registrados')
     encontrados = []
     for registro in registros_documentos:
-      for terminacion in terminaciones:
+      for terminacion in nuevas_terminaciones:
         if terminacion in registro['codigo']:
           encontrados.append(registro['codigo'])
+    print(f"terminaciones:{nuevas_terminaciones}")
+    print(f"encontrados:{encontrados}")
+    contadores = {}
+    for pref in nuevas_terminaciones:
+      array = [int(item.split("-")[2]) for item in encontrados if pref in item]
+      contadores[pref] = max(array) if len(array) > 0 else 0
+      #contadores[pref] = max([int(item.split("-")[2]) for item in encontrados if pref in item])
+    alert(contadores)
     
     

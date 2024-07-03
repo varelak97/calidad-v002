@@ -179,10 +179,10 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         consecutivo = dicc_renglon_area['contador_'+codigo[0:3]] + 1
         codigo += f"{'0' * (3 - len(str(consecutivo)))}{consecutivo}"
         #codigo += f"-{dicc_renglon_area['codigo']}-{self.drop_down_consecutivo.selected_value}" #Línea temporalmente usada para que Ada pueda subir documentos con consecutivos que no comienzan en "001"
-        alert(codigo) #LÍNEA PARA PRUEBAS
+        #alert(codigo) #LÍNEA PARA PRUEBAS
         
-        
-        ban_continuar_2 = True#anvil.server.call('comprobacion_codigo_no_repetido',codigo)
+        #ban_continuar_2 = anvil.server.call('comprobacion_codigo_no_repetido',codigo) #habilitar si operadores pueden ingresar consecutivo manualmente
+        ban_continuar_2 = True
         if not ban_continuar_2:
           Notification(
             message = f"El código '{codigo}' ya fue generado anteriormente para otro documento.",
@@ -190,8 +190,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             style='danger',
             timeout = 4
           ).show()
-        elif ban_continuar_2 == "test":
-        #else:
+        else:
           self.datos.update(
             {
               "nivel": int(str(self.drop_down_nivel.selected_value).split('.')[0]),
@@ -229,7 +228,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             #print(f"{self.background_task_google_script.get_error()}")
             respuesta = self.background_task_google_script.get_state()['respuesta']
           sleep(1)
-          print(f"Respuesta = {respuesta}")
+          #print(f"Respuesta = {respuesta}")
           if respuesta['exito_generacion_documento']:
             Notification(f"El documento {self.datos['codigo']} ha sido generado satisfactoriamente.", title="¡ÉXITO!", style='success',timeout=4).show()
             with Notification("Enviando correo electrónico de notificación al equipo de trabajo asignado. Por favor espera...", title = "NOTIFICACIÓN POR CORREO ELECTRÓNICO"):

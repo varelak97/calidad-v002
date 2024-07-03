@@ -108,6 +108,11 @@ def actualizar_contadores(contadores, prefijos, codigo):
           registro_area[f"contador_{pref[0:3]}"] = contadores[pref]
 
 @anvil.server.callable
+def actualizar_contador(area, columna_contador, consecutivo):
+  registro_area = obtener_codigo_y_contadores_area(area)
+  registro_area[columna_contador] = consecutivo
+
+@anvil.server.callable
 def obtener_nombres_equipo_trabajo_por_area(area):
   id_registro_area = app_tables.calidad_controldocumentos_areas.get(area=area)['id_registro_area']
   renglon_equipo_trabajo = app_tables.calidad_controldocumentos_equipotrabajo.get(id_registro_area=id_registro_area, registro_principal=True)
@@ -329,6 +334,7 @@ def generar_documento(datos):
   try:
     anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'6. Llamando al script de Google'}
     nuevo_renglon_registro_documento['id_google'] = json.loads(requests.post(url_google_script, data=dicc_google_script).text)['id_doc']
+    actualizar_contador(datos['nombre_area'], datos['columna_contador'], datos['consecutivo'])
   except Exception as Ex:
     #try / except para borrar la carpeta correspondiente en Google Drive.
     anvil.server.task_state['respuesta'] = {'exito_generacion_documento': None, 'error':'7.Falló el script de Google'}

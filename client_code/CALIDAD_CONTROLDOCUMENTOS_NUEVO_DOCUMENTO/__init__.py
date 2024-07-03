@@ -181,6 +181,10 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         #codigo += f"-{dicc_renglon_area['codigo']}-{self.drop_down_consecutivo.selected_value}" #Línea temporalmente usada para que Ada pueda subir documentos con consecutivos que no comienzan en "001"
         #alert(codigo) #LÍNEA PARA PRUEBAS
         
+        self.datos['columna_contador'] = f"contador_{codigo[0:3]}"
+        self.datos['consecutivo'] = consecutivo
+        self.datos['nombre_area'] = self.drop_down_area.selected_value
+
         #ban_continuar_2 = anvil.server.call('comprobacion_codigo_no_repetido',codigo) #habilitar si operadores pueden ingresar consecutivo manualmente
         ban_continuar_2 = True
         if not ban_continuar_2:

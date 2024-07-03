@@ -128,8 +128,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       error += "\n•Tipo de archivo."
     if len(self.text_area_titulo.text) == 0:
       error += "\n•Título."
-    if self.drop_down_consecutivo.selected_value == None:
-      error += "\n•Consecutivo."
+    """if self.drop_down_consecutivo.selected_value == None:
+      error += "\n•Consecutivo."""
     if self.drop_down_revision.selected_value == None:
       error += "\n•Revisión."
     
@@ -175,12 +175,14 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
         self.content_panel.visible = False
         codigo = anvil.server.call('obtener_codigo_tipo_documento', self.drop_down_tipo_documento.selected_value)
         dicc_renglon_area = anvil.server.call('obtener_codigo_y_contadores_area', self.drop_down_area.selected_value)
-        #codigo += f"-{dicc_renglon_area['codigo']}-"
-        #consecutivo = dicc_renglon_area['contador_'+codigo[0:3]] + 1
-        #codigo += f"{'0' * (3 - len(str(consecutivo)))}{consecutivo}"
-        codigo += f"-{dicc_renglon_area['codigo']}-{self.drop_down_consecutivo.selected_value}" #Línea temporalmente usada para que Ada pueda subir documentos con consecutivos que no comienzan en "001"
+        codigo += f"-{dicc_renglon_area['codigo']}-"
+        consecutivo = dicc_renglon_area['contador_'+codigo[0:3]] + 1
+        codigo += f"{'0' * (3 - len(str(consecutivo)))}{consecutivo}"
+        #codigo += f"-{dicc_renglon_area['codigo']}-{self.drop_down_consecutivo.selected_value}" #Línea temporalmente usada para que Ada pueda subir documentos con consecutivos que no comienzan en "001"
         #alert(codigo) #LÍNEA PARA PRUEBAS
-        ban_continuar_2 = anvil.server.call('comprobacion_codigo_no_repetido',codigo)
+        
+        
+        ban_continuar_2 = True#anvil.server.call('comprobacion_codigo_no_repetido',codigo)
         if not ban_continuar_2:
           Notification(
             message = f"El código '{codigo}' ya fue generado anteriormente para otro documento.",
@@ -188,7 +190,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
             style='danger',
             timeout = 4
           ).show()
-        else:
+        elif ban_continuar_2 == "test":
+        #else:
           self.datos.update(
             {
               "nivel": int(str(self.drop_down_nivel.selected_value).split('.')[0]),
@@ -288,3 +291,32 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       id_registro_documento_base = anvil.server.call('obtener_id_registro', self.drop_down_documento_base.selected_value)
       tipo_archivo = anvil.server.call('obtener_renglon_documento', id_registro_documento_base)['tipo_app']
       self.drop_down_tipo_archivo.selected_value = tipo_archivo
+
+  def button_get_last_click(self, **event_args):
+    terminaciones = [
+      "DIR-MDG",
+      "DIR-MOP",
+      "DIR-PRO",
+      "DIR-PDC",
+      "DIR-DIF",
+      "DIR-INS",
+      "DIR-ADM",
+      "DIR-AVI",
+      "DIR-FOR",
+      "DIR-TAR",
+      "DIR-LAY",
+      "DIR-REG",
+      "DIR-ETI",
+      "DIR-MAT",
+      "DIR-PCO",
+      "DIRPIN",
+      "DIR-TIN"
+    ]
+    registros_documentos = anvil.server.call('obtener_documentos_registrados')
+    encontrados = []
+    for registro in registros_documentos:
+      for terminacion in terminaciones:
+        if terminacion in registro['codigo']:
+          encontrados.append(registro['codigo'])
+    
+    

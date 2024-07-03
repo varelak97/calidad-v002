@@ -313,22 +313,26 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
       "TIN"
     ]
     nuevas_terminaciones = []
-    for item in terminaciones:
-      item = f"{item}-{self.text_box_pref.text}"
-      nuevas_terminaciones.append(item)
-    registros_documentos = anvil.server.call('obtener_documentos_registrados')
-    encontrados = []
-    for registro in registros_documentos:
-      for terminacion in nuevas_terminaciones:
-        if terminacion in registro['codigo']:
-          encontrados.append(registro['codigo'])
-    print(f"terminaciones:{nuevas_terminaciones}")
-    print(f"encontrados:{encontrados}")
-    contadores = {}
-    for pref in nuevas_terminaciones:
-      array = [int(item.split("-")[2]) for item in encontrados if pref in item]
-      contadores[pref] = max(array) if len(array) > 0 else 0
-      #contadores[pref] = max([int(item.split("-")[2]) for item in encontrados if pref in item])
-    alert(contadores)
+    with Notification("Buscando ultimo contador de cada codigo, espere...", title="BUSCANDO.", style="notification"):
+      for item in terminaciones:
+        item = f"{item}-{self.text_box_pref.text}"
+        nuevas_terminaciones.append(item)
+      registros_documentos = anvil.server.call('obtener_documentos_registrados')
+      encontrados = []
+      for registro in registros_documentos:
+        for terminacion in nuevas_terminaciones:
+          if terminacion in registro['codigo']:
+            encontrados.append(registro['codigo'])
+      contadores = {}
+      for pref in nuevas_terminaciones:
+        array = [int(item.split("-")[2]) for item in encontrados if pref in item]
+        contadores[pref] = max(array) if len(array) > 0 else 0
+    with Notification("Actualizando contadores, espere...", title="ACTUALIZANDO.", style="notification"):
+      registro_area = anvil.server.call('obtener_codigo_y_contadores_por_codigo', self.text_box_pref.text)
+      for pref in nuevas_terminaciones:
+        if contadores[pref] > 0:
+          registro_area[f"contador_{pref[0:3]}"] = contadores[pref]
+    Notification("Registro actualizado con éxito.", title="HECHO!", style="success").show(3)
+    
     
     

@@ -97,6 +97,10 @@ def obtener_codigo_y_contadores_area(area):
   return app_tables.calidad_controldocumentos_areas.get(area=area)
 
 @anvil.server.callable
+def obtener_codigo_y_contadores_por_codigo(codigo):
+  return app_tables.calidad_controldocumentos_areas.get(codigo=codigo)
+
+@anvil.server.callable
 def obtener_nombres_equipo_trabajo_por_area(area):
   id_registro_area = app_tables.calidad_controldocumentos_areas.get(area=area)['id_registro_area']
   renglon_equipo_trabajo = app_tables.calidad_controldocumentos_equipotrabajo.get(id_registro_area=id_registro_area, registro_principal=True)

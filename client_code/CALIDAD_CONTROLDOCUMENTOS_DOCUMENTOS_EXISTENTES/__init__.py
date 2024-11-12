@@ -40,9 +40,9 @@ class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_
     print("despues de llamar a task")
     sleep(5)
     with Notification(task_obtener_documentos_existentes.get_state()['progreso']):
-      print("en progreso")
+      #print("en progreso")
       while task_obtener_documentos_existentes.is_running():
-        print(f"dentro de while con estado nuevo:{task_obtener_documentos_existentes.get_state()['progreso']}")
+        #print(f"dentro de while con estado nuevo:{task_obtener_documentos_existentes.get_state()['progreso']}")
         pass
     if task_obtener_documentos_existentes.get_termination_status() == 'completed':
       self.items = list(task_obtener_documentos_existentes.get_state()['items'])

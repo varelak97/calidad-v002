@@ -1,142 +1,142 @@
-container:
-  type: ColumnPanel
-  properties: {col_widths: '{"XAEZUC":10,"GLYTIO":40,"NUZJAK":10}'}
 components:
-- type: Button
-  properties: {role: elevated-button, bold: false, align: left, spacing_above: small, background: 'theme:Orange', icon: 'fa:arrow-circle-left', underline: false, font: '', icon_align: left, foreground: 'theme:On Primary', spacing_below: small, visible: true, border: '', italic: false, enabled: true, font_size: null, tooltip: '', text: VOLVER}
-  name: button_volver
+- event_bindings: {click: button_volver_click}
   layout_properties:
     col_widths: {}
+    full_width_row: true
     grid_position: XJTKQY,XAEZUC
-    full_width_row: true
-  event_bindings: {click: button_volver_click}
-- type: ColumnPanel
-  properties: {role: elevated-card, col_widths: '{}', spacing_above: small, background: '', wrap_on: mobile, col_spacing: medium, foreground: '', spacing_below: small, visible: true, border: '', tooltip: ''}
-  name: column_panel_titulo_modulo_calidad
+  name: button_volver
+  properties: {align: left, background: 'theme:Orange', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: 'theme:On Primary', icon: 'fa:arrow-circle-left', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: VOLVER, tooltip: '', underline: false, visible: true}
+  type: Button
+- components:
+  - layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
+    name: label_titulo_visor_google_app
+    properties: {align: center, background: 'theme:Primary', bold: true, border: '', font: '', font_size: null, foreground: 'theme:On Primary', icon: '', icon_align: left, italic: false, role: headline, spacing_above: small, spacing_below: small, text: VISOR DE GOOGLE APP, tooltip: '', underline: false, visible: true}
+    type: Label
   layout_properties:
     col_widths: {}
-    grid_position: XJTKQY,GLYTIO
     full_width_row: true
-  components:
-  - type: Label
-    properties: {role: headline, bold: true, align: center, spacing_above: small, background: 'theme:Primary', icon: '', underline: false, font: '', icon_align: left, foreground: 'theme:On Primary', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: VISOR DE GOOGLE APP}
-    name: label_titulo_visor_google_app
-    layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
-- type: Link
-  properties: {role: null, bold: false, align: center, col_widths: '', spacing_above: small, background: '', icon: '', wrap_on: mobile, underline: false, font: '', col_spacing: medium, icon_align: left, foreground: '', url: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: OCULTAR ENCABEZADO}
+    grid_position: XJTKQY,GLYTIO
+  name: column_panel_titulo_modulo_calidad
+  properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: elevated-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+  type: ColumnPanel
+- event_bindings: {click: link_detalles_encabezado_click}
+  layout_properties: {full_width_row: true, grid_position: 'XJTKQY,NUZJAK'}
   name: link_detalles_encabezado
-  layout_properties: {grid_position: 'XJTKQY,NUZJAK', full_width_row: true}
-  event_bindings: {click: link_detalles_encabezado_click}
-- type: ColumnPanel
-  properties: {col_widths: '{}'}
-  name: column_panel_detalles_encabezado
-  layout_properties: {grid_position: 'YUNPIL,WFJSYC'}
-  components:
-  - type: ColumnPanel
-    properties: {role: elevated-card, col_widths: '{}', spacing_above: small, background: '', wrap_on: mobile, col_spacing: medium, foreground: '', spacing_below: small, visible: true, border: '', tooltip: ''}
-    name: content_panel
+  properties: {align: center, background: '', bold: false, border: '', col_spacing: medium, col_widths: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: OCULTAR ENCABEZADO, tooltip: '', underline: false, url: '', visible: true, wrap_on: mobile}
+  type: Link
+- components:
+  - components:
+    - layout_properties: {grid_position: 'DIPYBK,ELPNXR'}
+      name: label_codigo_documento
+      properties: {align: center, background: '', bold: true, border: '', font: '', font_size: null, foreground: 'theme:On Tertiary Container', icon: '', icon_align: left, italic: false, role: title, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+      type: Label
+    - layout_properties: {grid_position: 'KVTUAG,WHLGBF'}
+      name: label_status
+      properties: {align: center, background: '', bold: true, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: title, spacing_above: small, spacing_below: small, text: 'Estado: ''status''', tooltip: '', underline: false, visible: true}
+      type: Label
+    - components:
+      - components:
+        - layout_properties: {grid_position: 'KYFMLT,ZRLSKT'}
+          name: label_motivo_rechazo
+          properties: {align: center, background: '', bold: true, border: '', font: '', font_size: null, foreground: 'theme:On Primary', icon: '', icon_align: left, italic: false, role: null, spacing_above: none, spacing_below: small, text: MOTIVO DEL RECHAZO, tooltip: '', underline: false, visible: true}
+          type: Label
+        - layout_properties: {grid_position: 'MWRQTJ,KFHPWC'}
+          name: text_area_motivo_rechazo
+          properties: {align: left, auto_expand: true, background: 'theme:On Primary', bold: false, border: '', enabled: false, font: '', font_size: null, foreground: '', height: '', italic: false, placeholder: '', role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+          type: TextArea
+        layout_properties: {grid_position: 'RRQDNC,UGDSDS', width: 467}
+        name: column_panel_motivo_rechazo
+        properties: {background: 'theme:Red', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: elevated-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+        type: ColumnPanel
+      layout_properties: {grid_position: 'HYKQQP,ETJSDR'}
+      name: flow_panel_motivo_rechazo
+      properties: {align: center, background: '', border: '', foreground: '', role: null, spacing: medium, spacing_above: small, spacing_below: small, tooltip: '', visible: false}
+      type: FlowPanel
     layout_properties:
       col_widths: {}
-      grid_position: FMWBAG,OPYBSF
       full_width_row: false
-    components:
-    - type: Label
-      properties: {role: title, bold: true, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: 'theme:On Tertiary Container', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-      name: label_codigo_documento
-      layout_properties: {grid_position: 'DIPYBK,ELPNXR'}
-    - type: Label
-      properties: {role: title, bold: true, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: 'Estado: ''status'''}
-      name: label_status
-      layout_properties: {grid_position: 'KVTUAG,WHLGBF'}
-    - type: FlowPanel
-      properties: {role: null, align: center, spacing_above: small, background: '', foreground: '', spacing_below: small, visible: false, border: '', tooltip: '', spacing: medium}
-      name: flow_panel_motivo_rechazo
-      layout_properties: {grid_position: 'HYKQQP,ETJSDR'}
-      components:
-      - type: ColumnPanel
-        properties: {role: elevated-card, col_widths: '{}', spacing_above: small, background: 'theme:Red', wrap_on: mobile, col_spacing: medium, foreground: '', spacing_below: small, visible: true, border: '', tooltip: ''}
-        name: column_panel_motivo_rechazo
-        layout_properties: {grid_position: 'RRQDNC,UGDSDS', width: 467}
-        components:
-        - type: Label
-          properties: {role: null, bold: true, align: center, spacing_above: none, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: 'theme:On Primary', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: MOTIVO DEL RECHAZO}
-          name: label_motivo_rechazo
-          layout_properties: {grid_position: 'KYFMLT,ZRLSKT'}
-        - type: TextArea
-          properties: {role: null, bold: false, align: left, placeholder: '', spacing_above: small, background: 'theme:On Primary', underline: false, font: '', foreground: '', spacing_below: small, visible: true, border: '', italic: false, enabled: false, auto_expand: true, font_size: null, tooltip: '', height: '', text: ''}
-          name: text_area_motivo_rechazo
-          layout_properties: {grid_position: 'MWRQTJ,KFHPWC'}
-  - type: ColumnPanel
-    properties: {role: elevated-card, col_widths: '{}', spacing_above: small, background: '', wrap_on: mobile, col_spacing: medium, foreground: '', spacing_below: small, visible: true, border: '', tooltip: ''}
-    name: column_panel_area_visor
-    layout_properties: {grid_position: 'QRUQBJ,VVJQWX', full_width_row: true}
-    components:
-    - type: Link
-      properties: {role: null, bold: false, align: center, col_widths: '{}', spacing_above: none, background: '', icon: '', wrap_on: mobile, underline: false, font: '', col_spacing: medium, icon_align: left, foreground: '', url: '', spacing_below: none, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: '¿No puedes ver el documento?'}
-      name: link_sin_visualizacion
+      grid_position: FMWBAG,OPYBSF
+    name: content_panel
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: elevated-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+    type: ColumnPanel
+  - components:
+    - components: []
+      event_bindings: {click: link_sin_visualizacion_click}
       layout_properties:
         col_widths: {}
         grid_position: DXZIFQ,GKBFEO
-      components: []
-      event_bindings: {click: link_sin_visualizacion_click}
-    - type: ColumnPanel
-      properties: {role: null, col_widths: '{}', spacing_above: small, background: '', wrap_on: mobile, col_spacing: medium, foreground: '', spacing_below: small, visible: false, border: '', tooltip: ''}
-      name: column_panel_sin_visualizacion
+      name: link_sin_visualizacion
+      properties: {align: center, background: '', bold: false, border: '', col_spacing: medium, col_widths: '{}', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: none, spacing_below: none, text: '¿No puedes ver el documento?', tooltip: '', underline: false, url: '', visible: true, wrap_on: mobile}
+      type: Link
+    - components:
+      - layout_properties: {grid_position: 'HIMGRH,PWZOZO'}
+        name: label_visualizacion_app_google
+        properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: true, role: body, spacing_above: small, spacing_below: small, text: 'Si no puedes visualizar el documento, confirma que hayas iniciado sesión en tu cuenta de Google (en otra pestaña de tu navegador). Si este es el caso, inicia sesión y presiona el siguiente botón (si el problema persiste, es probable que no tengas los privilegios para visualizarlo):', tooltip: '', underline: false, visible: true}
+        type: Label
+      - event_bindings: {click: button_actualizar_click}
+        layout_properties: {grid_position: 'QIGIKG,TZCPFB'}
+        name: button_actualizar
+        properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', icon: 'fa:refresh', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: Actualizar, tooltip: '', underline: false, visible: true}
+        type: Button
       layout_properties:
         col_widths: {}
-        grid_position: KOCWUH,KYVXVX
         full_width_row: true
-      components:
-      - type: Label
-        properties: {role: body, bold: false, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: true, font_size: null, tooltip: '', text: 'Si no puedes visualizar el documento, confirma que hayas iniciado sesión en tu cuenta de Google (en otra pestaña de tu navegador). Si este es el caso, inicia sesión y presiona el siguiente botón (si el problema persiste, es probable que no tengas los privilegios para visualizarlo):'}
-        name: label_visualizacion_app_google
-        layout_properties: {grid_position: 'HIMGRH,PWZOZO'}
-      - type: Button
-        properties: {role: elevated-button, bold: false, align: center, spacing_above: small, background: '', icon: 'fa:refresh', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, enabled: true, font_size: null, tooltip: '', text: Actualizar}
-        name: button_actualizar
-        layout_properties: {grid_position: 'QIGIKG,TZCPFB'}
-        event_bindings: {click: button_actualizar_click}
-- type: ColumnPanel
-  properties: {role: null, col_widths: '{}', spacing_above: small, background: '', wrap_on: mobile, col_spacing: medium, foreground: '', spacing_below: small, visible: true, border: '', tooltip: ''}
-  name: column_panel_visor_app_google
+        grid_position: KOCWUH,KYVXVX
+      name: column_panel_sin_visualizacion
+      properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: false, wrap_on: mobile}
+      type: ColumnPanel
+    layout_properties: {full_width_row: true, grid_position: 'QRUQBJ,VVJQWX'}
+    name: column_panel_area_visor
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: elevated-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+    type: ColumnPanel
+  layout_properties: {grid_position: 'YUNPIL,WFJSYC'}
+  name: column_panel_detalles_encabezado
+  properties: {col_widths: '{}'}
+  type: ColumnPanel
+- components: []
   layout_properties:
     col_widths: {}
-    grid_position: YFJNLW,ASUTYE
     full_width_row: true
-  components: []
-- type: Button
-  properties: {role: elevated-button, bold: false, align: center, spacing_above: small, background: 'theme:Primary', icon: 'fa:arrow-circle-right', underline: false, font: '', icon_align: right, foreground: 'theme:On Primary', spacing_below: small, visible: false, border: '', italic: false, enabled: true, font_size: null, tooltip: '', text: ENVIAR A REVISIÓN}
-  name: button_enviar_a_revision
+    grid_position: YFJNLW,ASUTYE
+  name: column_panel_visor_app_google
+  properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+  type: ColumnPanel
+- event_bindings: {click: button_enviar_a_revision_click}
   layout_properties:
     col_widths: {}
     grid_position: WBBZAE,ADDWQE
-  event_bindings: {click: button_enviar_a_revision_click}
-- type: FlowPanel
-  properties: {role: null, align: center, spacing_above: small, background: '', foreground: '', spacing_below: small, visible: false, border: '', tooltip: '', spacing: medium}
-  name: flow_panel_aprobacion_rechazo
-  layout_properties:
-    col_widths: {}
-    grid_position: IYYZLF,FBFJOR
-  components:
-  - type: Button
-    properties: {role: elevated-button, bold: false, align: center, spacing_above: small, background: 'theme:Green', icon: 'fa:check-circle', underline: false, font: '', icon_align: left, foreground: 'theme:On Primary', spacing_below: small, visible: true, border: '', italic: false, enabled: true, font_size: null, tooltip: '', text: APROBAR}
+  name: button_enviar_a_revision
+  properties: {align: center, background: 'theme:Primary', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: 'theme:On Primary', icon: 'fa:arrow-circle-right', icon_align: right, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: ENVIAR A REVISIÓN, tooltip: '', underline: false, visible: false}
+  type: Button
+- components:
+  - event_bindings: {click: button_aprobar_click}
+    layout_properties:
+      col_widths: {}
+      grid_position: KRTNRR,OLMHSB
     name: button_aprobar
+    properties: {align: center, background: 'theme:Green', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: 'theme:On Primary', icon: 'fa:check-circle', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: APROBAR, tooltip: '', underline: false, visible: true}
+    type: Button
+  - event_bindings: {click: button_aprobar_revision_y_liberar_click}
     layout_properties:
       col_widths: {}
       grid_position: KRTNRR,OLMHSB
-    event_bindings: {click: button_aprobar_click}
-  - type: Button
-    properties: {role: elevated-button, bold: false, align: center, spacing_above: small, background: 'theme:Green', icon: 'fa:check-circle', underline: false, font: '', icon_align: left, foreground: 'theme:On Primary', spacing_below: small, visible: false, border: '', italic: false, enabled: true, font_size: null, tooltip: '', text: APROBAR REVISIÓN Y LIBERAR}
     name: button_aprobar_revision_y_liberar
-    layout_properties:
-      col_widths: {}
-      grid_position: KRTNRR,OLMHSB
-    event_bindings: {click: button_aprobar_revision_y_liberar_click}
-  - type: Button
-    properties: {role: elevated-button, bold: false, align: center, spacing_above: small, background: 'theme:Red', icon: 'fa:times-circle', underline: false, font: '', icon_align: left, foreground: 'theme:On Primary', spacing_below: small, visible: true, border: '', italic: false, enabled: true, font_size: null, tooltip: '', text: RECHAZAR}
-    name: button_rechazar
+    properties: {align: center, background: 'theme:Green', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: 'theme:On Primary', icon: 'fa:check-circle', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: APROBAR REVISIÓN Y LIBERAR, tooltip: '', underline: false, visible: false}
+    type: Button
+  - event_bindings: {click: button_rechazar_click}
     layout_properties:
       col_widths: {}
       grid_position: KRTNRR,UYEQEL
-    event_bindings: {click: button_rechazar_click}
+    name: button_rechazar
+    properties: {align: center, background: 'theme:Red', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: 'theme:On Primary', icon: 'fa:times-circle', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: RECHAZAR, tooltip: '', underline: false, visible: true}
+    type: Button
+  layout_properties:
+    col_widths: {}
+    grid_position: IYYZLF,FBFJOR
+  name: flow_panel_aprobacion_rechazo
+  properties: {align: center, background: '', border: '', foreground: '', role: null, spacing: medium, spacing_above: small, spacing_below: small, tooltip: '', visible: false}
+  type: FlowPanel
+container:
+  properties: {col_widths: '{"XAEZUC":10,"GLYTIO":40,"NUZJAK":10}'}
+  type: ColumnPanel
 is_package: true

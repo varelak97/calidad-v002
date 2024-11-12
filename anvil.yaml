@@ -1,298 +1,298 @@
-dependencies: []
-services:
-- source: /runtime/services/tables.yml
-  client_config: {}
-  server_config: {}
-- source: /runtime/services/google.yml
-  client_config: {}
-  server_config: {enc_delegation_refresh_token: yuRG0z4PPa/K85T2kuthVaE1GRZNlwMHLF5wF5uzuGfS1S5o9+Vyz3jY8KCtGH7JFYhYJFRn4buWHuNVPnsRBoLMspE0ld1cvH8u5iPP8LyRK2l2Mxi72lmxDCSyrX8X1CtBUUp/yXkfuvWVRFAYHbt4Zh6FNnOL5iN2XCVL0YZgBpDG+NebMsnqR22Wb45E6/1LyCByHypHQh+Jd2frs70pJt/HXDvrGHpiceLQdEBTyxJ/gigIXu2CpZMKZ7RFTsESTic4hXwaAIuicg4+llyMMY9nrnn6X5pS7ktJ06ffQZbtBehwChDRiWFL}
-startup: {type: form, module: AUX}
-package_name: CALIDAD_V002
 allow_embedding: false
-name: CALIDAD V002
-runtime_options: {version: 2, client_version: '3', server_version: python3-full, server_spec: null}
-startup_form: null
 db_schema:
   calidad_controldocumentos_areas:
+    client: none
+    columns:
+    - admin_ui: {width: 200}
+      name: id_registro_area
+      type: number
+    - admin_ui: {width: 200}
+      name: area
+      type: string
+    - admin_ui: {width: 200}
+      name: codigo
+      type: string
+    - admin_ui: {width: 200}
+      name: contador_MDG
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_MOP
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_PRO
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_PDC
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_DIF
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_INS
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_HDM
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_AVI
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_FOR
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_TAR
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_LAY
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_REG
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_ETI
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_MAT
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_PCO
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_PIN
+      type: number
+    - admin_ui: {width: 200}
+      name: contador_TIN
+      type: number
+    server: full
     title: Calidad_ControlDocumentos_Areas
-    client: none
-    server: full
-    columns:
-    - name: id_registro_area
-      admin_ui: {width: 200}
-      type: number
-    - name: area
-      admin_ui: {width: 200}
-      type: string
-    - name: codigo
-      admin_ui: {width: 200}
-      type: string
-    - name: contador_MDG
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_MOP
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_PRO
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_PDC
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_DIF
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_INS
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_HDM
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_AVI
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_FOR
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_TAR
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_LAY
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_REG
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_ETI
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_MAT
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_PCO
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_PIN
-      admin_ui: {width: 200}
-      type: number
-    - name: contador_TIN
-      admin_ui: {width: 200}
-      type: number
   calidad_controldocumentos_equipotrabajo:
+    client: none
+    columns:
+    - admin_ui: {width: 200}
+      name: id_renglon
+      type: number
+    - admin_ui: {width: 200}
+      name: id_registro_equipo
+      type: number
+    - admin_ui: {width: 200}
+      name: registro_principal
+      type: bool
+    - admin_ui: {width: 200}
+      name: id_registro_area
+      type: number
+    - admin_ui: {width: 200}
+      name: creadores
+      type: simpleObject
+    - admin_ui: {width: 200}
+      name: revisores
+      type: simpleObject
+    - admin_ui: {width: 200}
+      name: validadores
+      type: simpleObject
+    - admin_ui: {width: 200}
+      name: operacion
+      type: string
+    - admin_ui: {width: 200}
+      name: comentarios_renglon
+      type: string
+    - admin_ui: {width: 200}
+      name: id_usuario_registrador
+      type: number
+    - admin_ui: {width: 200}
+      name: marca_temporal
+      type: datetime
+    server: full
     title: Calidad_ControlDocumentos_EquipoTrabajo
-    client: none
-    server: full
-    columns:
-    - name: id_renglon
-      admin_ui: {width: 200}
-      type: number
-    - name: id_registro_equipo
-      admin_ui: {width: 200}
-      type: number
-    - name: registro_principal
-      admin_ui: {width: 200}
-      type: bool
-    - name: id_registro_area
-      admin_ui: {width: 200}
-      type: number
-    - name: creadores
-      admin_ui: {width: 200}
-      type: simpleObject
-    - name: revisores
-      admin_ui: {width: 200}
-      type: simpleObject
-    - name: validadores
-      admin_ui: {width: 200}
-      type: simpleObject
-    - name: operacion
-      admin_ui: {width: 200}
-      type: string
-    - name: comentarios_renglon
-      admin_ui: {width: 200}
-      type: string
-    - name: id_usuario_registrador
-      admin_ui: {width: 200}
-      type: number
-    - name: marca_temporal
-      admin_ui: {width: 200}
-      type: datetime
   calidad_controldocumentos_registrodocumentos:
-    title: Calidad_ControlDocumentos_RegistroDocumentos
     client: none
-    server: full
     columns:
-    - name: id_renglon
-      admin_ui: {order: 0, width: 93}
+    - admin_ui: {order: 0, width: 93}
+      name: id_renglon
       type: number
-    - name: id_registro_documento
-      admin_ui: {order: 1, width: 177}
+    - admin_ui: {order: 1, width: 177}
+      name: id_registro_documento
       type: number
-    - name: id_version_documento
-      admin_ui: {order: 3, width: 188}
+    - admin_ui: {order: 3, width: 188}
+      name: id_version_documento
       type: number
-    - name: registro_principal
-      admin_ui: {order: 3.5625, width: 131}
+    - admin_ui: {order: 3.5625, width: 131}
+      name: registro_principal
       type: bool
-    - name: nivel
-      admin_ui: {order: 3.625, width: 85}
+    - admin_ui: {order: 3.625, width: 85}
+      name: nivel
       type: number
-    - name: codigo
-      admin_ui: {order: 4, width: 93}
+    - admin_ui: {order: 4, width: 93}
+      name: codigo
       type: string
-    - name: revision
-      admin_ui: {order: 4.5, width: 70}
+    - admin_ui: {order: 4.5, width: 70}
+      name: revision
       type: number
-    - name: titulo
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: titulo
       type: string
-    - name: nombre_completo
-      admin_ui: {order: 4.75, width: 251}
+    - admin_ui: {order: 4.75, width: 251}
+      name: nombre_completo
       type: string
-    - name: fecha_emision
-      admin_ui: {order: 5, width: 117}
+    - admin_ui: {order: 5, width: 117}
+      name: fecha_emision
       type: date
-    - name: tipo_app
-      admin_ui: {order: 7, width: 145}
+    - admin_ui: {order: 7, width: 145}
+      name: tipo_app
       type: string
-    - name: id_documento_base
-      admin_ui: {order: 8, width: 157}
+    - admin_ui: {order: 8, width: 157}
+      name: id_documento_base
       type: number
-    - name: status
-      admin_ui: {order: 8.5, width: 91}
+    - admin_ui: {order: 8.5, width: 91}
+      name: status
       type: string
-    - name: id_google
-      admin_ui: {order: 8.875, width: 343}
+    - admin_ui: {order: 8.875, width: 343}
+      name: id_google
       type: string
-    - name: creadores
-      admin_ui: {order: 9, width: 85}
+    - admin_ui: {order: 9, width: 85}
+      name: creadores
       type: simpleObject
-    - name: revisores
-      admin_ui: {order: 9.5, width: 78}
+    - admin_ui: {order: 9.5, width: 78}
+      name: revisores
       type: simpleObject
-    - name: validadores
-      admin_ui: {order: 9.75, width: 96}
+    - admin_ui: {order: 9.75, width: 96}
+      name: validadores
       type: simpleObject
-    - name: id_usuario_propietario
-      admin_ui: {order: 9.875, width: 171}
+    - admin_ui: {order: 9.875, width: 171}
+      name: id_usuario_propietario
       type: number
-    - name: operacion
-      admin_ui: {order: 10, width: 157}
+    - admin_ui: {order: 10, width: 157}
+      name: operacion
       type: string
-    - name: comentarios_renglon
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: comentarios_renglon
       type: string
-    - name: id_usuario_registrador
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: id_usuario_registrador
       type: number
-    - name: marca_temporal
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: marca_temporal
       type: datetime
-    - name: registro_activo
-      admin_ui: {order: 3.59375, width: 119}
+    - admin_ui: {order: 3.59375, width: 119}
+      name: registro_activo
       type: bool
+    server: full
+    title: Calidad_ControlDocumentos_RegistroDocumentos
   calidad_controldocumentos_tipodocumentos:
+    client: none
+    columns:
+    - admin_ui: {width: 200}
+      name: tipo
+      type: string
+    - admin_ui: {width: 200}
+      name: codigo
+      type: string
+    server: full
     title: Calidad_ControlDocumentos_TipoDocumentos
-    client: none
-    server: full
-    columns:
-    - name: tipo
-      admin_ui: {width: 200}
-      type: string
-    - name: codigo
-      admin_ui: {width: 200}
-      type: string
   rh_empleados_infobase:
+    client: none
+    columns:
+    - admin_ui: {width: 200}
+      name: id_renglon
+      type: number
+    - admin_ui: {width: 200}
+      name: id_registro_empleado
+      type: number
+    - admin_ui: {width: 200}
+      name: registro_principal
+      type: bool
+    - admin_ui: {width: 200}
+      name: numero_empleado
+      type: number
+    - admin_ui: {width: 200}
+      name: nombre
+      type: string
+    - admin_ui: {width: 200}
+      name: primer_apellido
+      type: string
+    - admin_ui: {width: 200}
+      name: segundo_apellido
+      type: string
+    - admin_ui: {width: 200}
+      name: nombre_completo
+      type: string
+    - admin_ui: {width: 200}
+      name: empleado_activo
+      type: bool
+    - admin_ui: {width: 200}
+      name: email_laboral
+      type: string
+    - admin_ui: {width: 200}
+      name: operacion
+      type: string
+    - admin_ui: {width: 200}
+      name: comentarios_renglon
+      type: string
+    - admin_ui: {width: 200}
+      name: id_usuario_registrador
+      type: number
+    - admin_ui: {width: 200}
+      name: marca_temporal
+      type: datetime
+    - admin_ui: {width: 200}
+      name: usuario_erp
+      type: bool
+    server: full
     title: RH_Empleados_InfoBase
-    client: none
-    server: full
-    columns:
-    - name: id_renglon
-      admin_ui: {width: 200}
-      type: number
-    - name: id_registro_empleado
-      admin_ui: {width: 200}
-      type: number
-    - name: registro_principal
-      admin_ui: {width: 200}
-      type: bool
-    - name: numero_empleado
-      admin_ui: {width: 200}
-      type: number
-    - name: nombre
-      admin_ui: {width: 200}
-      type: string
-    - name: primer_apellido
-      admin_ui: {width: 200}
-      type: string
-    - name: segundo_apellido
-      admin_ui: {width: 200}
-      type: string
-    - name: nombre_completo
-      admin_ui: {width: 200}
-      type: string
-    - name: empleado_activo
-      admin_ui: {width: 200}
-      type: bool
-    - name: email_laboral
-      admin_ui: {width: 200}
-      type: string
-    - name: operacion
-      admin_ui: {width: 200}
-      type: string
-    - name: comentarios_renglon
-      admin_ui: {width: 200}
-      type: string
-    - name: id_usuario_registrador
-      admin_ui: {width: 200}
-      type: number
-    - name: marca_temporal
-      admin_ui: {width: 200}
-      type: datetime
-    - name: usuario_erp
-      admin_ui: {width: 200}
-      type: bool
   sistemas_usuarios_erp_registro:
-    title: Sistemas_Usuarios_ERP_Registro
     client: none
-    server: full
     columns:
-    - name: id_renglon
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: id_renglon
       type: number
-    - name: id_registro_usuario
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: id_registro_usuario
       type: number
-    - name: registro_principal
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: registro_principal
       type: bool
-    - name: id_registro_empleado
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: id_registro_empleado
       type: number
-    - name: password
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: password
       type: string
-    - name: usuario_activo
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: usuario_activo
       type: bool
-    - name: modulos_y_secciones
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: modulos_y_secciones
       type: simpleObject
-    - name: comentarios_renglon
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: comentarios_renglon
       type: string
-    - name: operacion
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: operacion
       type: string
-    - name: id_usuario_registrador
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: id_usuario_registrador
       type: number
-    - name: marca_temporal
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: marca_temporal
       type: datetime
-    - name: password_encriptado
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: password_encriptado
       type: string
-    - name: super_usuario_erp
-      admin_ui: {width: 200}
+    - admin_ui: {width: 200}
+      name: super_usuario_erp
       type: bool
+    server: full
+    title: Sistemas_Usuarios_ERP_Registro
+dependencies: []
+name: CALIDAD V002
+package_name: CALIDAD_V002
 renamed: true
+runtime_options: {client_version: '3', server_spec: null, server_version: python3-full, version: 2}
+services:
+- client_config: {}
+  server_config: {}
+  source: /runtime/services/tables.yml
+- client_config: {}
+  server_config: {enc_delegation_refresh_token: yuRG0z4PPa/K85T2kuthVaE1GRZNlwMHLF5wF5uzuGfS1S5o9+Vyz3jY8KCtGH7JFYhYJFRn4buWHuNVPnsRBoLMspE0ld1cvH8u5iPP8LyRK2l2Mxi72lmxDCSyrX8X1CtBUUp/yXkfuvWVRFAYHbt4Zh6FNnOL5iN2XCVL0YZgBpDG+NebMsnqR22Wb45E6/1LyCByHypHQh+Jd2frs70pJt/HXDvrGHpiceLQdEBTyxJ/gigIXu2CpZMKZ7RFTsESTic4hXwaAIuicg4+llyMMY9nrnn6X5pS7ktJ06ffQZbtBehwChDRiWFL}
+  source: /runtime/services/google.yml
+startup: {module: AUX, type: form}
+startup_form: null

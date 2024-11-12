@@ -1,15 +1,15 @@
-is_package: true
-container:
-  type: HtmlTemplate
-  properties: {html: '@theme:standard-page.html'}
-  event_bindings: {show: form_show}
 components:
-- type: ColumnPanel
-  properties: {col_widths: '{}'}
-  name: content_panel
+- components: []
   layout_properties: {slot: default}
-  components: []
-- type: FlowPanel
-  properties: {}
+  name: content_panel
+  properties: {col_widths: '{}'}
+  type: ColumnPanel
+- layout_properties: {slot: nav-right}
   name: navbar_links
-  layout_properties: {slot: nav-right}
+  properties: {}
+  type: FlowPanel
+container:
+  event_bindings: {show: form_show}
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true

@@ -1,7 +1,7 @@
-container: {type: DataRowPanel}
 components:
-- type: Button
-  properties: {role: elevated-button, align: center, tooltip: '', border: '', enabled: true, foreground: 'theme:Red', visible: false, text: '', font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false, background: '', bold: false, underline: false, icon: 'fa:times-circle'}
+- layout_properties: {column: ZQXCFT}
   name: button_eliminar
-  layout_properties: {column: ZQXCFT}
+  properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: 'theme:Red', icon: 'fa:times-circle', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: false}
+  type: Button
+container: {type: DataRowPanel}
 is_package: true

@@ -1,79 +1,79 @@
-container:
-  type: ColumnPanel
-  properties: {col_widths: '{}'}
 components:
-- type: ColumnPanel
-  properties: {role: null, tooltip: '', border: '', foreground: '', visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"ZDKAEC":10,"RMJZCW":40,"OQOCHX":10}', spacing_below: small, background: ''}
-  name: content_panel
-  layout_properties: {grid_position: 'QMSBPX,JNPSFX', full_width_row: true}
-  components:
-  - type: Button
-    properties: {role: elevated-button, align: left, tooltip: '', border: '', enabled: true, foreground: 'theme:On Primary', visible: true, text: VOLVER, font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false, background: 'theme:Orange', bold: false, underline: false, icon: 'fa:arrow-circle-left'}
-    name: button_volver
+- components:
+  - event_bindings: {click: button_volver_click}
     layout_properties:
       col_widths: {}
+      full_width_row: true
       grid_position: HQVQYL,ZDKAEC
-      full_width_row: true
-    event_bindings: {click: button_volver_click}
-  - type: ColumnPanel
-    properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}', spacing_below: small, background: ''}
-    name: column_panel_titulo_historial_documento
+    name: button_volver
+    properties: {align: left, background: 'theme:Orange', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: 'theme:On Primary', icon: 'fa:arrow-circle-left', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: VOLVER, tooltip: '', underline: false, visible: true}
+    type: Button
+  - components:
+    - layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
+      name: label_titulo_historial_documento
+      properties: {align: center, background: 'theme:Primary', bold: true, border: '', font: '', font_size: null, foreground: 'theme:On Primary', icon: '', icon_align: left, italic: false, role: headline, spacing_above: small, spacing_below: small, text: HISTORIAL DE DOCUMENTO, tooltip: '', underline: false, visible: true}
+      type: Label
     layout_properties:
       col_widths: {}
-      grid_position: HQVQYL,RMJZCW
       full_width_row: true
-    components:
-    - type: Label
-      properties: {role: headline, align: center, tooltip: '', border: '', foreground: 'theme:On Primary', visible: true, text: HISTORIAL DE DOCUMENTO, font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false, background: 'theme:Primary', bold: true, underline: false, icon: ''}
-      name: label_titulo_historial_documento
-      layout_properties: {grid_position: 'ZZTEDQ,KYJIGJ'}
-  - type: Spacer
-    properties: {height: 32}
+      grid_position: HQVQYL,RMJZCW
+    name: column_panel_titulo_historial_documento
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: elevated-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+    type: ColumnPanel
+  - layout_properties: {full_width_row: true, grid_position: 'HQVQYL,OQOCHX'}
     name: spacer_1
-    layout_properties: {grid_position: 'HQVQYL,OQOCHX', full_width_row: true}
-  - type: ColumnPanel
-    properties: {role: elevated-card, tooltip: '', border: '', foreground: '', visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}', spacing_below: small, background: ''}
-    name: column_panel_historial_documento
-    layout_properties: {grid_position: 'ZQBYLU,WNVOPR', full_width_row: true}
-    components:
-    - type: Label
-      properties: {role: title, align: center, tooltip: '', border: '', foreground: 'theme:Primary', visible: true, text: nombre_documento, font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false, background: '', bold: true, underline: false, icon: ''}
-      name: label_nombre_documento
-      layout_properties:
+    properties: {height: 32}
+    type: Spacer
+  - components:
+    - layout_properties:
         col_widths: {}
         grid_position: MUEOTB,LDXNUJ
-    - type: DataGrid
+      name: label_nombre_documento
+      properties: {align: center, background: '', bold: true, border: '', font: '', font_size: null, foreground: 'theme:Primary', icon: '', icon_align: left, italic: false, role: title, spacing_above: small, spacing_below: small, text: nombre_documento, tooltip: '', underline: false, visible: true}
+      type: Label
+    - components:
+      - layout_properties: {}
+        name: repeating_panel_historial_documento
+        properties: {item_template: CALIDAD_CONTROLDOCUMENTOS_HISTORIAL.RowTemplate6, spacing_above: none, spacing_below: none}
+        type: RepeatingPanel
+      layout_properties: {full_width_row: true, grid_position: 'CEECOY,PTUOBH'}
+      name: data_grid_historial_documento
       properties:
-        role: wide-tonal-data-grid
-        columns:
-        - {id: YYFIUG, title: MARCA TEMPORAL, data_key: marca_temporal, $$hashKey: 'object:16568', width: '100'}
-        - {id: KQNYKC, title: OPERACIÓN, data_key: operacion, $$hashKey: 'object:16569', width: '130'}
-        - {id: EGDSQK, title: REALIZADA POR, data_key: nombre_completo_empleado, $$hashKey: 'object:16570', width: '200'}
-        - {id: FIMLZN, title: COMENTARIOS, data_key: comentarios_renglon, $$hashKey: 'object:16986', width: '300'}
-        - {id: DIDDKO, title: NOMBRE DEL DOCUMENTO, data_key: nombre_completo_documento, $$hashKey: 'object:16988', width: '300'}
-        - {id: VIGVMV, title: ESTADO, data_key: status, $$hashKey: 'object:16990', width: '100'}
-        - {id: PMYKNX, title: TIPO DE ARCHIVO, data_key: tipo_archivo, $$hashKey: 'object:16992', width: '150'}
-        - {id: CQIBVR, title: PROPIETARIO, data_key: propietario, $$hashKey: 'object:16994', width: '200'}
-        - {id: PBHIXP, title: CREADOR(ES), data_key: creadores, $$hashKey: 'object:16998', width: '200'}
-        - {id: WTCAHD, title: REVISOR(ES), data_key: revisores, $$hashKey: 'object:17000', width: '200'}
-        - {id: UJEZKU, title: VALIDADOR(ES), data_key: validadores, $$hashKey: 'object:17002', width: '200'}
-        - {id: WSOVWV, title: DOCUMENTO BASE, data_key: documento_base, $$hashKey: 'object:16996', width: '300'}
         auto_header: true
-        tooltip: ''
+        background: ''
         border: ''
+        columns:
+        - {$$hashKey: 'object:16568', data_key: marca_temporal, id: YYFIUG, title: MARCA TEMPORAL, width: '100'}
+        - {$$hashKey: 'object:16569', data_key: operacion, id: KQNYKC, title: OPERACIÓN, width: '130'}
+        - {$$hashKey: 'object:16570', data_key: nombre_completo_empleado, id: EGDSQK, title: REALIZADA POR, width: '200'}
+        - {$$hashKey: 'object:16986', data_key: comentarios_renglon, id: FIMLZN, title: COMENTARIOS, width: '300'}
+        - {$$hashKey: 'object:16988', data_key: nombre_completo_documento, id: DIDDKO, title: NOMBRE DEL DOCUMENTO, width: '300'}
+        - {$$hashKey: 'object:16990', data_key: status, id: VIGVMV, title: ESTADO, width: '100'}
+        - {$$hashKey: 'object:16992', data_key: tipo_archivo, id: PMYKNX, title: TIPO DE ARCHIVO, width: '150'}
+        - {$$hashKey: 'object:16994', data_key: propietario, id: CQIBVR, title: PROPIETARIO, width: '200'}
+        - {$$hashKey: 'object:16998', data_key: creadores, id: PBHIXP, title: CREADOR(ES), width: '200'}
+        - {$$hashKey: 'object:17000', data_key: revisores, id: WTCAHD, title: REVISOR(ES), width: '200'}
+        - {$$hashKey: 'object:17002', data_key: validadores, id: UJEZKU, title: VALIDADOR(ES), width: '200'}
+        - {$$hashKey: 'object:16996', data_key: documento_base, id: WSOVWV, title: DOCUMENTO BASE, width: '300'}
         foreground: ''
+        role: wide-tonal-data-grid
         rows_per_page: 50
-        visible: true
-        wrap_on: never
         show_page_controls: true
         spacing_above: small
         spacing_below: small
-        background: ''
-      name: data_grid_historial_documento
-      layout_properties: {grid_position: 'CEECOY,PTUOBH', full_width_row: true}
-      components:
-      - type: RepeatingPanel
-        properties: {spacing_above: none, spacing_below: none, item_template: CALIDAD_CONTROLDOCUMENTOS_HISTORIAL.RowTemplate6}
-        name: repeating_panel_historial_documento
-        layout_properties: {}
+        tooltip: ''
+        visible: true
+        wrap_on: never
+      type: DataGrid
+    layout_properties: {full_width_row: true, grid_position: 'ZQBYLU,WNVOPR'}
+    name: column_panel_historial_documento
+    properties: {background: '', border: '', col_spacing: medium, col_widths: '{}', foreground: '', role: elevated-card, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+    type: ColumnPanel
+  layout_properties: {full_width_row: true, grid_position: 'QMSBPX,JNPSFX'}
+  name: content_panel
+  properties: {background: '', border: '', col_spacing: medium, col_widths: '{"ZDKAEC":10,"RMJZCW":40,"OQOCHX":10}', foreground: '', role: null, spacing_above: small, spacing_below: small, tooltip: '', visible: true, wrap_on: mobile}
+  type: ColumnPanel
+container:
+  properties: {col_widths: '{}'}
+  type: ColumnPanel
 is_package: true

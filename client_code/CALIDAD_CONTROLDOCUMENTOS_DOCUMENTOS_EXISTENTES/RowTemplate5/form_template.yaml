@@ -1,68 +1,68 @@
-container: {type: DataRowPanel}
 components:
-- type: Label
-  properties: {role: null, bold: false, align: left, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-  name: label_nombre_documento
+- data_bindings:
+  - {code: 'self.item[''nombre_completo'']', property: text}
   layout_properties: {column: QLMTBN}
-  data_bindings:
-  - {property: text, code: 'self.item[''nombre_completo'']'}
-- type: Button
-  properties: {role: elevated-button, bold: false, align: center, spacing_above: small, background: '', icon: 'fa:bars', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, enabled: true, font_size: null, tooltip: '', text: ''}
-  name: button_opciones
+  name: label_nombre_documento
+  properties: {align: left, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+- event_bindings: {click: button_opciones_click}
   layout_properties: {column: GMOJUG}
-  event_bindings: {click: button_opciones_click}
-- type: Label
-  properties: {role: null, bold: false, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-  name: label_status
+  name: button_opciones
+  properties: {align: center, background: '', bold: false, border: '', enabled: true, font: '', font_size: null, foreground: '', icon: 'fa:bars', icon_align: left, italic: false, role: elevated-button, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Button
+- data_bindings:
+  - {code: 'str(self.item[''status'']).upper()', property: text}
   layout_properties: {column: CWTNPX}
-  data_bindings:
-  - {property: text, code: 'str(self.item[''status'']).upper()'}
-- type: Label
-  properties: {role: null, bold: false, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-  name: label_nivel
+  name: label_status
+  properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+- data_bindings:
+  - {code: 'str(self.item[''nivel''])', property: text}
   layout_properties: {column: JQMDBS}
-  data_bindings:
-  - {property: text, code: 'str(self.item[''nivel''])'}
-- type: Label
-  properties: {role: null, bold: false, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-  name: label_tipo_documento
+  name: label_nivel
+  properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''tipo_documento'']', property: text}
   layout_properties: {column: LBCOCK}
-  data_bindings:
-  - {property: text, code: 'self.item[''tipo_documento'']'}
-- type: Label
-  properties: {role: null, bold: false, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-  name: label_area
+  name: label_tipo_documento
+  properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''area'']', property: text}
   layout_properties: {column: YCYIED}
-  data_bindings:
-  - {property: text, code: 'self.item[''area'']'}
-- type: Label
-  properties: {role: null, bold: false, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-  name: label_tipo_app
+  name: label_area
+  properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''tipo_app'']', property: text}
   layout_properties: {column: UKZUKF}
-  data_bindings:
-  - {property: text, code: 'self.item[''tipo_app'']'}
-- type: Label
-  properties: {role: null, bold: false, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-  name: label_fecha_emision
+  name: label_tipo_app
+  properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''fecha_emision'']', property: text}
   layout_properties: {column: ZWWICS}
-  data_bindings:
-  - {property: text, code: 'self.item[''fecha_emision'']'}
-- type: Label
-  properties: {role: null, bold: false, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-  name: label_propietario
+  name: label_fecha_emision
+  properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''propietario'']', property: text}
   layout_properties: {column: HTFPCH}
-  data_bindings:
-  - {property: text, code: 'self.item[''propietario'']'}
-- type: Label
-  properties: {}
-  name: label_documento_base
+  name: label_propietario
+  properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''documento_base'']', property: text}
   layout_properties: {column: ZPOTZY}
-  data_bindings:
-  - {property: text, code: 'self.item[''documento_base'']'}
-- type: Label
-  properties: {role: null, bold: false, align: center, spacing_above: small, background: '', icon: '', underline: false, font: '', icon_align: left, foreground: '', spacing_below: small, visible: true, border: '', italic: false, font_size: null, tooltip: '', text: ''}
-  name: label_marca_temporal
+  name: label_documento_base
+  properties: {}
+  type: Label
+- data_bindings:
+  - {code: 'str(self.item[''marca_temporal''])[0:19]', property: text}
   layout_properties: {column: KMOABL}
-  data_bindings:
-  - {property: text, code: 'str(self.item[''marca_temporal''])[0:19]'}
+  name: label_marca_temporal
+  properties: {align: center, background: '', bold: false, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: null, spacing_above: small, spacing_below: small, text: '', tooltip: '', underline: false, visible: true}
+  type: Label
+container: {type: DataRowPanel}
 is_package: true

@@ -702,30 +702,26 @@ def lanzar_background_task_obtener_documentos_existentes():
 @anvil.server.background_task
 def obtener_documentos_existentes():
   print("dentro de server..........")
-  anvil.server.task_state['progreso'] = "cargando nuevo desde server..."
+  anvil.server.task_state['progreso'] = "Cargando..."
 
-  #esta despues
-  renglones_areas = [dict(r) for r in app_tables.calidad_controldocumentos_areas.search()]
-  anvil.server.task_state['progreso'] = "despues de obtener renglones_areas..."
-  areas = {renglon['codigo']: renglon['area'] for renglon in renglones_areas}
-  anvil.server.task_state['progreso'] = "despues de obtener areas..."
-
-  #estaba antes
   renglones_tipos_documento = [dict(r) for r in app_tables.calidad_controldocumentos_tipodocumentos.search()]
   anvil.server.task_state['progreso'] = "despues de obtener renglones tipos_documento..."
   tipos_documento = {renglon['codigo']: renglon['tipo'] for renglon in renglones_tipos_documento}
   anvil.server.task_state['progreso'] = "despues de obtener tipos_documento..."
 
-  
+  renglones_areas = [dict(r) for r in app_tables.calidad_controldocumentos_areas.search()]
+  anvil.server.task_state['progreso'] = "despues de obtener renglones_areas..."
+  areas = {renglon['codigo']: renglon['area'] for renglon in renglones_areas}
+  anvil.server.task_state['progreso'] = "despues de obtener areas..."
   
   renglones_empleados = [dict(r) for r in app_tables.rh_empleados_infobase.search(registro_principal=True)]
   anvil.server.task_state['progreso'] = "despues de obtener renglones empleados..."
   empleados = {str(renglon['id_registro_empleado']): renglon['nombre_completo'] + f" ({renglon['numero_empleado']})" for renglon in renglones_empleados}
-  anvil.server.task_state['progreso'] = "despues de obtener empleados..."
+  anvil.server.task_state['progreso'] = "despues de obtener empleados..." 
   renglones_usuarios = [dict(r) for r in app_tables.sistemas_usuarios_erp_registro.search(registro_principal=True)]
-  anvil.server.task_state['progreso'] = "despues de obtener renglones usuarios..."
+  anvil.server.task_state['progreso'] = "despues de obtener renglones usuarios..." #AQUI SE QUEDA..................................................................
   usuarios = {str(renglon['id_registro_usuario']): empleados[str(renglon['id_registro_empleado'])] for renglon in renglones_usuarios}
-  anvil.server.task_state['progreso'] = "despues de obtener usuarios..."
+  anvil.server.task_state['progreso'] = "despues de obtener usuarios..." 
   renglones_documentos = [dict(r) for r in app_tables.calidad_controldocumentos_registrodocumentos.search(registro_principal=True, registro_activo=True)]
   anvil.server.task_state['progreso'] = "despues de obtener renglones documentos..."
   documentos_base = {str(renglon['id_registro_documento']): renglon['nombre_completo'] for renglon in renglones_documentos}

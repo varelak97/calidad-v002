@@ -163,7 +163,8 @@ components:
           type: Label
         - components:
           - components:
-            - layout_properties: {column: KKPFAM}
+            - event_bindings: {change: drop_down_agregar_creador_change}
+              layout_properties: {column: KKPFAM}
               name: drop_down_agregar_creador
               properties:
                 align: full

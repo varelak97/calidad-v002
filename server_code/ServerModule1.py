@@ -485,7 +485,7 @@ def generar_nueva_revision(datos):
     }
     #respuesta = [True, nuevo_renglon_registro_documento['id_registro_documento']]
   finally:
-    respuesta['error'] = dicc_google_script
+    respuesta['error2'] = dicc_google_script
     anvil.server.task_state['respuesta'] = respuesta
     sleep(2)
     #return respuesta

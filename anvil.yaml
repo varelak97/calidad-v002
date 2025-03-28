@@ -121,7 +121,7 @@ db_schema:
     - admin_ui: {order: 3.625, width: 85}
       name: nivel
       type: number
-    - admin_ui: {order: 4, width: 93}
+    - admin_ui: {order: 4, width: 111}
       name: codigo
       type: string
     - admin_ui: {order: 4.5, width: 70}

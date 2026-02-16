@@ -489,7 +489,8 @@ components:
         name: label_revision
         properties: {align: center, background: 'theme:Primary Container', bold: true, border: '', font: '', font_size: null, foreground: '', icon: '', icon_align: left, italic: false, role: body, spacing_above: small, spacing_below: small, text: REVISIÓN, tooltip: '', underline: false, visible: true}
         type: Label
-      - layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
+      - event_bindings: {}
+        layout_properties: {grid_position: 'TLRIDP,ZFEDST'}
         name: drop_down_revision
         properties:
           align: center

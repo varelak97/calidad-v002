@@ -317,6 +317,11 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
     with Notification("Actualizando contadores, espere...", title="ACTUALIZANDO.", style="notification"):
       anvil.server.call('actualizar_contadores', contadores, nuevas_terminaciones, self.text_box_pref.text)
     Notification("Registro actualizado con éxito.", title="HECHO!", style="success").show(3)
+
+  @handle("drop_down_revision", "change")
+  def drop_down_revision_change(self, **event_args):
+    """This method is called when an item is selected"""
+    pass
     
     
     

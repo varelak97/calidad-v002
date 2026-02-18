@@ -6,7 +6,7 @@ db_schema:
     - admin_ui: {width: 200}
       name: id_registro_area
       type: number
-    - admin_ui: {width: 200}
+    - admin_ui: {order: 0, width: 401}
       name: area
       type: string
     - admin_ui: {width: 200}

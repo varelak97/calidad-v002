@@ -130,7 +130,7 @@ db_schema:
     - admin_ui: {width: 200}
       name: titulo
       type: string
-    - admin_ui: {order: 4.75, width: 421}
+    - admin_ui: {order: 4.75, width: 456}
       client_hidden: false
       name: nombre_completo
       type: string

@@ -295,5 +295,5 @@ services:
 - client_config: {}
   server_config: {enc_delegation_refresh_token: yuRG0z4PPa/K85T2kuthVaE1GRZNlwMHLF5wF5uzuGfS1S5o9+Vyz3jY8KCtGH7JFYhYJFRn4buWHuNVPnsRBoLMspE0ld1cvH8u5iPP8LyRK2l2Mxi72lmxDCSyrX8X1CtBUUp/yXkfuvWVRFAYHbt4Zh6FNnOL5iN2XCVL0YZgBpDG+NebMsnqR22Wb45E6/1LyCByHypHQh+Jd2frs70pJt/HXDvrGHpiceLQdEBTyxJ/gigIXu2CpZMKZ7RFTsESTic4hXwaAIuicg4+llyMMY9nrnn6X5pS7ktJ06ffQZbtBehwChDRiWFL}
   source: /runtime/services/google.yml
-startup: {module: AUX, type: form}
+startup: {module: CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO, type: form}
 startup_form: null

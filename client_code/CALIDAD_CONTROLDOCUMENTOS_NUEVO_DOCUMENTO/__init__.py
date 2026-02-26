@@ -14,7 +14,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
   background_task_google_script = None
   componentes_deshabilitables = []
   
-  def __init__(self, datos, **properties):
+  def __init__(self, **properties):#def __init__(self, datos, **properties):
     self.init_components(**properties)
     self.datos = datos
     self.componentes_deshabilitables = [

@@ -16,7 +16,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
   
   def __init__(self, **properties):#def __init__(self, datos, **properties):
     self.init_components(**properties)
-    self.datos = datos
+    #self.datos = datos
     self.componentes_deshabilitables = [
       self.button_volver,
       self.drop_down_nivel,

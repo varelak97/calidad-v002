@@ -287,7 +287,11 @@ dependencies: []
 name: CALIDAD V002
 package_name: CALIDAD_V002
 renamed: true
-runtime_options: {client_version: '3', server_spec: null, server_version: python3-full, version: 2}
+runtime_options:
+  client_version: '3'
+  server_spec: {base: python310-minimal}
+  server_version: python2-full
+  version: 2
 services:
 - client_config: {}
   server_config: {}

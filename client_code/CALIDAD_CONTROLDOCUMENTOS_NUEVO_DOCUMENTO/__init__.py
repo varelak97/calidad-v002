@@ -12,7 +12,7 @@ from time import sleep
 class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTOTemplate):
   #datos = {}
   datos = {
-    "id_usuario_erp":
+    "id_usuario_erp":18
   }
   background_task_google_script = None
   componentes_deshabilitables = []

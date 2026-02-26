@@ -10,7 +10,10 @@ from datetime import datetime, timedelta
 from time import sleep
 
 class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTOTemplate):
-  datos = {}
+  #datos = {}
+  datos = {
+    "id_usuario_erp":
+  }
   background_task_google_script = None
   componentes_deshabilitables = []
   

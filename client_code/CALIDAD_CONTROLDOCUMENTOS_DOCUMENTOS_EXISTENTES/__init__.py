@@ -10,12 +10,16 @@ from datetime import date
 from time import sleep
 
 class CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTES(CALIDAD_CONTROLDOCUMENTOS_DOCUMENTOS_EXISTENTESTemplate):
-  datos = {}
+  #datos = {}
+  datos = {
+    "id_usuario_erp":18
+  }
   lista_buttons_ordenamiento = []
   items = []
-  def __init__(self, datos, **properties):
+  #def __init__(self, datos, **properties):
+  def __init__(self, **properties):
     self.init_components(**properties)
-    self.datos = datos
+    #self.datos = datos
     self.lista_buttons_ordenamiento = [
       self.button_nombre_completo,
       self.button_ultima_edicion,

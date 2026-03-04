@@ -220,8 +220,8 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
           
           for k,v in self.datos.items():
             print(k,":",v)
-          
-          """"with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
+          print(f"lo que envia a anvil:{self.datos}")
+          with Notification("Trabajando en la generación del documento. Este proceso tomará algo de tiempo; por favor espera...", title="PROCESANDO PETICIÓN"):
             self.background_task_google_script = anvil.server.call('lanzar_background_google_script', 'generacion_documento', self.datos)
             tiempo_inicio = datetime.now()
             tiempo_final = tiempo_inicio + timedelta(minutes=1, seconds=30)
@@ -271,7 +271,7 @@ class CALIDAD_CONTROLDOCUMENTOS_NUEVO_DOCUMENTO(CALIDAD_CONTROLDOCUMENTOS_NUEVO_
               content = respuesta['error'] + f"\n\nConfirma que tu dispositivo (PC, laptop o tablet) esté conectado a una red con acceso estable a internet e inténtalo nuevamente. Si el problema persiste, contacta al departamento de Sistemas.",
               title = "OCURRIÓ UN ERROR",
               dismissible=False
-            )"""
+            )
           #end pruebas de lo que envia anvil a appscript
     self.content_panel.visible = True
 
